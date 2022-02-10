@@ -1,6 +1,6 @@
-def print_hi(string):
-    print(f'{string}')
+def main():
+    print('Hello World!')
+
 
 if __name__ == '__main__':
-    print_hi('Hello World')
-
+    main()
