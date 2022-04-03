@@ -13,6 +13,7 @@ class ArgParser:
     __augmentation = False
     __diminution = False
     __input_file = None
+    __theme = None
 
     def __init__(self, argv):
         self.__argv = argv
@@ -62,5 +63,7 @@ class ArgParser:
 
         input_e = InputExtractor(self.__input_file)
         input_e.read_input()
-        print(input_e.get_theme())
+        self.__theme = input_e.get_theme()
 
+    def get_theme(self):
+        return self.__theme

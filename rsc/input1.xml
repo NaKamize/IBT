@@ -5,9 +5,9 @@
         <tone note="half">e1</tone>
     </measure>
     <measure>
-        <tone note="quater">c1</tone>
-        <tone note="quater">e1</tone>
-        <tone note="quater">d1</tone>
-        <tone note="quater">d1</tone>
+        <tone note="quarter">c1</tone>
+        <tone note="quarter">e1</tone>
+        <tone note="quarter">d1</tone>
+        <tone note="quarter">d1</tone>
     </measure>
 </theme>
