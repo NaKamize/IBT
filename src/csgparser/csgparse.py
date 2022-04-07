@@ -35,11 +35,15 @@ class SCGparser:
     # C1F, C1H, C1Q, D1F, D1H, D1Q, E1F, E1H, E1Q, F1F, F1H, F1Q, G1F, G1H, G1Q, A1F, A1H, A1Q, H1F, H1H, H1Q, C2F, C2H, C2Q, |
     __table = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # S
-        [{'rep': 1}, {'rep': 2}, {'rep': 3}, {'rep': 4}, {'rep': 5}, {'rep': 6}, {'rep': 7}, {'rep': 8}, {'rep': 9},
-         {'rep': 10}, {'rep': 11},
-         {'rep': 12}, {'rep': 13}, {'rep': 14}, {'rep': 15}, {'rep': 16}, {'rep': 17}, {'rep': 18}, {'rep': 19},
-         {'rep': 20}, {'rep': 21},
-         {'rep': 22}, {'rep': 23}, {'rep': 24}, {'rep': 25}]  # X
+        [{'rep': 1, 'aug': 1}, {'rep': 2, 'aug': 26}, {'rep': 3, 'aug': 27}, {'rep': 4, 'aug': 4},
+         {'rep': 5, 'aug': 28},
+         {'rep': 6, 'aug': 29}, {'rep': 7, 'aug': 7}, {'rep': 8, 'aug': 30}, {'rep': 9, 'aug': 31},
+         {'rep': 10, 'aug': 10}, {'rep': 11, 'aug': 32},
+         {'rep': 12, 'aug': 33}, {'rep': 13, 'aug': 13}, {'rep': 14, 'aug': 34}, {'rep': 15, 'aug': 35},
+         {'rep': 16, 'aug': 16},
+         {'rep': 17, 'aug': 36}, {'rep': 18, 'aug': 37}, {'rep': 19, 'aug': 19},
+         {'rep': 20, 'aug': 38}, {'rep': 21, 'aug': 39},
+         {'rep': 22, 'aug': 22}, {'rep': 23, 'aug': 40}, {'rep': 24, 'aug': 41}, {'rep': 25, 'aug': 25}]  # X
     ]
 
     __rules = [
@@ -68,7 +72,23 @@ class SCGparser:
         [(__N_X, __N_X), '->', ((__T_C2_FULL, __N_X), (__T_C2_FULL, __N_X))],
         [(__N_X, __N_X), '->', ((__T_C2_HALF, __N_X), (__T_C2_HALF, __N_X))],
         [(__N_X, __N_X), '->', ((__T_C2_QUARTER, __N_X), (__T_C2_QUARTER, __N_X))],
-        [(__N_X, __N_X), '->', (__T_END, __T_END)]
+        [(__N_X, __N_X), '->', (__T_END, __T_END)],
+        [(__N_X, __N_X), '->', ((__T_C1_HALF, __N_X), (__T_C1_FULL, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_C1_QUARTER, __N_X), (__T_C1_HALF, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_D1_HALF, __N_X), (__T_D1_FULL, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_D1_QUARTER, __N_X), (__T_D1_HALF, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_E1_HALF, __N_X), (__T_E1_FULL, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_E1_QUARTER, __N_X), (__T_E1_HALF, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_F1_HALF, __N_X), (__T_F1_FULL, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_F1_QUARTER, __N_X), (__T_F1_HALF, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_G1_HALF, __N_X), (__T_G1_FULL, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_G1_QUARTER, __N_X), (__T_G1_HALF, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_A1_HALF, __N_X), (__T_A1_FULL, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_A1_QUARTER, __N_X), (__T_A1_HALF, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_H1_HALF, __N_X), (__T_H1_FULL, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_H1_QUARTER, __N_X), (__T_H1_HALF, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_C2_HALF, __N_X), (__T_C2_FULL, __N_X))],
+        [(__N_X, __N_X), '->', ((__T_C2_QUARTER, __N_X), (__T_C2_HALF, __N_X))]
     ]
 
     __aux_array = []
@@ -171,7 +191,6 @@ class SCGparser:
         return tokens
 
     """ """
-
     def get_rule(self, input_s, stack_s):
         if stack_s == self.__N_S:
             return self.__table[0][input_s]
@@ -182,7 +201,6 @@ class SCGparser:
             exit(1)
 
     def get_right_side(self, rule_number):
-        print(rule_number)
         return self.__rules[rule_number][2]
 
     def reverse_push(self, items, deep, nonterminal):
@@ -208,12 +226,13 @@ class SCGparser:
                         self.__aux_array.append(result)
         self.__dll.printList(self.__dll.head)
 
-    def get_key(self, dictionary):
+    def get_key(self, dictionary, variation):
         for key in dictionary.keys():
-            return key
+            if variation == key:
+                return key
 
-    def get_rule_number(self, rule):
-        return rule[self.get_key(rule)]
+    def get_rule_number(self, rule, variation):
+        return rule[self.get_key(rule, variation)]
 
     def __save_result(self):
         variation = []
@@ -223,6 +242,7 @@ class SCGparser:
             self.__dll.pop()
             node = node.next
         self.__res_variation.append(variation)
+        print(self.__res_variation)
 
     """ https://stackoverflow.com/questions/529424/traverse-a-list-in-reverse-order-in-python 6 april """
 
@@ -245,6 +265,8 @@ class SCGparser:
                     print("Syntax analysis failed")
                     exit(1)
                 else:  # every variation was successfully applied and stack is empty
+                    print(self.__var_position)
+                    print(variation_count)
                     self.__dll.pop()
                     print("OK")
                     self.__dll.printList(self.__dll.head)
@@ -256,6 +278,13 @@ class SCGparser:
                     # end of variation
                     self.__save_result()
                     self.__var_position += 1
+                    if self.__var_position > variation_count:
+                        break
+                    self.__aux_position = 0
+                    self.__position = 0
+                    print(self.__aux_array)
+                    self.__dll.push(self.__N_S)
+                    self.__aux_array.append(self.__dll.head)
             elif 25 <= self.__dll.head.data < 27:  # nonterminal
                 rule = self.get_rule(cur_token, self.__dll.head.data)  # find rule in LL table
                 # if top of the pushdown and aux array item is same and rule is dictionary from LL table
@@ -264,19 +293,21 @@ class SCGparser:
                 print(self.__dll.head)
                 if nonterminal != self.__dll.head and type(rule) == dict:
                     # if rule in LL table is same variation as variation requested from user
-                    if self.get_key(rule) == cur_varia:
-                        try:
-                            self.__aux_array.remove(nonterminal)
-                        except:
-                            print("Node is not in the array.")
-                            exit(1)
-                        # apply first part of the right side part of the rule on the pushdown top
-                        self.reverse_push(self.get_right_side(self.get_rule_number(rule))[1], True, nonterminal)
-                        self.__dll.remove(nonterminal)
-                        self.__rules_applied.append(rule)
-                    else:
-                        print("Wrong variation.")
+                    #print(self.get_key(rule))
+                    #print(cur_varia)
+                    #if self.get_key(rule) == cur_varia:
+                    try:
+                        self.__aux_array.remove(nonterminal)
+                    except:
+                        print("Node is not in the array.")
                         exit(1)
+                    # apply first part of the right side part of the rule on the pushdown top
+                    self.reverse_push(self.get_right_side(self.get_rule_number(rule, cur_varia))[1], True, nonterminal)
+                    self.__dll.remove(nonterminal)
+                    self.__rules_applied.append(rule)
+                    #else:
+                    #    print("Wrong variation.")
+                    #    exit(1)
                 # if top of the pushdown and aux array item is same and it is start symbol S
                 elif nonterminal == self.__dll.head and type(rule) != dict:
                     popped = self.__dll.pop()
@@ -286,7 +317,7 @@ class SCGparser:
                 elif nonterminal == self.__dll.head and type(rule) == dict:
                     popped = self.__dll.pop()
                     self.__aux_array.remove(popped)
-                    self.reverse_push(self.get_right_side(self.get_rule_number(rule))[0], False, nonterminal)
+                    self.reverse_push(self.get_right_side(self.get_rule_number(rule, cur_varia))[0], False, nonterminal)
             else:
                 print("Auxiliarry array overflow.")
                 exit(1)
