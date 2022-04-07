@@ -18,6 +18,17 @@ class DLL:
             self.head.prev = new_node
         self.head = new_node
 
+    def pop(self):
+        popped = self.head
+        if self.head is None:
+            print("List is empty")
+            return
+        new_head = self.head.next
+        if self.dll_len(self.head) != 1:
+            new_head.prev = None
+        self.head = new_head
+        return popped
+
     def insert(self, prev_node, data):
         if prev_node is None:
             print("Prev node neexistuje.")
@@ -30,6 +41,17 @@ class DLL:
 
         if new_node.next is not None:
             new_node.next.prev = new_node
+        return new_node
+
+    def remove(self, node):
+        temp_head = self.head
+        while temp_head:
+            if temp_head == node:
+                break
+            temp_head = temp_head.next
+        node_prev = node.prev
+        if node_prev is not None:
+            node_prev.next = node.next
 
     def append(self, data):
         new_node = Node(data)
@@ -48,8 +70,19 @@ class DLL:
         new_node.prev = node
 
     def printList(self, node):
-        print("\nTraversal in forward direction")
+        if node is None:
+            print("Node is empty.")
+            return
         while node:
-            print(" {}".format(node.data))
-            last = node
+            print(node.data)
             node = node.next
+
+    def not_empty(self):
+        return self.head is not None
+
+    def dll_len(self, node):
+        length = 0
+        while node:
+            node = node.next
+            length += 1
+        return length

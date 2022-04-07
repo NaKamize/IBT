@@ -7,8 +7,8 @@ import sys
 def main():
     arg_parser = ArgParser(sys.argv)
     arg_parser.parse()
-    csparse = SCGparser(arg_parser.get_theme())
-    csparse.syntax_analysis()
+    csgparse = SCGparser(arg_parser.get_theme(), arg_parser.get_variations())
+    csgparse.syntax_analysis()
 
     """callit = TonesPlayer(0.5, 44100, 1.0)
     callit.play()"""

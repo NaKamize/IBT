@@ -14,6 +14,7 @@ class ArgParser:
     __diminution = False
     __input_file = None
     __theme = None
+    __variations = []
 
     def __init__(self, argv):
         self.__argv = argv
@@ -63,7 +64,24 @@ class ArgParser:
 
         input_e = InputExtractor(self.__input_file)
         input_e.read_input()
+        if self.__repetition:
+            self.__variations.append('rep')
+        if self.__transposition:
+            self.__variations.append('trans')
+        if self.__sequence:
+            self.__variations.append('seq')
+        if self.__contrary_motion:
+            self.__variations.append('con')
+        if self.__retro_gradation:
+            self.__variations.append('grad')
+        if self.__augmentation:
+            self.__variations.append('aug')
+        if self.__diminution:
+            self.__variations.append('dimi')
         self.__theme = input_e.get_theme()
 
     def get_theme(self):
         return self.__theme
+
+    def get_variations(self):
+        return self.__variations
