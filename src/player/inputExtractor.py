@@ -24,6 +24,8 @@ class InputExtractor:
                 exit(1)
             if tone.attrib['note'] == 'half':
                 cur_duration += 2
+            elif tone.attrib['note'] == 'full':
+                cur_duration += 4
             else:
                 cur_duration += 1
             self.__content_list.append({tone.text: tone.attrib['note']})
@@ -32,7 +34,6 @@ class InputExtractor:
     def read_input(self):
         tree = ET.parse(self.__file_name)
         root = tree.getroot()
-        duration = 0
 
         if root.tag != "theme":
             print("Wrong theme element")

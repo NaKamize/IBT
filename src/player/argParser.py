@@ -69,7 +69,7 @@ class ArgParser:
         if self.__transposition:
             self.__variations.append('trans')
         if self.__sequence:
-            self.__variations.append('seq')
+            self.__variations.append('seq+')
         if self.__contrary_motion:
             self.__variations.append('con')
         if self.__retro_gradation:
