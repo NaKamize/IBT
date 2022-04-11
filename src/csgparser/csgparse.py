@@ -62,7 +62,13 @@ class SCGparser:
 
     # C1F, C1H, C1Q, D1F, D1H, D1Q, E1F, E1H, E1Q, F1F, F1H, F1Q, G1F, G1H, G1Q, A1F, A1H, A1Q, H1F, H1H, H1Q, C2F, C2H, C2Q, |
     __table = [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # S
+        [{'else': 0, 'grad': 130}, {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130},
+         {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130},
+         {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130},
+         {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130},
+         {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130},
+         {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130},
+         {'else': 0, 'grad': 130}],  # S
         [{'rep': 1, 'aug': 1, 'trans': 42, 'seq+': 66, 'seq-': 90, 'dimi': 114},
          {'rep': 2, 'aug': 26, 'trans': 43, 'seq+': 67, 'seq-': 91, 'dimi': 115},
          {'rep': 3, 'aug': 27, 'trans': 44, 'seq+': 68, 'seq-': 92, 'dimi': 3},
@@ -88,8 +94,11 @@ class SCGparser:
          {'rep': 23, 'aug': 40, 'trans': 64, 'seq+': 88, 'seq-': 112, 'dimi': 129},
          {'rep': 24, 'aug': 41, 'trans': 65, 'seq+': 89, 'seq-': 113, 'dimi': 24},
          {'rep': 25, 'aug': 25, 'trans': 25, 'seq+': 25, 'seq-': 25, 'dimi': 25}],  # X
-        [131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152,
-         153, 154, 155]  # R
+        [{'grad': 131}, {'grad': 132}, {'grad': 133}, {'grad': 134}, {'grad': 135}, {'grad': 136}, {'grad': 137},
+         {'grad': 138}, {'grad': 139}, {'grad': 140}, {'grad': 141}, {'grad': 142}, {'grad': 143}, {'grad': 144},
+         {'grad': 145}, {'grad': 146}, {'grad': 147}, {'grad': 148}, {'grad': 149}, {'grad': 150}, {'grad': 151},
+         {'grad': 152},
+         {'grad': 153}, {'grad': 154}, {'grad': 155}]  # R
     ]
 
     __rules = [
@@ -348,31 +357,41 @@ class SCGparser:
                     print("C2 token error.")
                     exit(1)
         tokens.append(self.__T_END)
+        tokens.append(self.__THEME_END)
         return tokens
 
-    """ """
-
-    def get_rule(self, input_s, stack_s):
+    def __get_rule(self, input_s, stack_s):
         if stack_s == self.__N_S:
             return self.__table[0][input_s]
         elif stack_s == self.__N_X:
             return self.__table[1][input_s]
+        elif stack_s == self.__N_R:
+            return self.__table[2][input_s]
         else:
             print("Wrong stack symbol.")
             exit(1)
 
-    def get_right_side(self, rule_number):
+    def __get_right_side(self, rule_number):
         return self.__rules[rule_number][2]
 
-    def reverse_push(self, items, deep, nonterminal):
+    def __reverse_push(self, items, deep, nonterminal):
         # reversing of tuples
         if type(items) != tuple:
-            print(items)
-            print(deep)
-            print(nonterminal)
-            result = self.__dll.insert(nonterminal, items)
-            if items == self.__N_X:
+            # last step needs to be pushed not inserted
+            if deep:
+                result = self.__dll.insert(nonterminal, items)
+            elif items != self.__N_R:  # condition to not put twice __N_R into stack after start symbol
+                result = 0
+                self.__dll.push(items)
+            else:
+                result = 0
+
+            if items == self.__N_X and deep:
                 self.__aux_array.append(result)
+            # if it is retrogradation variation
+            if items == self.__N_R:
+                self.__dll.push(items)
+                self.__aux_array.append(self.__dll.head)
         else:
             for item in items[::-1]:
                 if not deep:
@@ -380,22 +399,27 @@ class SCGparser:
                     # if it is nonterminal, then append it into aux array
                     if item == self.__N_X or item == self.__N_S and len(self.__aux_array) == 1:
                         self.__aux_array.append(self.__dll.head)
+                    # v strede pravidla je neterminal R
+                    if item == self.__N_R:
+                        self.__aux_array.append(self.__dll.head)
                 else:
                     # receive inserted symbol and save it to aux array if it is nonterminal
                     result = self.__dll.insert(nonterminal, item)
                     if item == self.__N_X:
                         self.__aux_array.append(result)
-        self.__dll.printList(self.__dll.head)
 
-    def get_key(self, dictionary, variation):
+    def __get_key(self, dictionary, variation):
+        # if variation exists in LL table, then return it, otherwise it is else
         for key in dictionary.keys():
             if variation == key:
                 return key
+        return 'else'
 
-    def get_rule_number(self, rule, variation):
-        return rule[self.get_key(rule, variation)]
+    def __get_rule_number(self, rule, variation):
+        return rule[self.__get_key(rule, variation)]
 
     def __save_result(self):
+
         variation = []
         node = self.__dll.head
         while node and node.data != self.__THEME_END:
@@ -403,83 +427,85 @@ class SCGparser:
             self.__dll.pop()
             node = node.next
         self.__res_variation.append(variation)
-        print(self.__res_variation)
+
+    def get_result(self):
+        return self.__res_variation
 
     """ https://stackoverflow.com/questions/529424/traverse-a-list-in-reverse-order-in-python 6 april """
+    def __remove_extra_bline(self, variation_count):
+        if self.__var_position - 2 == 0:  # only one variation, then pop bar line
+            if self.__variations[self.__var_position - 2] != 'grad':
+                self.__dll.pop()
+        elif 0 <= self.__var_position - 1 <= variation_count:  # if there is more variations cut extra bar line
+            if self.__variations[self.__var_position - 1] != 'grad':
+                self.__dll.pop()
 
     def syntax_analysis(self):
-        print(self.__lex_analysis())
         print(self.__variations)
         variation_count = len(self.__variations) - 1
-        """ Pushdown initialization """
+        # Pushdown initialization
         self.__dll.push(self.__THEME_END)
         self.__dll.push(self.__N_S)
+        # save nonterminal into aux array
         self.__aux_array.append(self.__dll.head)
-        """ Getting tokens """
+        # receive tokens
         tokens = self.__lex_analysis()
+        print(tokens)
         while self.__dll.not_empty():
-            cur_token = tokens[self.__position]  # get one token
-            cur_varia = self.__variations[self.__var_position]  # get variation
-            if self.__dll.head.data == self.__THEME_END:  # end of input sequence of tokens
-                # if it is not empty and some variations are left
-                if self.__dll.not_empty() and variation_count != self.__var_position:
-                    print("Syntax analysis failed")
-                    exit(1)
-                else:  # every variation was successfully applied and stack is empty
-                    print(self.__var_position)
-                    print(variation_count)
+            cur_token = tokens[self.__position]  # get token
+            if self.__dll.head.data == self.__T_END:
+                self.__var_position += 1
+                if cur_token == self.__THEME_END and self.__var_position > variation_count:
+                    # end of variation save result
+                    self.__remove_extra_bline(variation_count)
+                    self.__save_result()
                     self.__dll.pop()
-                    print("OK")
-                    self.__dll.printList(self.__dll.head)
+                elif cur_token == self.__T_END and self.__var_position > variation_count:
+                    # variation is coming to end, move to last symbol
+                    self.__position += 1
+                else:
+                    # save result and set pointer to next variation
+                    self.__remove_extra_bline(variation_count)
+                    self.__save_result()
+                    self.__aux_position = 0
+                    self.__position = 0
+                    self.__dll.push(self.__N_S)
+                    self.__aux_array.append(self.__dll.head)
             elif 0 <= self.__dll.head.data < 25:  # terminal
+                # if on the top of the pushdown is terminal pop it, and move position to next input symbol
                 if self.__dll.head.data == cur_token:
                     self.__dll.pop()
                     self.__position += 1
                 else:
-                    # end of variation
-                    self.__save_result()
-                    self.__var_position += 1
-                    if self.__var_position > variation_count:
-                        break
-                    self.__aux_position = 0
-                    self.__position = 0
-                    print(self.__aux_array)
-                    self.__dll.push(self.__N_S)
-                    self.__aux_array.append(self.__dll.head)
-            elif 25 <= self.__dll.head.data < 27:  # nonterminal
-                rule = self.get_rule(cur_token, self.__dll.head.data)  # find rule in LL table
+                    print("KIX")
+            elif 25 <= self.__dll.head.data < 27 or self.__dll.head.data == self.__N_R:  # nonterminal
+                rule = self.__get_rule(cur_token, self.__dll.head.data)  # find rule in LL table
+                cur_varia = self.__variations[self.__var_position]  # get variation
+                print(rule)
                 # if top of the pushdown and aux array item is same and rule is dictionary from LL table
-                nonterminal = self.__aux_array[self.__aux_position]
-                print(nonterminal)
-                print(self.__dll.head)
-                if nonterminal != self.__dll.head and type(rule) == dict:
-                    # if rule in LL table is same variation as variation requested from user
-                    # print(self.get_key(rule))
-                    # print(cur_varia)
-                    # if self.get_key(rule) == cur_varia:
-                    try:
-                        self.__aux_array.remove(nonterminal)
-                    except:
-                        print("Node is not in the array.")
-                        exit(1)
-                    # apply first part of the right side part of the rule on the pushdown top
-                    self.reverse_push(self.get_right_side(self.get_rule_number(rule, cur_varia))[1], True, nonterminal)
-                    self.__dll.remove(nonterminal)
-                    self.__rules_applied.append(rule)
-                    # else:
-                    #    print("Wrong variation.")
-                    #    exit(1)
-                # if top of the pushdown and aux array item is same and it is start symbol S
-                elif nonterminal == self.__dll.head and type(rule) != dict:
+                if self.__dll.head.data == self.__N_S:
+                    non_terminal = self.__aux_array[0]
                     popped = self.__dll.pop()
                     self.__aux_array.remove(popped)
-                    self.reverse_push(self.get_right_side(rule), False, None)
+                    self.__reverse_push(self.__get_right_side(self.__get_rule_number(rule, cur_varia)), False, non_terminal)
                     self.__rules_applied.append(rule)
-                elif nonterminal == self.__dll.head and type(rule) == dict:
-                    popped = self.__dll.pop()
-                    self.__aux_array.remove(popped)
-                    self.reverse_push(self.get_right_side(self.get_rule_number(rule, cur_varia))[0], False, nonterminal)
+                else:
+                    non_terminal = self.__aux_array[0]
+                    popped = self.__dll.pop()  # get nonterminal from top of the pushdown
+                    self.__aux_array.remove(popped)  # remove pointer form aux array
+                    # get whole right-side of the rule
+                    right_side = self.__get_right_side(self.__get_rule_number(rule, cur_varia))
+                    if cur_varia != 'grad':
+                        self.__reverse_push(right_side[0], False, non_terminal)  # push it in reverse on the top
+                        deep_non_terminal = self.__aux_array[0]  # get second pointer to non-terminal
+                        self.__aux_array.remove(deep_non_terminal)  # remove second pointer to non-terminal
+                        self.__reverse_push(right_side[1], True, deep_non_terminal)  # deep rule push
+                        self.__dll.remove(deep_non_terminal)  # remove second non-terminal from pushdown
+                        self.__rules_applied.append(rule)  # save applied rule
+                    else:
+                        self.__reverse_push(right_side, False, non_terminal)
+                    print("....")
+                    self.__dll.printList(self.__dll.head)
             else:
-                print("Auxiliarry array overflow.")
+                print("Wrong symbol.")
                 exit(1)
-        print(self.__rules_applied)

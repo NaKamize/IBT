@@ -53,7 +53,8 @@ class InputExtractor:
             if measure.tag != "measure":
                 print("Wrong measure element.")
                 exit(1)
-            if self.__fill_list(measure) != 4:
+            measure = self.__fill_list(measure)
+            if measure != 4 and measure != 2:
                 print("Wrong measure duration !")
                 exit(1)
 

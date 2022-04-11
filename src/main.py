@@ -7,11 +7,13 @@ import sys
 def main():
     arg_parser = ArgParser(sys.argv)
     arg_parser.parse()
+    print(arg_parser.get_file())
     csgparse = SCGparser(arg_parser.get_theme(), arg_parser.get_variations())
     csgparse.syntax_analysis()
-
-    """callit = TonesPlayer(0.5, 44100, 1.0)
-    callit.play()"""
+    variations = csgparse.get_result()
+    print(variations)
+    callit = TonesPlayer(variations, 0.5)
+    #callit.play()
 
 
 if __name__ == '__main__':
