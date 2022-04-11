@@ -2,6 +2,7 @@ from csgparser.DLL import *
 
 
 class SCGparser:
+    """ Terminals. """
     __T_C1_FULL = 0
     __T_C1_HALF = 1
     __T_C1_QUARTER = 2
@@ -28,11 +29,14 @@ class SCGparser:
     __T_C2_QUARTER = 23
     __T_END = 24
 
+    """ Nonterminals """
     __N_X = 25
     __N_S = 26
 
+    """ Last pushdown item """
     __THEME_END = 27
 
+    """ Terminals """
     __T_D2_FULL = 28
     __T_D2_HALF = 29
     __T_D2_QUARTER = 30
@@ -58,8 +62,10 @@ class SCGparser:
     __T_H_HALF = 50
     __T_H_QUARTER = 51
 
+    """ Nonterminal from context-free part """
     __N_R = 52
 
+    """ LL table """
     # C1F, C1H, C1Q, D1F, D1H, D1Q, E1F, E1H, E1Q, F1F, F1H, F1Q, G1F, G1H, G1Q, A1F, A1H, A1Q, H1F, H1H, H1Q, C2F, C2H, C2Q, |
     __table = [
         [{'else': 0, 'grad': 130}, {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130}, {'else': 0, 'grad': 130},
@@ -101,6 +107,7 @@ class SCGparser:
          {'grad': 153}, {'grad': 154}, {'grad': 155}]  # R
     ]
 
+    """ List of rules from scattered context grammar. """
     __rules = [
         [__N_S, '->', (__N_X, __N_X)],  # 0
         [(__N_X, __N_X), '->', ((__T_C1_FULL, __N_X), (__T_C1_FULL, __N_X))],  # 1 # repetition start
@@ -260,19 +267,21 @@ class SCGparser:
         [__N_R, '->', __T_END]  # 155
     ]
 
-    __aux_array = []
-    __aux_position = 0
-    __position = 0
-    __var_position = 0
-    __rules_applied = []
+    __aux_array = []  # temporary list
+    __aux_position = 0  # initial temporary list position
+    __position = 0  # input sequence symbol
+    __var_position = 0  # variation position
+    __rules_applied = []  # list of applied rules
 
-    __res_variation = []
+    __res_variation = []  # list of resulting variations
 
+    """ Class contructor with theme from input file and variation flags """
     def __init__(self, theme, variations):
         self.__theme = theme
         self.__variations = variations
         self.__dll = DLL()  # pushdown declaration as a doubly linked list
 
+    """ Method does lexical anaylisis and returns list of tokens as notes. """
     def __lex_analysis(self):
         tokens = []
         for note in self.__theme:
@@ -356,10 +365,14 @@ class SCGparser:
                 else:
                     print("C2 token error.")
                     exit(1)
+        """ Adding bar line and end symbol. """
         tokens.append(self.__T_END)
         tokens.append(self.__THEME_END)
         return tokens
 
+    """ Method selects rule from LL table.
+        input_s is token symbol from input.
+        stack_s is symbol from top of the pushdown. """
     def __get_rule(self, input_s, stack_s):
         if stack_s == self.__N_S:
             return self.__table[0][input_s]
@@ -371,12 +384,17 @@ class SCGparser:
             print("Wrong stack symbol.")
             exit(1)
 
+    """ Returns right side of a rule. """
     def __get_right_side(self, rule_number):
         return self.__rules[rule_number][2]
 
+    """ Does reverse push to pushdown.
+        items are symbols, that are being pushed
+        deep is flag for deeper push into pushdown
+        before nonterminal are being pushed items """
     def __reverse_push(self, items, deep, nonterminal):
-        # reversing of tuples
         if type(items) != tuple:
+            # items are not inside of a tuple
             # last step needs to be pushed not inserted
             if deep:
                 result = self.__dll.insert(nonterminal, items)
@@ -393,13 +411,18 @@ class SCGparser:
                 self.__dll.push(items)
                 self.__aux_array.append(self.__dll.head)
         else:
+            # pushing reversed tuple
+            """ How to reverse a tuple is from 
+            https://stackoverflow.com/questions/529424/traverse-a-list-in-reverse-order-in-python 
+            Cited: 6 april, Author: mipadi """
             for item in items[::-1]:
+                # deep push
                 if not deep:
                     self.__dll.push(item)
                     # if it is nonterminal, then append it into aux array
                     if item == self.__N_X or item == self.__N_S and len(self.__aux_array) == 1:
                         self.__aux_array.append(self.__dll.head)
-                    # v strede pravidla je neterminal R
+                    # inside of a rule is nonterminal N_R and append it into aux array
                     if item == self.__N_R:
                         self.__aux_array.append(self.__dll.head)
                 else:
@@ -408,6 +431,7 @@ class SCGparser:
                     if item == self.__N_X:
                         self.__aux_array.append(result)
 
+    """ Get key from map, that is inside LL table"""
     def __get_key(self, dictionary, variation):
         # if variation exists in LL table, then return it, otherwise it is else
         for key in dictionary.keys():
@@ -415,9 +439,11 @@ class SCGparser:
                 return key
         return 'else'
 
+    """ Method returns number of a rule, that has to be applied. """
     def __get_rule_number(self, rule, variation):
         return rule[self.__get_key(rule, variation)]
 
+    """ List throguh pushdown until last symbol and save resulting variation. """
     def __save_result(self):
         variation = []
         node = self.__dll.head
@@ -427,10 +453,11 @@ class SCGparser:
             node = node.next
         self.__res_variation.append(variation)
 
+    """ Method returns resulting list of variations. """
     def get_result(self):
         return self.__res_variation
 
-    """ https://stackoverflow.com/questions/529424/traverse-a-list-in-reverse-order-in-python 6 april """
+    """ Removes extra bar line, that is produced by rules. """
     def __remove_extra_bline(self, variation_count):
         if self.__var_position - 2 == 0:  # only one variation, then pop bar line
             if self.__variations[self.__var_position - 2] != 'grad':
@@ -439,6 +466,7 @@ class SCGparser:
             if self.__variations[self.__var_position - 1] != 'grad':
                 self.__dll.pop()
 
+    """ Generating music with help of syntax analysis. """
     def syntax_analysis(self):
         variation_count = len(self.__variations) - 1
         # Pushdown initialization
@@ -448,10 +476,11 @@ class SCGparser:
         self.__aux_array.append(self.__dll.head)
         # receive tokens
         tokens = self.__lex_analysis()
+        # while pushdown is not empty do generating
         while self.__dll.not_empty():
             cur_token = tokens[self.__position]  # get token
-            if self.__dll.head.data == self.__T_END:
-                self.__var_position += 1
+            if self.__dll.head.data == self.__T_END:  # on the top of the pushdown is bar line
+                self.__var_position += 1  # move to next variation
                 if cur_token == self.__THEME_END and self.__var_position > variation_count:
                     # end of variation save result
                     self.__remove_extra_bline(variation_count)
@@ -461,7 +490,7 @@ class SCGparser:
                     # variation is coming to end, move to last symbol
                     self.__position += 1
                 else:
-                    # save result and set pointer to next variation
+                    # save result and set pointer to next variation, refresh pusdown
                     self.__remove_extra_bline(variation_count)
                     self.__save_result()
                     self.__aux_position = 0
@@ -492,6 +521,7 @@ class SCGparser:
                     self.__aux_array.remove(popped)  # remove pointer form aux array
                     # get whole right-side of the rule
                     right_side = self.__get_right_side(self.__get_rule_number(rule, cur_varia))
+                    # if current variation is not retro-gradiation
                     if cur_varia != 'grad':
                         self.__reverse_push(right_side[0], False, non_terminal)  # push it in reverse on the top
                         deep_non_terminal = self.__aux_array[0]  # get second pointer to non-terminal
@@ -500,8 +530,8 @@ class SCGparser:
                         self.__dll.remove(deep_non_terminal)  # remove second non-terminal from pushdown
                         self.__rules_applied.append(rule)  # save applied rule
                     else:
+                        # retro-gradiation rule apply
                         self.__reverse_push(right_side, False, non_terminal)
-                    self.__dll.printList(self.__dll.head)
             else:
                 print("Wrong symbol.")
                 exit(1)

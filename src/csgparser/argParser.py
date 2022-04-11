@@ -2,7 +2,7 @@ import argparse as ap
 import textwrap
 from os import path
 import re
-from player.inputExtractor import InputExtractor
+from csgparser.inputExtractor import InputExtractor
 
 
 class ArgParser:
