@@ -419,7 +419,6 @@ class SCGparser:
         return rule[self.__get_key(rule, variation)]
 
     def __save_result(self):
-
         variation = []
         node = self.__dll.head
         while node and node.data != self.__THEME_END:
@@ -441,7 +440,6 @@ class SCGparser:
                 self.__dll.pop()
 
     def syntax_analysis(self):
-        print(self.__variations)
         variation_count = len(self.__variations) - 1
         # Pushdown initialization
         self.__dll.push(self.__THEME_END)
@@ -450,7 +448,6 @@ class SCGparser:
         self.__aux_array.append(self.__dll.head)
         # receive tokens
         tokens = self.__lex_analysis()
-        print(tokens)
         while self.__dll.not_empty():
             cur_token = tokens[self.__position]  # get token
             if self.__dll.head.data == self.__T_END:
@@ -477,11 +474,11 @@ class SCGparser:
                     self.__dll.pop()
                     self.__position += 1
                 else:
-                    print("KIX")
+                    print("Wrong stack symbol.")
+                    exit(1)
             elif 25 <= self.__dll.head.data < 27 or self.__dll.head.data == self.__N_R:  # nonterminal
                 rule = self.__get_rule(cur_token, self.__dll.head.data)  # find rule in LL table
                 cur_varia = self.__variations[self.__var_position]  # get variation
-                print(rule)
                 # if top of the pushdown and aux array item is same and rule is dictionary from LL table
                 if self.__dll.head.data == self.__N_S:
                     non_terminal = self.__aux_array[0]
@@ -504,7 +501,6 @@ class SCGparser:
                         self.__rules_applied.append(rule)  # save applied rule
                     else:
                         self.__reverse_push(right_side, False, non_terminal)
-                    print("....")
                     self.__dll.printList(self.__dll.head)
             else:
                 print("Wrong symbol.")

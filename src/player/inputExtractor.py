@@ -2,14 +2,18 @@ import xml.etree.ElementTree as ET
 
 
 class InputExtractor:
+    """ Class constructor with input file. """
     def __init__(self, file_name):
         self.__content_list = []
         self.__time_sig = None
         self.__file_name = file_name
 
+    """ Form input file is extracted xml format and reformatted to small maps
+        that are in format of TONE_NAME: LENGTH. Returns measure length to check it."""
     def __fill_list(self, measure):
         duration = 0
         cur_duration = 0
+        # time signature checks
         if self.__time_sig == '4/4':
             duration = 4
         elif self.__time_sig == '2/4':
@@ -18,6 +22,7 @@ class InputExtractor:
             print("Wrong time signature.")
             exit(1)
 
+        # List through measures and get their tones
         for tone in measure:
             if tone.tag != "tone":
                 print("Wrong tone element.")
@@ -31,6 +36,7 @@ class InputExtractor:
             self.__content_list.append({tone.text: tone.attrib['note']})
         return cur_duration
 
+    """ Starts reading input file with basic node checks. """
     def read_input(self):
         tree = ET.parse(self.__file_name)
         root = tree.getroot()
@@ -54,12 +60,14 @@ class InputExtractor:
                 print("Wrong measure element.")
                 exit(1)
             measure = self.__fill_list(measure)
-            if measure != 4 and measure != 2:
+            if (measure != 4 and self.__time_sig == '4/4') and (measure != 2 and self.__time_sig == '2/4'):
                 print("Wrong measure duration !")
                 exit(1)
 
+    """ Returns theme extracted from xml format. """
     def get_theme(self):
         return self.__content_list
 
+    """ Returns time signature of a """
     def get_time_sig(self):
         return self.__time_sig

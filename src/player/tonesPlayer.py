@@ -3,15 +3,19 @@ from synthesizer import Player, Writer, Synthesizer, Waveform
 
 
 class TonesPlayer:
-    __tone_freq = {"h": 246.94,"c1": 261.63,
+    """ Map with tones and theirs frequencies """
+    __tone_freq = {"h": 246.94, "c1": 261.63,
                    "d1": 293.66, "e1": 329.63, "f1": 349.23, "g1": 392.00, "a1": 440.00, "h1": 493.88, "c2": 523.25,
                    "d2": 587.33, "e2": 659.26, "f2": 698.46, "g2": 783.99, "a2": 880.00, "h2": 987.77, "c3": 1046.50}
-    __waves = []
+    __waves = []  # list where are stored created tone waves
 
+    """ Class contructor with all variations and volume of them. Synthesizer is initialized with constructor volume """
     def __init__(self, variations, volume):
         self.__variations = variations
         self.synthesizer = Synthesizer(osc1_waveform=Waveform.sine, osc1_volume=volume, use_osc2=False)
 
+    """ Method reads variations and decodes tones in it.
+        Then decoded tones are generated as sin wave with certain time length. """
     def __generate_waves(self, variation):
         for tone in variation:
             if tone == 0:
@@ -116,6 +120,7 @@ class TonesPlayer:
                 print("Tone in variation can not be generated.")
                 exit(1)
 
+    """ Method plays parsed variations on output device. """
     def play(self):
         player = Player()
         player.open_stream()
@@ -124,6 +129,7 @@ class TonesPlayer:
         self.__waves = np.concatenate(self.__waves)
         player.play_wave(self.__waves)
 
+    """ Method saves parsed variations into wav file into same directory as input file."""
     def save(self, file):
         writer = Writer()
         for variation in self.__variations:

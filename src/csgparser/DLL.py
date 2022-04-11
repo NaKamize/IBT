@@ -1,4 +1,5 @@
 class Node:
+    """ Node class with his pointers to next and previous node. Node saves data, that are tokens."""
     def __init__(self, data):
         self.data = data
         self.next = None
@@ -6,9 +7,13 @@ class Node:
 
 
 class DLL:
+    """ Doubly linked list with his head node. It is deep pushdown for syntax analysis.
+    Some operations are from https://www.geeksforgeeks.org/doubly-linked-list/.
+    Cited 20.3. 2022, Author: GeeksforGeeks """
     def __init__(self):
         self.head = None
 
+    """ Method pushes node into list. """
     def push(self, data):
         new_node = Node(data)
         new_node.next = self.head
@@ -18,6 +23,7 @@ class DLL:
             self.head.prev = new_node
         self.head = new_node
 
+    """ Method pops node from the top. """
     def pop(self):
         popped = self.head
         if self.head is None:
@@ -29,6 +35,7 @@ class DLL:
         self.head = new_head
         return popped
 
+    """ Method inserts node into list, before specified previous node. """
     def insert(self, prev_node, data):
         if prev_node is None:
             print("Prev node neexistuje.")
@@ -43,6 +50,7 @@ class DLL:
             new_node.next.prev = new_node
         return new_node
 
+    """ Remove specified node from the list. """
     def remove(self, node):
         temp_head = self.head
         while temp_head:
@@ -53,6 +61,7 @@ class DLL:
         if node_prev is not None:
             node_prev.next = node.next
 
+    """ Append node into list. """
     def append(self, data):
         new_node = Node(data)
         new_node.next = None
@@ -69,6 +78,7 @@ class DLL:
         node.next = new_node
         new_node.prev = node
 
+    """ Print content of the list. """
     def printList(self, node):
         if node is None:
             print("Node is empty.")
@@ -77,9 +87,11 @@ class DLL:
             print(node.data)
             node = node.next
 
+    """ Returns true if list is empty. """
     def not_empty(self):
         return self.head is not None
 
+    """ Returns length of the list. """
     def dll_len(self, node):
         length = 0
         while node:
