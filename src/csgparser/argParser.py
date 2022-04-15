@@ -19,6 +19,7 @@ class ArgParser:
     __play = False
     __save = False
     __variations = []
+    __time_sig = None
 
     """ Class contructor with arguments. """
     def __init__(self, argv):
@@ -106,6 +107,7 @@ class ArgParser:
         if self.__diminution:
             self.__variations.append('dimi')
         self.__theme = input_e.get_theme()
+        self.__time_sig = input_e.get_time_sig()
 
     """ Return input theme content. """
     def get_theme(self):
@@ -126,3 +128,6 @@ class ArgParser:
     """ Save wav file. """
     def do_save(self):
         return self.__save
+
+    def get_time_sig(self):
+        return self.__time_sig

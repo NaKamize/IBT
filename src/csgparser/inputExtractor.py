@@ -68,6 +68,6 @@ class InputExtractor:
     def get_theme(self):
         return self.__content_list
 
-    """ Returns time signature of a """
+    """ Returns time signature of a theme. """
     def get_time_sig(self):
         return self.__time_sig

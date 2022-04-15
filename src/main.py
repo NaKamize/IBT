@@ -1,6 +1,6 @@
 from csgparser.tonesPlayer import TonesPlayer
 from csgparser.argParser import ArgParser
-from csgparser.csgparse import *
+from csgparser.csgParse import SCGparser
 from csgparser.xmlGenerator import Generator
 import sys
 
@@ -19,8 +19,10 @@ def main():
     if arg_parser.do_save():
         file_name = arg_parser.get_file()[:-3]  # remove last 3 chars and add wav sufix
         synthesizer.save(file_name + 'wav')
-    xml_generator = Generator(variations)
+
+    xml_generator = Generator(variations, arg_parser.get_time_sig())  # generating output xml format
     xml_generator.generate()
+
 
 if __name__ == '__main__':
     main()
