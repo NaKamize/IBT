@@ -1,6 +1,6 @@
 from csgparser.tonesPlayer import TonesPlayer
 from csgparser.argParser import ArgParser
-from csgparser.csgParse import SCGparser
+from csgparser.csgParser import SCGparser
 from csgparser.xmlGenerator import Generator
 import sys
 
@@ -11,7 +11,6 @@ def main():
     csgparse = SCGparser(arg_parser.get_theme(), arg_parser.get_variations())
     csgparse.syntax_analysis()   # Syntax analysis of variations
     variations = csgparse.get_result()  # save result
-    print(variations)
     synthesizer = TonesPlayer(variations, 0.5)  # initialization of synthesizer class
 
     if arg_parser.do_play():
