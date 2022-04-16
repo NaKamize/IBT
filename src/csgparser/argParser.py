@@ -8,8 +8,8 @@ from csgparser.inputExtractor import InputExtractor
 class ArgParser:
     __repetition = False
     __transposition = False
-    __sequence_up = False
-    __sequence_down = False
+    __sequence_up = None
+    __sequence_down = None
     __contrary_motion = False
     __retro_gradation = False
     __augmentation = False
@@ -20,13 +20,16 @@ class ArgParser:
     __save = False
     __variations = []
     __time_sig = None
+    __volume = None
 
     """ Class contructor with arguments. """
+
     def __init__(self, argv):
         self.__argv = argv
 
     """ Creating argument parser and adding arguments into it.
         Then extracts variation flags and theme. """
+
     def parse(self):
         arg_parser = ap.ArgumentParser(prog="musicgen",
                                        formatter_class=ap.RawDescriptionHelpFormatter,
@@ -39,9 +42,9 @@ class ArgParser:
         arg_parser.add_argument("-r", "--repetition", action='store_true', help="Option to add repetition variation.")
         arg_parser.add_argument("-t", "--transposition", action='store_true', help="Option to add transposition "
                                                                                    "variation.")
-        arg_parser.add_argument("-S", "--sequence-up", action='store_true',
+        arg_parser.add_argument("-S", "--sequence-up", type=int,
                                 help="Option to add down sequence variation.")
-        arg_parser.add_argument("-s", "--sequence-down", action='store_true',
+        arg_parser.add_argument("-s", "--sequence-down", type=int,
                                 help="Option to add up sequence variation.")
         arg_parser.add_argument("-c", "--contrary_motion", action='store_true', help="Option to add contrary_motion "
                                                                                      "variation.")
@@ -52,6 +55,8 @@ class ArgParser:
         arg_parser.add_argument("-d", "--diminution", action='store_true', help="Option to add diminution variation.")
         arg_parser.add_argument("-p", "--play", action='store_true', help="Output is being played.")
         arg_parser.add_argument("--save", action='store_true', help="Save sound of the output next to input file.")
+        arg_parser.add_argument("-v", "--volume", type=float,
+                                help="Sets volume for output variations. I has to be bigger the zero and less then one.")
 
         try:
             args = arg_parser.parse_args()
@@ -66,8 +71,10 @@ class ArgParser:
             self.__input_file = args.input
             self.__play = args.play
             self.__save = args.save
+            self.__volume = args.volume
         except ap.ArgumentError:
             print("Parsing of arguments has failed.")
+            exit(1)
 
         """ If no variation type was inputted, then it is error"""
         if not self.__repetition and not self.__transposition and not self.__sequence_up and not self.__sequence_down \
@@ -84,9 +91,24 @@ class ArgParser:
             print("Theme file doest not exists.")
             exit(1)
 
-        if not re.match(r'.*xml', self.__input_file):
+        if not re.match(r'.*xml', self.__input_file):  # input file sufix validation
             print("File has wrong format.")
             exit(1)
+
+        if self.__volume is not None:  # volume validation
+            if self.__volume < 0 or self.__volume > 1:
+                print("Wrong volume number.")
+                exit(1)
+        # sequence number validations
+        if self.__sequence_up is not None:
+            if self.__sequence_up < 0 or self.__sequence_up > 7:
+                print("Invalid up sequence number.")
+                exit(1)
+
+        if self.__sequence_down is not None:
+            if self.__sequence_down < 0 or self.__sequence_down > 7:
+                print("Invalid down sequence number.")
+                exit(1)
 
         input_e = InputExtractor(self.__input_file)
         input_e.read_input()
@@ -94,10 +116,12 @@ class ArgParser:
             self.__variations.append('rep')
         if self.__transposition:
             self.__variations.append('trans')
-        if self.__sequence_up:
-            self.__variations.append('seq+')
-        if self.__sequence_down:
-            self.__variations.append('seq-')
+        if self.__sequence_up is not None:
+            for i in range(self.__sequence_up):
+                self.__variations.append('seq+')
+        if self.__sequence_down is not None:
+            for i in range(self.__sequence_down):
+                self.__variations.append('seq-')
         if self.__contrary_motion:
             self.__variations.append('con')
         if self.__retro_gradation:
@@ -110,24 +134,36 @@ class ArgParser:
         self.__time_sig = input_e.get_time_sig()
 
     """ Return input theme content. """
+
     def get_theme(self):
         return self.__theme
 
     """ Return variation that have to be done. """
+
     def get_variations(self):
         return self.__variations
 
     """ Returns filename. """
+
     def get_file(self):
         return self.__input_file
 
     """ Play result of syntax analysis. """
+
     def do_play(self):
         return self.__play
 
     """ Save wav file. """
+
     def do_save(self):
         return self.__save
 
+    """ Returns given time signature of a theme. """
+
     def get_time_sig(self):
         return self.__time_sig
+
+    """ Returns user selected volume of a variations. """
+
+    def get_volume(self):
+        return self.__volume

@@ -139,7 +139,7 @@ class TonesPlayer:
             elif tone == 59:
                 self.__waves.append(self.synthesizer.generate_constant_wave(self.__tone_freq["c3"], 0.5))
             elif tone == 60:
-                pass
+                pass  # skip bar line
             else:
                 print("Tone in variation can not be generated.")
                 exit(1)

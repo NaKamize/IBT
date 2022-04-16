@@ -89,7 +89,7 @@ class SCGparser:
 
     """ Nonterminal from context-free part """
     __N_R = 64
-    # 61
+
     """ LL table """
     # C1F, C1H, C1Q, C1E, D1F, D1H, D1Q, D1E, E1F, E1H, E1Q, E1E, F1F, F1H, F1Q, F1E, G1F, G1H, G1Q, G1E, A1F, A1H, A1Q,
     # A1E, H1F, H1H, H1Q, H1E, C2F, C2H, C2Q, C2E, D2F, D2H, D2Q, D2E, E2F, E2H, E2Q, E2E, F2F, F2H, F2Q, F2E, G2F, G2H,
@@ -998,7 +998,8 @@ class SCGparser:
     __position = 0  # input sequence symbol
     __var_position = 0  # variation position
     __rules_applied = []  # list of applied rules
-
+    __last_seq_up_pos = None
+    __last_seq_down_pos = None
     __res_variation = []  # list of resulting variations
 
     """ Class contructor with theme from input file and variation flags """
@@ -1008,7 +1009,7 @@ class SCGparser:
         self.__variations = variations
         self.__dll = DLL()  # pushdown declaration as a doubly linked list
 
-    """ Method does lexical anaylisis and returns list of tokens as notes. """
+    """ Method does lexical analysis and returns list of tokens as notes. """
 
     def __tokenizer(self):
         tokens = []
@@ -1285,7 +1286,7 @@ class SCGparser:
         else:
             return res_rule
 
-    """ List throguh pushdown until last symbol and save resulting variation. """
+    """ List through pushdown until last symbol and save resulting variation. """
 
     def __save_result(self):
         variation = []
@@ -1295,6 +1296,7 @@ class SCGparser:
             self.__dll.pop()
             node = node.next
         self.__res_variation.append(variation)
+        print(self.__res_variation)
 
     """ Method returns resulting list of variations. """
 
@@ -1320,7 +1322,8 @@ class SCGparser:
             if token in token_tuple:
                 return position
 
-    """ Gets distances between notes for contrary motion variation. """
+    """ Gets distances between notes for contrary motion variation. 
+        tokens is input list of tokens"""
 
     def __get_distances(self, tokens):
         last_token = -1
@@ -1340,6 +1343,19 @@ class SCGparser:
             result_dist.append(distance)
         return result_dist
 
+    """ If there is multiple sequence variations, then there is need to pick last variation that was done. """
+    def __select_tokens(self, tokens, variation_count):
+        if self.__var_position > variation_count:  # last variation, then end it
+            return self.__THEME_END
+        if self.__variations[self.__var_position] == 'seq+' and self.__last_seq_up_pos is not None:
+            tokens = self.__res_variation[self.__last_seq_up_pos]
+            return tokens[self.__position]
+        elif self.__variations[self.__var_position] == 'seq-' and self.__last_seq_down_pos is not None:
+            tokens = self.__res_variation[self.__last_seq_down_pos]
+            return tokens[self.__position]
+        else:
+            return tokens[self.__position]
+
     """ Generating music with help of syntax analysis. """
 
     def syntax_analysis(self):
@@ -1352,11 +1368,10 @@ class SCGparser:
         # receive tokens
         tokens = self.__tokenizer()
         distances = self.__get_distances(tokens)
-        print(tokens)
-        print(distances)
+        print(self.__variations)
         # while pushdown is not empty do generating
         while self.__dll.not_empty():
-            cur_token = tokens[self.__position]  # get token
+            cur_token = self.__select_tokens(tokens, variation_count)  # tokens[self.__position]  # get token
             if self.__dll.head.data == self.__T_END:  # on the top of the pushdown is bar line
                 self.__var_position += 1  # move to next variation
                 if cur_token == self.__THEME_END and self.__var_position > variation_count:
@@ -1368,9 +1383,13 @@ class SCGparser:
                     # variation is coming to end, move to last symbol
                     self.__position += 1
                 else:
-                    # save result and set pointer to next variation, refresh pusdown
+                    # save result and set pointer to next variation, refresh pushdown
                     self.__remove_extra_bline(variation_count)
                     self.__save_result()
+                    if self.__variations[self.__var_position] == 'seq+':
+                        self.__last_seq_up_pos = self.__var_position - 1
+                    elif self.__variations[self.__var_position] == 'seq-':
+                        self.__last_seq_down_pos = self.__var_position - 1
                     self.__aux_position = 0
                     self.__position = 0
                     self.__dll.push(self.__N_S)
@@ -1400,7 +1419,7 @@ class SCGparser:
                     self.__aux_array.remove(popped)  # remove pointer form aux array
                     # get whole right-side of the rule
                     right_side = self.__get_right_side(self.__get_rule_number(rule, cur_varia, distances))
-                    # if current variation is not retro-gradiation
+                    # if current variation is not retro-gration
                     if cur_varia != 'grad':
                         self.__reverse_push(right_side[0], False, non_terminal)  # push it in reverse on the top
                         deep_non_terminal = self.__aux_array[0]  # get second pointer to non-terminal
@@ -1409,7 +1428,7 @@ class SCGparser:
                         self.__dll.remove(deep_non_terminal)  # remove second non-terminal from pushdown
                         self.__rules_applied.append(rule)  # save applied rule
                     else:
-                        # retro-gradiation rule apply
+                        # retro-gration rule apply
                         self.__reverse_push(right_side, False, non_terminal)
             else:
                 print("Wrong symbol.")

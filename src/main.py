@@ -11,7 +11,11 @@ def main():
     csgparse = SCGparser(arg_parser.get_theme(), arg_parser.get_variations())
     csgparse.syntax_analysis()   # Syntax analysis of variations
     variations = csgparse.get_result()  # save result
-    synthesizer = TonesPlayer(variations, 0.5)  # initialization of synthesizer class
+    volume = arg_parser.get_volume()
+    if volume is not None:
+        synthesizer = TonesPlayer(variations, volume)  # initialization of synthesizer class
+    else:
+        synthesizer = TonesPlayer(variations, 0.2)  # initialization of synthesizer class
 
     if arg_parser.do_play():
         synthesizer.play()
