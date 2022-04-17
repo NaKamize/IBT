@@ -1296,7 +1296,6 @@ class SCGparser:
             self.__dll.pop()
             node = node.next
         self.__res_variation.append(variation)
-        print(self.__res_variation)
 
     """ Method returns resulting list of variations. """
 
@@ -1356,6 +1355,18 @@ class SCGparser:
         else:
             return tokens[self.__position]
 
+    """ Method saves last sequence variations, then refreshes pushdown and aux array to start again creating new
+    variations. """
+    def __restart(self):
+        if self.__variations[self.__var_position] == 'seq+':  # save last sequence variation
+            self.__last_seq_up_pos = self.__var_position - 1
+        elif self.__variations[self.__var_position] == 'seq-':
+            self.__last_seq_down_pos = self.__var_position - 1
+        self.__aux_position = 0
+        self.__position = 0
+        self.__dll.push(self.__N_S)
+        self.__aux_array.append(self.__dll.head)
+
     """ Generating music with help of syntax analysis. """
 
     def syntax_analysis(self):
@@ -1368,7 +1379,6 @@ class SCGparser:
         # receive tokens
         tokens = self.__tokenizer()
         distances = self.__get_distances(tokens)
-        print(self.__variations)
         # while pushdown is not empty do generating
         while self.__dll.not_empty():
             cur_token = self.__select_tokens(tokens, variation_count)  # tokens[self.__position]  # get token
@@ -1386,14 +1396,7 @@ class SCGparser:
                     # save result and set pointer to next variation, refresh pushdown
                     self.__remove_extra_bline(variation_count)
                     self.__save_result()
-                    if self.__variations[self.__var_position] == 'seq+':
-                        self.__last_seq_up_pos = self.__var_position - 1
-                    elif self.__variations[self.__var_position] == 'seq-':
-                        self.__last_seq_down_pos = self.__var_position - 1
-                    self.__aux_position = 0
-                    self.__position = 0
-                    self.__dll.push(self.__N_S)
-                    self.__aux_array.append(self.__dll.head)
+                    self.__restart()
             elif self.__T_C1_FULL <= self.__dll.head.data <= self.__T_END:  # terminal
                 # if on the top of the pushdown is terminal pop it, and move position to next input symbol
                 if self.__dll.head.data == cur_token:
