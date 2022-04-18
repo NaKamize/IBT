@@ -1001,6 +1001,7 @@ class SCGparser:
     __last_seq_up_pos = None
     __last_seq_down_pos = None
     __res_variation = []  # list of resulting variations
+    __deep_push = False
 
     """ Class contructor with theme from input file and variation flags """
 
@@ -1364,6 +1365,7 @@ class SCGparser:
             self.__last_seq_down_pos = self.__var_position - 1
         self.__aux_position = 0
         self.__position = 0
+        self.__deep_push = False
         self.__dll.push(self.__N_S)
         self.__aux_array.append(self.__dll.head)
 
@@ -1408,31 +1410,29 @@ class SCGparser:
             elif self.__N_X <= self.__dll.head.data <= self.__N_R:  # nonterminal
                 cur_varia = self.__variations[self.__var_position]  # get variation
                 rule = self.__get_rule(cur_token, self.__dll.head.data)  # find rule in LL table
+                # get whole right-side of the rule
+                right_side = self.__get_right_side(self.__get_rule_number(rule, cur_varia, distances))
                 # if top of the pushdown and aux array item is same and rule is dictionary from LL table
-                if self.__dll.head.data == self.__N_S:
-                    non_terminal = self.__aux_array[0]
-                    popped = self.__dll.pop()
-                    self.__aux_array.remove(popped)
-                    self.__reverse_push(self.__get_right_side(self.__get_rule_number(rule, cur_varia, distances)),
-                                        False, non_terminal)
-                    self.__rules_applied.append(rule)
+                if self.__deep_push:
+                    deep_non_terminal = self.__aux_array[0]  # get second pointer to non-terminal
+                    self.__aux_array.remove(deep_non_terminal)  # remove second pointer to non-terminal
+                    self.__reverse_push(right_side[1], True, deep_non_terminal)  # deep rule push
+                    self.__dll.remove(deep_non_terminal)  # remove second non-terminal from pushdown
+                    self.__deep_push = False
                 else:
                     non_terminal = self.__aux_array[0]
-                    popped = self.__dll.pop()  # get nonterminal from top of the pushdown
-                    self.__aux_array.remove(popped)  # remove pointer form aux array
-                    # get whole right-side of the rule
-                    right_side = self.__get_right_side(self.__get_rule_number(rule, cur_varia, distances))
+                    if self.__dll.head.data == self.__N_S or cur_varia == 'grad':
+                        popped = self.__dll.pop()  # get nonterminal from top of the pushdown
+                        self.__aux_array.remove(popped)  # remove pointer form aux array
+                        self.__reverse_push(right_side, False, non_terminal)  # push it in reverse on the top
+                    else:
+                        popped = self.__dll.pop()  # get nonterminal from top of the pushdown
+                        self.__aux_array.remove(popped)  # remove pointer form aux array
+                        self.__reverse_push(right_side[0], False, non_terminal)  # push it in reverse on the top
                     # if current variation is not retro-gration
                     if cur_varia != 'grad':
-                        self.__reverse_push(right_side[0], False, non_terminal)  # push it in reverse on the top
-                        deep_non_terminal = self.__aux_array[0]  # get second pointer to non-terminal
-                        self.__aux_array.remove(deep_non_terminal)  # remove second pointer to non-terminal
-                        self.__reverse_push(right_side[1], True, deep_non_terminal)  # deep rule push
-                        self.__dll.remove(deep_non_terminal)  # remove second non-terminal from pushdown
-                        self.__rules_applied.append(rule)  # save applied rule
-                    else:
-                        # retro-gration rule apply
-                        self.__reverse_push(right_side, False, non_terminal)
+                        self.__deep_push = True
+                    self.__rules_applied.append(rule)  # save applied rule
             else:
                 print("Wrong symbol.")
                 exit(1)
