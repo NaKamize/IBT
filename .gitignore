@@ -1,8 +1,10 @@
 # dependencies
 src/.idea/
 
-src/player/__pycache__/
+src/csgparser/__pycache__/
 
+*.pdf
+*.wav
 *.log
 *.aux
 *.out
