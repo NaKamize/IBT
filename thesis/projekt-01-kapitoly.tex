@@ -204,10 +204,12 @@ Kontextová gramatika je frázová gramatika $G = (N,T,P,S)$, ktorá sa skladá 
 \end{definition}
 
 \begin{definition}
+\label{def:nonkontextgram}
 Bezkontextová gramatika je frázová gramatika $G = (N,T,P,S)$, ktorá sa skladá z prepisovacích pravidiel vo forme $$A \rightarrow x.$$ Tu platí $A \in N$, $x \in V^*$. Bezkontextové gramatiky generujú bezkontextové jazyky. Bezkontextové jazyky vedia prijať zásobníkové automaty.
 \end{definition}
 % 87 a 246 priklady
 \begin{definition}
+\label{def:lingram}
 Lineárna gramatika je frázová gramatika $G = (N,T,P,S)$, ktorej všetký pravidla sú v tvare $$A \rightarrow xBy, alebo \, A \rightarrow x.$$ Kde A,B $ \in N$ a x,y $ \in T^*$. Lineárny jazyk je generovaný linearnou gramatikou.
 \end{definition}
 
@@ -265,14 +267,14 @@ Regulárne jazyky sa používajú napríklad pre zápis regulárnych výrazov. T
 
 Regulárne gramatiky sú taktiež veľmi limitujúce v tom, že nedokážu vytvoriť viacúrovňovú stromovú štruktúru, ktorou hudobná štruktúra určite je. Je to kvôli obmedzeniu gramatiky, u ktorej musí byť jeden neterminal na pravej strane produkčných pravidiel. Spracovanie hudobnej štruktúry si vyžaduje minimálne možnosť spracovať vnorené závislosti, ktoré sa v hudbe vyskytujú. Túto možnosť regulárne gramatiky neponúkajú. Príkladom stromovej štruktúry môže byť variácia na obrázku \ref{fig:Preklopenie}.
 
-Spočiatku sa ponúkala ako vhodné riešenie pravo-lineárna gramatika definovaná v \ref{def:pravolin}. Tieto gramatiky spadaju na základe chomskeho hierarchie do tejto kategorie. Pravidlami tejto gramatiky by sme mohli popísať tvorbu jednotlivých tónov. Majme pravidlo pravo-lineárnej gramatiky $A \rightarrow aB$. Ak vieme dosadiť za $a$ nejaký tón, potom vieme derivaciami tvoriť reťazce tónov reprezentujúce hudbu. 
+Spočiatku sa ponúkala ako vhodné riešenie pravo-lineárna gramatika definovaná v \ref{def:pravolin}. Tieto gramatiky spadajú na základe Chomského hierarchie do tejto kategórie. Pravidlami tejto gramatiky by sme mohli popísať tvorbu jednotlivých tónov. Majme pravidlo pravo-lineárnej gramatiky $A \rightarrow aB$. Ak vieme dosadiť za $a$ nejaký tón, potom vieme deriváciami tvoriť reťazce tónov tvoriace hudbu. Napriek tomu, že ponúkajú túto možnosť tieto gramatiky, ich nie je možné použiť pre popis hudobnej štruktúry alebo tvorby hudobných pasáži. Variácie, ktoré sú rozoberané vyššie maju medzi sebou rôzne križiace a vnorené závislosti. Tieto závislosti nie je možné popísať regulárnymi a pravo-lineárnymi gramatikami. Uplatnenie týchto gramatik by bolo možné v prípade využitia derivácií pre tvorenie hudby. Samozrejme, že derivačné kroky by museli byť riadené nejakým spôsobom. Jedným z nich by bola náhodnosť. Pri taktomto postupe nie je možné zaručiť rozumný výsledok. Výsledok takéhoto postupu by nemusel byť vhodný na počúvanie, pretože by sa skladal z náhodného zhluku tónov.
 
 Markovské procesy, ktoré boli charakterizované Chomskym ako gramatika typu-3 nepreukázali schopnosť spracovať frázovú štruktúru. Tieto limitácie nesúvisia s problematikou stochastických procesov a deterministických procesov. Limitácie sa týkajú produkčných pravidiel. Markovské procesy sa riadia lineárnymi krokovými pravidlami narozdiel od bezkontextových gramatík. Bezkontextové gramatiky umožňujú vytvoriť reťazec neterminálov naraz pomocou produkčných pravidiel. Na základe týchto skutočností vieme, že regulárne gramatiky neponúkajú vhodne riešenie k popisu hudobnej štruktúry.
 
 \subsection*{Typ-2 (Bezkontextové jazyky)}
 Tieto jazyky sa vyznačujú štruktúrami, ktoré sú reprezentované balancovanými stromami a ďalšími zrkadliacimi sa štruktúrami. Obrovské využitie týchto jazykov je u programovacích jazykoch, ktoré sú ich deterministický spracovateľnou podmnožinou. Jazyky typu-2 prinášajú so sebou nejednoznačnosť a neplatia u nich operácie doplnok, prienik a ďalšie. Tieto jazyky sú spracovateľné v $O(n^3)$ čase.
 
-Určité časti hudobnej štruktúry, ktoré sú reprezentované hudobným jazykom vieme zaradiť medzi bezkontextové jazyky. Ide o motív alebo tému, ktorá postupne rastie a následne rovnakými tonami klesá. Tento jav tvorí zrkadlovú štruktúru, ktorá je zobrazená na ľavej strane obrázku \ref{fig:dependencies}.
+Určité časti hudobnej štruktúry, ktoré sú reprezentované hudobnými reťazcami vieme zaradiť medzi bezkontextové jazyky. Ide o motív alebo tému, ktorá postupne rastie a následne rovnakými tonami klesá. Tento jav tvorí zrkadlovú štruktúru, ktorá je zobrazená na ľavej strane obrázku \ref{fig:dependencies}.
 
 Tieto gramatiky sú jednoduchšie na spracovanie oproti gramatikám, ktoré tvoria jazyky v nadchádzajúcich sekciách. Je to vďaka tomu, že umožňujú reťazce iba na jednej strane produkčných pravidiel. Zložitosť je teda lineárna k počtu neterminálov v derivácií. Sila bezkotextových gramatik leží v tom, že umožňujú reprezentáciu viacúrovňových vnorených syntaktických štruktúr. Neterminal, ktorý môže reprezentovať motív, frázu, vetu alebo sekciu generuje reťazec tokenov na nižšej úrovni. Schopnosť generovať reťazce tokenov v jednom z produkčných pravidiel, ich robí lepším kandidátom k popisu hudobnej štruktúry, narozdiel od regulárnych gramatík.
 
@@ -283,6 +285,8 @@ Tieto gramatiky sú jednoduchšie na spracovanie oproti gramatikám, ktoré tvor
     \label{fig:dependencies}
 \end{figure}
 
+V tejto kategórii sa nachádzajú jazyky tvorené gramatikami \ref{def:nonkontextgram} a \ref{def:pravolin}. Tieto gramatiky stačia pre popis len niektorých části hudobných pasáži, ktoré sa vyskytujú len v určitých častiach hudby. Jednou štruktúrovanou časťou sú variácie základnej témy retrogradáciou, ktorú môžme vidieť na obrázku \ref{fig:Preklopenie}. Druhou časťou sú úseky hudby, ktoré nie sú štruktúrované do témy a jej variácie. Napriek tomu, že nie sú štruktúrované do témy a variácií tvoria reťazce, ktoré sú bezkontextové. Príkladom v hudbe môžu byť rôzne vsuvky, medzihry alebo vyhrávky. Tieto hudobné pasáže majú melodický a ozdobný charakter, ktoré sú charakterizovateľné vnorenými závislosťami bezkontextových jazykov.
+
 \subsection*{Typ-1 (Kontextové jazyky)}
 Kontextové jazyky zahrňujú v sebe aj kopírovacie jazyky. Tieto jazyky sú rozhodnutelné, ale vyžadujú si vysokú výpočtovú silu vo väčšine prípadov. Ukázalo sa, že v niektorých prípadoch hudobné jazyky si vyžadujú silnejší formalizmus, ako sú bezkontextové gramatiky. Je to vďaka tomu, že tóny sú medzi jednotlivými taktami usporiadané vo forme kopírovacích jazykov. Ukážka takéhoto jazyka v notovom zápise je na pravej strane obrázka \ref{fig:dependencies}.
 
@@ -292,7 +296,7 @@ Druhým problémom je implementácia. Použitie prekladača na takúto gramatiku
 
 Napriek všetkým týmto komplikáciám je stále možné kontextové závislosti zabudovať do gramatiky konštruovanej čisto z bezkontextových produkčných pravidiel. Tento spôsob je možné celkom jednoznačne preložiť. Problem môže nastať u zobrazovaní kopírovacích závislostiach v gramatike.
 
-Gramatika \ref{def:kontextgram} generujúca jazyky, ktoré patria medzi kontextové sa ukázala ako vhodný kandidát pre popis hudobnej štruktúry. Vďaka tomu, že na oboch stranách pravidiel vieme dosadiť reťazce, potom sa dá jednoducho popísať notový zápis na pravej strane na obrázku \ref{fig:dependencies}. Gramatika, ktorá bola použitá pre popis tejto štruktúry bude rozoberaná v nasledujúcej kapitole.
+Gramatika \ref{def:kontextgram} generujúca jazyky, ktoré patria medzi kontextové sa ukázala ako vhodný kandidát pre popis hudobnej štruktúry. Vďaka tomu, že na oboch stranách pravidiel vieme dosadiť reťazce, potom sa dá jednoducho popísať notový zápis na pravej strane na obrázku \ref{fig:dependencies}. Deriváciami kontextovej gramatiky vieme pokryť tvorbu všetkých variácií. Nedeterministickosť kontextových gramatík neobmedzuje tvorby takej štruktúry, ako je téma a jej variácie. Práve naopak je táto vlastnosť vítaná, pretože nezväzuje ruky tvorcovi tejto štruktúry. Táto gramatika bude musieť umožniť tvorbu každej križiacej sa závislosti, ktoré obsahujú variácie. Konkrétna gramatika, ktorá bola použitá pre popis tejto štruktúry bude rozoberaná v nasledujúcej kapitole.
 
 \subsection*{Typ-0 (Rekurzívne vyčísliteľné jazyky)}
 Rekurzívne vyčísliteľné jazyky sú jazyky, ktoré sú tvorené všeobecnými gramatikami. Tieto gramatiky nezavádzajú žiadne obmedzenia na produkčné pravidla. Z definície tieto gramatiky umožňujú vznik nekonečných reťazcov, ktoré samotné v hudbe nepredstavujú zmysel a nevedú tak k rozumnému riešeniu. Existujú, ale hudobné prostredia, ktoré sa zaoberajú generovaním a syntézou v reálnom čase. Tieto prostredia sú turingovo úplne a volia si silnú generatívnu kapacitu. Problém s výpočtovou náročnosťou nechávajú v rukách užívateľa. Definácia \ref{def:frazgram} definuje gramatiku, ktorá generuje tieto jazyky. Využitie tejto gramatiky nie je momentálne v tejto práci, ale využitie môžu nájsť v jej ďalšom vývoji tejto práce.
@@ -322,6 +326,9 @@ Jazyk s rozptýleným kontextom je jazyk $L$ právte vtedy, ak vieme nájsť tak
 
 \section{Hlboký zásobnikový automat.}
 
+\section{LL gramatika s rozptýleným kontextom.}
+
+\section{Algoritmus}
 
 \chapter{Implementácia}
 \label{chap:imp}
