@@ -3,11 +3,23 @@
 \def\UrlBreaks{\do\/\do-}
 
 \chapter{Úvod}
+Formálne modely nám vedia sprostredkovať teoretické prostriedky pre popis rôznych praktických aplikácií. Najväčšou aplikáciou z nich sú programovacie jazyky, a dizajn prekladačov týchto jazykov. Ďalšie aplikácie vieme nájsť v biológii, lingvistike alebo umení. Cieľom tejto práce je aplikácia formálnych modelov v umení, konkrétne v hudbe.
+
+Za hudbu môžeme považovať štruktúru, ktorá sa riadi určitými pravidlami. Napriek tomu, že obsahuje množstvo pravidiel a predpisy, je to stále prostriedok pre vyjadrenie myšlienky skladateľa. Táto myšlienka odzrkadľuje nálady, prostredie alebo zážitky skladateľa, takže sa neriadi žiadnymi pravidlami. Hlavná myšlienka, ktorá sa nazýva téma je konečná množina tónov, ktoré sú podľa ich dĺžky začlenené do taktov. Obsahom hudby nie je čisto len téma, ale obsahuje aj jej obmieňanie aplikovaním rôznych pravidiel. Po aplikácií týchto pravidiel vzniká cela skladba, ktorá sa skladá z témy a aplikácií pravidiel na ňu. Vzniknutá skladba je štukúra, ktorá sa skladá z témy a variácie. Cielom tejto práce je popísannie takejto štruktúry vhodným formálnym modelom. Výsledkom tohto popisu by malo byť stvárnenie týchto štruktúr, ale nesmie obmedzovať tvorbu hudby.
+
+Hlavnou motiváciou tejto práce je sledovanie vlastností, ktoré sa môžu nachádzať medzi témou a jej variáciami. Na základe ich charakterizácie zaviesť vhodný formálny model, ktorý by viedol k ich popisu a spracovaniu hudobnej štruktúry. Rovnaké vlastnosti, ktoré vieme nájsť v hudbe už boli charakterizované aplikáciami v lingvistike. Patria k nim vnorené závislosti pre bezkontextové jazyky a krížiace sa závislosti kontextových jazykov.
+
+V prípade navrhnutého správneho modelu, ktorý by vedel reprezentovať hudobnú štruktúru je súčasťou práce ho aplikovať. Ako najvhodnejšia aplikácia, ktorá sa dá v hudbe nájsť je jej generácia. Gramatiky, ktoré sú súčasťou formálnych modelov umožňujú generovať rôzne jazyky. Preto predmetom aplikácie je vytvoriť gramatiku, ktorá vygeneruje hudobný jazyk, ktorý by zároveň dával hudobný zmysel. Na vytvorenie takéhoto jazyku je potrebná gramatika, ktorá vie zvládnuť spracovať triedu daného jazyka. Zaradiť hudbobný jazyk do jeho príslušnej triedy v Chomského hierarchie je velmi dôležité. Zistenie triedy takéhoto jazyka vedie k odhadu gramatiky, ktorá by mohla takýto jazyk generovať. 
+
+Text tejto práce je rozložený do viacerých sekcii. Kapitola \ref{chap:definitions}, ktorá sa zaoberá základmi hudobnej teórie sa skladá z dvoch sekcií. Sekcia \ref{sec:music} sa zaoberá základnými pojmami v hudbe, ktorá vedie k pochopeniu použitej hudobnej terminologie. Sekcia \ref{sec:formallang} definuje gramatiky Chomského hierarchie. Ďalej rozoberá, do ktorej kategórie je zaradený hudobný jazyk. V kapitole \ref{chap:app} definuje gramatiku, ktorá bola použitá pre popis hudobného systému. Spolu s definíciou nového modelu ukazuje jeho aplikácie v hudbe. Kapitola \ref{chap:imp} sa venuje samotnej implementácii nového modelu, spusteniu tejto implementácii a ukážkami výsledku tejto implementácie. Posledná kapitola \ref{chap:end} rozoberá samotné výsledky práce a jej aplikácie v iných odvetviach. Obsahom tejto kapitoly je aj diskusia k ďalšiemu pokračovaniu tejto práce. 
+
 
 \chapter{Základné pojmy a definície}
+\label{chap:definitions}
 Táto kapitola oboznamuje so základnými pojmami, ktoré vedú k pochopeniu obsahu tejto bakalárskej práce. Vzhľadom na to, že táto práca je úzko spätá s hudbou a hudobnou teóriou, obsahuje jej základy, ktoré sú prevzaté z \cite{MUSICTHEORY}, \cite{DunnettVar}. Základy formálných jazykov a ich definície sú prevzaté z \cite{MEDUNATHEORY}.
 
 \section{Hudba}
+\label{sec:music}
 Hudba je súčasťou umenia. Základným stavebným materiálom hudby je tón. Pomocou hudby sa skladateľ snaží vyjadriť nejakú myšlienku. Hudobnú myšlienku je možné zapísať notami pomocou notového zápisu. Cieľom tejto podkapitoly je objasnenie základných pojmov hudby, ako i ukážka hudobnej štruktúry téma a variácie.
 
 \subsection{Tón}
@@ -150,30 +162,31 @@ Preto v tejto práci bolo použitých šesť bežných druhov motívových vari�
     \end{figure}
 \end{itemize}
 
-\section{Formálne jazyky}
+\section{Formálne modely}
+Zavedenie formálnych modelov bolo vyžiadané čisto matematickým prístupom k jazykom. Veľká časť týchto modelov je založená na prepisujúcich systémoch. Prepisujúce systémy sa skladajú z pravidiel, ktoré opakovane menia poradie symbolov v reťazcoch. Klasifikujeme ich do dvoch základných kategórií. Generatívne modely, ktoré nazývame gramatikami definujú reťazce svojich jazykov. Tieto reťazce sú vygenerované pravidlami prepisovacieho systému z počiatočného symbolu. Prijímajúce modely, ktoré nazývame automatmi definujú reťazce svojich jazykov pomocou prepisovacieho procesu. Tento proces začína z týchto reťazcov a končí prvkom z predom danej konečnej množiny reťazcov.
 
+\label{sec:formallang}
 \subsection{Množina}
-Skupinu nejakých elementov, ktoré sú prevzaté z nejakého dopredu dohodnutého prostredia nazývame množinou $\Sigma$. Element a patrí množine M vtedy, ak sa v nej nachádza. Zapisujeme to ako $a \in \Sigma$. V prípade, že sa v množine nenachádza zapíšeme to ako $a \not \in  \Sigma$. Ak počet prvkov v množine vieme spočítať, potom o množine hovoríme, že je konečná. Ak prvky nespočítame, potom je množina nekonečná. Konečná množina, ktorá neobsahuje žiadne prvky je prázdna množina. Prázdnu množinu označujeme ako $\emptyset$.
+Skupinu elementov, ktoré sú prevzaté z nejakého dopredu dohodnutého prostredia nazývame množinou $\Sigma$. Element $a$ patrí množine $M$ vtedy, ak sa v nej nachádza. Zapisujeme to ako $a \in \Sigma$. V prípade, že sa v množine nenachádza zapíšeme to ako $a \not \in  \Sigma$. Ak počet prvkov v množine vieme spočítať, potom o množine hovoríme, že je konečná. Ak prvky nespočítame, potom je množina nekonečná. Konečná množina, ktorá neobsahuje žiadne prvky je prázdna množina. Prázdnu množinu označujeme ako $\emptyset$.
 
 Konečnú množinu $\Sigma$ môžeme špecifikovať vypísaním jej elementov. Obsah množiny zapíšeme ako $\Sigma = \{a_1, a_2, a_3, ..., a_n\}$, kde prvky $a_1, a_2, a_3, ..., a_n$ patria množine $\Sigma$.
 
 V práci s množinami využívame rôzne operácie ako sú zjednotenie, prienik a rozdiel. Zjednotenie dvoch konečných množín $\Sigma$ a $\Omega$ definujeme ako $\Sigma \cup \Omega = \{a | a \in \Sigma \: alebo  \: a \in \Omega \}$, ich prienik $\Sigma \cap \Omega = \{a | a \in \Sigma \: z\acute{a}rove\check{n}  \: a \in \Omega \}$, a rozdiel $\Sigma \setminus \Omega = \{a | a \in \Sigma \: z\acute{a}rove\check{n}  \: a \not \in \Omega \}$.
 
+\subsection{Relácia}
+Majme dva objekty $x$ a $y$. Pod označením $(x,y)$ rozumieme usporiadanú dvojicu objektov $x$,$y$ v tomto poradí. Majme dve množiny $X$ a $Y$. Kartézsky súčin $X$,$Y$ značíme ako $X \times Y$. Definujeme ho ako $X \times Y = \{(x,y) | x \in X \, a \, y \in Y\}$. Na základe týchto znalostí môžeme definovať reláciu. Reláciou $r$, ktorá je od $X$ po $Y$ rozumieme hociakú podmnožinu $X \times Y$. $r \subseteq X \times Y$ označuje nami definovanú reláciu.
+
 \subsection{Abeceda}
 Abecedou $\Sigma$ nazývame konečnú množinu, ktorá obsahuje prvky nazývané symbolmi.
 
 \subsection{Reťazec}
-Reťazcom nad abecedou $\Sigma$ nazývame konečnú postupnosť symbolov abecedy $\Sigma$. Reťazec, ktorý neobsahuje symboly sa nazýva prazdny reťazec a označujemeho ako $\varepsilon$
+Reťazcom nad abecedou $\Sigma$ nazývame konečnú postupnosť symbolov abecedy $\Sigma$. Reťazec, ktorý neobsahuje symboly sa nazýva prazdny reťazec a označujemeho ako $\varepsilon$. $\Sigma^*$ označuje množinu všetkých možných reťazcov nad abecedou $\Sigma$. $\Sigma^+$ označuje $\Sigma^* \setminus \{\varepsilon\}$. Pre $x \in \Sigma^*$ označenie $|x|$ vyjadruje počet symbolov v reťazci x. Podmnožina $L$, pre ktorú platí $L \subseteq \Sigma^*$ je formálnym jazykom nad $\Sigma$. V prípade, že $L$ je konečná množina reťazcov, potom je konečným jazykom. Naopak, ak L je nekonečná množina reťazcov, potom je nekonečným jazykom. Rodina jazykov je množina, ktorej prvky sú jazyky.
 
-$\Sigma^*$ označuje množinu všetkých možných reťazcov nad abecedou $\Sigma$. $\Sigma^+$ označuje $\Sigma^* \setminus \{\varepsilon\}$.
-
-Pre $x \in \Sigma^*$ označenie $|x|$ vyjadruje počet symbolov v reťazci x.
-
-\subsection{Formálne modely}
-Zavedenie formálnych modelov bolo vyžiadané čisto matematickým prístupom k jazykom. Veľká časť týchto modelov je založená na prepisujúcich systémoch. Prepisujúce systémy sa skladajú z pravidiel, ktoré opakovane menia poradie symbolov v reťazcoch. Klasifikujeme ich do dvoch základných kategórií. Generatívne modely, ktoré nazývame gramatikami definujú reťazce svojich jazykov. Tieto reťazce sú vygenerované pravidlami prepisovacieho systému z počiatočného symbolu. Prijímajúce modely, ktoré nazývame automatmi definujú reťazce svojich jazykov pomocou prepisovacieho procesu. Tento proces začína z týchto reťazcov a končí prvkom z predom danej konečnej množiny reťazcov.
+\subsection{Gramatiky}
+Podsekcia gramatik má za cieľ zadefinovať gramatiky, ktoré sa vyskytujú v Chomského hierarchii. Gramatiky umožňujú vytvoriť jazyky, ktoré zapadajú do rôznych časti Chomského hierarchie. Postupným zistením, do ktorej rodiny jazykov patrí hudobný jazyk sa zameriame na jednu skupinu gramatik. Tá gramatika by vo výsledku generovala hudobné jazyky.
 
 \begin{definition}
-
+\label{def:frazgram}
 Frázovú gramatiku definujeme ako štvoricu $G = (N,T,P,S)$, ktorá sa skladá z 
 \begin{itemize}\itemsep0.05em
     \item abecedy neterminálov N
@@ -186,40 +199,72 @@ Množina V = $N \cup T$ vyjadruje kompletnú abecedu gramatiky G. Prepisujúce p
 \end{definition}
 
 \begin{definition}
-Kontextová gramatika je frázová gramatika $G = (N,T,P,S)$, ktorá sa skladá z prepisovacích pravidiel $u \rightarrow v$ vo forme $u = x_1Ax_2, v = x_1yx_2$. A patrí medzi neterminály, $x_1, x_2, y$ sú reťazce. Pre y platí, že nesmie byť prázdny reťazec. Potom hovoríme o kontextovej gramatike. Kontextové gramatiky generujú kontextové jazyky. Kontextové jazyky vieme prijať linearne ohraničenými automatmi.
+Kontextová gramatika je frázová gramatika $G = (N,T,P,S)$, ktorá sa skladá z prepisovacích pravidiel $u \rightarrow v$ vo forme $$u = x_1Ax_2, v = x_1yx_2.$$ Platí, že $A \in N$, $x_1, x_2 \in V^*$. Ďalej $y \in V^+$. Potom hovoríme o kontextovej gramatike. Kontextové gramatiky generujú kontextové jazyky. Kontextové jazyky vieme prijať linearne ohraničenými automatmi.
 \end{definition}
 
 \begin{definition}
-Bezkontextová gramatika je frázová gramatika $G = (N,T,P,S)$, ktorá sa skladá z prepisovacích pravidiel vo forme $A \rightarrow x$. A je neterminál, x je reťazec. Bezkontextové gramatiky generujú bezkontextové jazyky. Bezkontextové jazyky vedia prijať zásobníkové automaty.
+Bezkontextová gramatika je frázová gramatika $G = (N,T,P,S)$, ktorá sa skladá z prepisovacích pravidiel vo forme $$A \rightarrow x.$$ Tu platí $A \in N$, $x \in V^*$. Bezkontextové gramatiky generujú bezkontextové jazyky. Bezkontextové jazyky vedia prijať zásobníkové automaty.
+\end{definition}
+% 87 a 246 priklady
+\begin{definition}
+Lineárna gramatika je frázová gramatika $G = (N,T,P,S)$, ktorej všetký pravidla sú v tvare $$A \rightarrow xBy, alebo \, A \rightarrow x.$$ Kde A,B $ \in N$ a x,y $ \in T^*$. Lineárny jazyk je generovaný linearnou gramatikou.
 \end{definition}
 
 \begin{definition}
-Lineárna gramatika je frázová gramatika $G = (N,T,P,S)$, ktorej všetký pravidla sú v tvare $A \rightarrow xBy$, alebo $A \rightarrow x$. Neterminály A,B $ \in N$ a x,y $ \in T^*$. Lineárny jazyk je generovaný linearnou gramatikou.
+Regulárna gramatika je frázová gramatika $G = (N,T,P,S)$, ktorá sa môže skladať z pravidiel vo forme $$A \rightarrow aB , alebo \, A \rightarrow a.$$ Pravidla sa skladajú z A,B $ \in N$, $a \in T$. Regulárne gramatiky generujú regulárne jazyky. Pre prijatie regulárnych jazykov používame konečné automaty.
 \end{definition}
 
 \begin{definition}
-Regulárna gramatika je frázová gramatika $G = (N,T,P,S)$, ktorá sa môže skladať z pravidiel vo forme $A \rightarrow aB$, alebo $A \rightarrow a$. Pravidla sa skladajú z neterminálov A,B a terminálu a. Regulárne gramatiky generujú regulárne jazyky. Pre prijatie regulárnych jazykov používame konečné automaty.
+\label{def:pravolin}
+Rodina regulárnych jazykov môže byť popísaná pravo-lineárnimi gramatikmi, ktoré sú definované následovne. Pravo-lineárna gramatika je frázova gramatika $G = (N,T,P,S)$, ktorá má všetky pravidla v tvare $$A \rightarrow aB, alebo \, A \rightarrow a.$$ Platí, že A,B $ \in N$ a x,y $ \in T^*$. Pravo-lineárny jazyk je generovaný pravo-lineárnou gramatikou.
+\end{definition}
+
+\subsection{Automaty}
+Podsekcia automaty definuje základne prostriedky, ktoré sa používajú pre ropoznanie reťazcov. Tieto reťazce patria rôznym jazykom. V prípade, že daný reťazec nepatrí jazyku, ktoré prijma konkrétny automat, tak je tento reťazec odmietnuty. Ich využitie leží v prijatí hudobného jazyka.
+
+\begin{definition}
+Konečný automat je definovaný ako pätica $M = (Q,\Sigma,R,s,F)$, ktorá sa skladá z
+\begin{itemize}\itemsep0.05em
+    \item konečnej množiny stavov $Q$,
+    \item vstupnej abecedy $\Sigma$,
+    \item množiny pravidiel alebo prechodov $R$, ktoré sú konečnou reláciou $R \subseteq Q \times \Sigma^* \times Q$,
+    \item počiatočného stavu $s \in Q$,
+    \item množiny konečných stavov $F \subseteq Q$.
+\end{itemize}
+
+Pravidla sú vo forme $py \rightarrow q \in R$ na rozdiel od $(p,y,q) \in R$. Ak $y \neq \epsilon$, potom hovoríme, že $M$ je bez epsilon prechodov. Konfiguráciu automatu $M$ tvorí hociktorý reťazec z $Q \, \Sigma^*$. Značenie $\vdash_M$ značí reláciu pohybu, ktorá je definovaná ponad $Q \, \Sigma^*$ ako $$pyx \vdash_M qx.$$ Definícia platí ak a jedine ak $pyx, qx \in Q \, \Sigma^*$, a zároveň $py \rightarrow q \in R$. $L(M)$ značí jazyk automatu $M$, ktorý je  definovaný $$L(M) = \{w \in \Sigma^* \shortmid sw \vdash_M^* \, f, f \in F\}.$$
 \end{definition}
 
 \begin{definition}
-Rodina regulárnych jazykov môže byť popísaná pravo-lineárnimi gramatikmi, ktoré sú definované následovne. Pravo-lineárna gramatika je frázova gramatika $G = (N,T,P,S)$, ktorá má všetky pravidla v tvare $A \rightarrow aB$, alebo $A \rightarrow a$. Neterminály A,B $ \in N$ a x,y $ \in T^*$. Pravo-lineárny jazyk je generovaný pravo-lineárnou gramatikou.
+Zásobnikový automat je konečný automat obohatený o zásobnik. Zásobníkový automat je teda definovaný sedmicou $M = (Q,\Sigma, \Gamma , R,s,S,F)$, ktorá sa skladá z
+\begin{itemize}\itemsep0.05em
+    \item konečnej množiny stavov $Q$,
+    \item vstupnej abecedy $\Sigma$,
+    \item zásobnikovej abecedy $\Gamma$,
+    \item pravidiel alebo prechodov $R$, ktoré sú konečnou reláciou $R \subseteq \Gamma^* \times Q \times (\Sigma \cup \{\epsilon\}) \times \Gamma^* \times Q$,
+    \item počiatočného stavu $s \in Q$,
+    \item počiatočného symbolu zásobnika $S$,
+    \item množiny konečných stavov $F \subseteq Q$.
+\end{itemize}
+Pravidlá sú vo forme $\gamma pa \rightarrow wq$ na rozdiel od $(\gamma , p, a, w, q) \in R$. Konfiguráciu automatu $M$ tvorí hociktorý reťazec z $\Gamma^* Q\Sigma^*$. Značenie $\vdash_M$ značí reláciu pohybu, ktorá je definovaná ponad $\Gamma^* Q\Sigma^*$ ako $$x\gamma pay \vdash_M xwqy.$$ Definícia platí ak a jedine ak $x\gamma pay, xwqy \in \Gamma^* Q\Sigma^*$, a zároveň $\gamma pa \rightarrow wq \in R$. Existujú rôzne spôsoby ako prijať jazyk zásobníkovým automatom. Súvisiaci je ale jeden spôsob, a to s prázdnym zásobníkom. $L_e(M)$ značí jazyk automatu $M$, ktorý prijíma jazyk prázdnym zásobníkom následovne $$L_e(M) = \{w \in \Sigma^* \shortmid Ssw \vdash_M^* \,q,q \in Q\}.$$
 \end{definition}
 
 \subsection{Chomského hierarchia}
-
 Frázové, kontextové, bezkontextové a regulárne gramatiky sa označujú ako typ-0, typ-1, typ-2 a typ-3. Rodina jazykov generovaná pravo-linárnimi gramatikami sú si rovné s rodinou jazykov, ktoré sú generované regulárnymi gramatikami. Preto označenia RVJ, KJ, BJ, LINJ, REJ sú použité pre rodiny jazykov generovaných všeobecnými, kontextovými, bezkontextovými, lineárnymi a regulárnymi gramatikami. RLINJ je označenie pre rodinu jazykov generovanú pravo-lineárnymi gramatikami. Pre tieto rodiny jazykov platí inklúzia $REJ = PLINJ \subset LINJ \subset BJ \subset KJ \subset RVJ$. Popis tejto hierarchie a jej prepojenie s hudbou je prevzaté z \cite{jstorgrammusic}, \cite{musicformallang}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.4]{obrazky-figures/ChomHier.png}
+    \includegraphics[scale=0.3]{obrazky-figures/ChomHier.png}
     \caption{Chomského hierarchia slabej generativnej kapacity.}
-    \label{fig:repetition}
+    \label{fig:chomhier}
 \end{figure}
 
 \subsection*{Typ-3 (Regulárne jazyky)}
 Regulárne jazyky sa používajú napríklad pre zápis regulárnych výrazov. Tie sa využívajú v rôznych UNIX-ových nástrojoch. Tieto jazyky sú výpočtovo nenáročné, deterministicky spracovateľné v lineárnom čase a podporujú rôzne matematické operácie, ako sú napríklad zjednotenie alebo konkatenacia. Ich najväčšia nevýhoda oproti silnejším formálnym modelom je ich limitovaná generatívna kapacita.
 
 Regulárne gramatiky sú taktiež veľmi limitujúce v tom, že nedokážu vytvoriť viacúrovňovú stromovú štruktúru, ktorou hudobná štruktúra určite je. Je to kvôli obmedzeniu gramatiky, u ktorej musí byť jeden neterminal na pravej strane produkčných pravidiel. Spracovanie hudobnej štruktúry si vyžaduje minimálne možnosť spracovať vnorené závislosti, ktoré sa v hudbe vyskytujú. Túto možnosť regulárne gramatiky neponúkajú. Príkladom stromovej štruktúry môže byť variácia na obrázku \ref{fig:Preklopenie}.
+
+Spočiatku sa ponúkala ako vhodné riešenie pravo-lineárna gramatika definovaná v \ref{def:pravolin}. Tieto gramatiky spadaju na základe chomskeho hierarchie do tejto kategorie. Pravidlami tejto gramatiky by sme mohli popísať tvorbu jednotlivých tónov. Majme pravidlo pravo-lineárnej gramatiky $A \rightarrow aB$. Ak vieme dosadiť za $a$ nejaký tón, potom vieme derivaciami tvoriť reťazce tónov reprezentujúce hudbu. 
 
 Markovské procesy, ktoré boli charakterizované Chomskym ako gramatika typu-3 nepreukázali schopnosť spracovať frázovú štruktúru. Tieto limitácie nesúvisia s problematikou stochastických procesov a deterministických procesov. Limitácie sa týkajú produkčných pravidiel. Markovské procesy sa riadia lineárnymi krokovými pravidlami narozdiel od bezkontextových gramatík. Bezkontextové gramatiky umožňujú vytvoriť reťazec neterminálov naraz pomocou produkčných pravidiel. Na základe týchto skutočností vieme, že regulárne gramatiky neponúkajú vhodne riešenie k popisu hudobnej štruktúry.
 
@@ -238,19 +283,45 @@ Tieto gramatiky sú jednoduchšie na spracovanie oproti gramatikám, ktoré tvor
 \end{figure}
 
 \subsection*{Typ-1 (Kontextové jazyky)}
-Kontextové jazyky zahrňujú v sebe aj kopírovacie jazyky. Tieto jazyky sú rozhodnutelné, ale vyžadujú si vysokú výpočtovú silu vo väčšine prípadov. Ukázalo sa, že v niektorých prípadoch hudobné jazyky si vyžadujú silnejší formalizmus, ako sú bezkontextové gramatiky. Je to vďaka tomu, že tóny sú medzi jednotlivými taktami sú usporiadané vo forme kopírovacích jazykov. Ukážka takéhoto jazyka v notovom zápise je na pravej strane obrázka \ref{fig:dependencies}.
+Kontextové jazyky zahrňujú v sebe aj kopírovacie jazyky. Tieto jazyky sú rozhodnutelné, ale vyžadujú si vysokú výpočtovú silu vo väčšine prípadov. Ukázalo sa, že v niektorých prípadoch hudobné jazyky si vyžadujú silnejší formalizmus, ako sú bezkontextové gramatiky. Je to vďaka tomu, že tóny sú medzi jednotlivými taktami usporiadané vo forme kopírovacích jazykov. Ukážka takéhoto jazyka v notovom zápise je na pravej strane obrázka \ref{fig:dependencies}.
 
 S kontextovými gramatikami prichádzajú aj problémy. Prvý problém je, že reťazce vygenerovane touto gramatikou sú nerozhodnutelné. Nerozhodné pravidlá sú súčasťou tejto gramatiky, čo znemožňuje zachovanie rovnakej frázovej štruktúry v reťazcoch generovaných kontextovou gramatikou. To je spôsobené tým, že každá strana z produkčných pravidiel môže byť reťazec tokenov. Reťazce tokenov na každej strane znemožňujú aplikáciu kontextových gramatik v analýze hudobnej štruktúry. Bezkontextové gramatiky môžu mať tiež nerozhodné pravidlá, ale krokovanie ich derivácií je zjednodušené. Zjednodušením je hociaký terminál, ktorý sa redukuje na jediný neterminal narozdiel od kontextových gramatik. U kontextových gramatík sa môže redukovať na celý reťazec.
 
-Druhým problémom je implementácia. Použitie prekladača na takúto gramatiku by spôsobuje znásobenie počtu produkčných pravidiel počtom kontextových možnosti. Špecifikácia takejto gramatiky nie je jednoducha. Popisovanie krokov gramatiky takého prekladača sa stane kombinatorické, pretože krížové závislosti musia byť vložené do produkčných tabuliek.
+Druhým problémom je implementácia. Použitie prekladača na takúto gramatiku spôsobuje znásobenie počtu produkčných pravidiel počtom kontextových možnosti. Špecifikácia takejto gramatiky nie je jednoducha. Popisovanie krokov gramatiky takého prekladača sa stane kombinatorické, pretože krížové závislosti musia byť vložené do produkčných tabuliek.
 
 Napriek všetkým týmto komplikáciám je stále možné kontextové závislosti zabudovať do gramatiky konštruovanej čisto z bezkontextových produkčných pravidiel. Tento spôsob je možné celkom jednoznačne preložiť. Problem môže nastať u zobrazovaní kopírovacích závislostiach v gramatike.
 
 \subsection*{Typ-0 (Rekurzívne vyčísliteľné jazyky)}
-Rekurzívne vyčísliteľné jazyky sú jazyky, ktoré sú tvorené všeobecnými gramatikami. Tieto gramatiky nezavádzajú žiadne obmedzenia na produkčné pravidla. Z definície tieto gramatiky umožňujú vznik nekonečných reťazcov, ktoré samotné v hudbe nepredstavujú zmysel a nevedú tak k rozumnému riešeniu. Existujú, ale hudobné prostredia, ktoré sa zaoberajú generovaním a syntézou v reálnom čase. Tieto prostredia sú turingovo úplne a volia si silnú generatívnu kapacitu. Problém s výpočtovou náročnosťou nechávajú v rukách užívateľa.
+Rekurzívne vyčísliteľné jazyky sú jazyky, ktoré sú tvorené všeobecnými gramatikami. Tieto gramatiky nezavádzajú žiadne obmedzenia na produkčné pravidla. Z definície tieto gramatiky umožňujú vznik nekonečných reťazcov, ktoré samotné v hudbe nepredstavujú zmysel a nevedú tak k rozumnému riešeniu. Existujú, ale hudobné prostredia, ktoré sa zaoberajú generovaním a syntézou v reálnom čase. Tieto prostredia sú turingovo úplne a volia si silnú generatívnu kapacitu. Problém s výpočtovou náročnosťou nechávajú v rukách užívateľa. Definácia \ref{def:frazgram} definuje gramatiku, ktorá generuje tieto jazyky. Využitie tejto gramatiky nie je momentálne v tejto práci, ale využitie môžu nájsť v jej ďalšom pokračovaní.
 
-\chapter{Gramatiky s rozptýleným kontextom a ich aplikácia v hudbe}
+\chapter{Návrh modelu pre tvorbu nových hudobných pasáži}
+\label{chap:app}
+Obsahom tejto sekcie návrh nových modelov, ktoré by sa mohli aplikovať v hudbe. Návrh vychádza z gramatík s rozptýleným kontextom, ktoré sa ukázali vhodné v mnohých aspektoch tvorby hudby. Ako obrovská výhoda sa ukázala preskočenie kontextu, ktorý sa v rôznych pasážiach hudby vyskytuje. Ich ďalšou výhodou je, že umožňujú generovanie bezkontextových jazykov, ale i kontextových jazykov. Gramatík s rozptýleným kontextom našli aplikácie v lingvistike. Aplikácia týchto gramatik v lingvistike je podobného princípu ako sú aplikácie v hudbe. Na základe toho sa ukázali gramatiky s rozptýleným kontextom vhodné pre aplikáciu v hudbe. Teória ku gramatikám s rozptýleným kontextom je prevzaná z knižky \cite{FITPUB8997}.
+
+\section{Spracovanie nôt}
+
+\section{Gramatiky s rozptýleným kontextom}
+\begin{definition}
+Gramatikou s rozptýleným kontextom rozumieme štvoricu $G = (V,T,P,S)$, ktorá sa skladá z
+\begin{itemize}\itemsep0.05em
+    \item úplnej abecedy V 
+    \item množiny terminálov T, pre ktorú platí $T \subset V$
+    \item konečnej množiny pravidiel P v tvare $$(A_1, ..., A_n) \rightarrow (x_1, ..., x_n),$$ kde platí $n \geq 1, A_i \in V \setminus T, x_i \in V^*$ pre všetký i $1 \leq i \leq n.$
+    \item počiatočného symbolu S pre ktorý platí $S \in V \setminus T$
+\end{itemize}
+\end{definition}
+
+V prípade, že $$u = u_1A_1...u_nA_nu_{n+1},$$$$v = u_1x_1...u_nx_nu_{n+1},$$ ako aj $p = (A_1, ..., A_n) \rightarrow (x_1, ..., x_n) \in P,$ kde $u_i \in V^*$, pre každé i ohraničené podmienkou $1 \leq i \leq n + 1$, máme derivačný krok od $u$ po $v$ na základe $p$ vytvorený gramatikou $G$, ktorý zapisujeme $u \Rightarrow_G v \, [p],$ alebo zjednodušenou variantou $u \Rightarrow_G v$.
+
+Ak platí $dl\check{z}ka(p) \geq 2$, potorom hovoríme že $p$ je kontextovom pravidle. V prípade, že $dl\check{z}ka(p) = 1$ tak $p$ je bezkontextové pravidlo. Jazyk značený ako $L(G)$ je generovaný gramatikou $G$ a definujeme ho ako $$L(G) = \{x: x \in T^*, S \Rightarrow^*_G x\}.$$
+
+Jazyk s rozptýleným kontextom je jazyk $L$ právte vtedy, ak vieme nájsť takú gramatiku s rozptýleným kontextom $G$, kedy platí $L = L(G)$. Gramatiky s rozptýleným kontextom generujú jazyky s rozptýleným kontextom, ktoré označujeme ako $JRC$.
+
+\section{Hlboký zásobnikový automat.}
+
 
 \chapter{Implementácia}
-
+\label{chap:imp}
 \chapter{Záver}
+\label{chap:end}
+
