@@ -42,6 +42,7 @@ Na obrázku \ref{fig:tonfrek} sú zobrazené tóny cez dve oktávy, ktoré sú p
 \end{figure}
 
 \subsection{Nota}
+\label{subs:nota}
 Nota je grafická značka, ktorá sa zapisuje do notovej osnovy. Pomocou noty vieme vyjadriť dĺžku tónu a jeho výšku. Ostatné vlastnosti tónu sa zapisujú inými značkami. Zápis nôt do notovej osnovy je potrebný pre reprezentáciu hudobnej myšlienky alebo jej interpretáciu. Noty majú rôzne značenie. Notu tvorí hlavička a nožička. V tejto práci sú použité tri základné značenia, ako sú celá nota, polová nota a štvrťová nota. Tieto notové značenia sú na obrázku \ref{fig:druhnot}.
 
 \begin{figure}[H]
@@ -229,6 +230,7 @@ Rodina regulárnych jazykov môže byť popísaná pravo-lineárnimi gramatikmi,
 Podsekcia automaty definuje základne prostriedky, ktoré sa používajú pre ropoznanie reťazcov. Tieto reťazce patria rôznym jazykom. V prípade, že daný reťazec nepatrí jazyku, ktoré prijma konkrétny automat, tak je tento reťazec odmietnuty. Ich využitie leží v prijatí hudobného jazyka.
 
 \begin{definition}
+\label{def:endaut}
 Konečný automat je definovaný ako pätica $M = (Q,\Sigma,R,s,F)$, ktorá sa skladá z
 \begin{itemize}\itemsep0.05em
     \item konečnej množiny stavov $Q$,
@@ -339,7 +341,32 @@ Veta z obrázka \ref{fig:dependencies} sa skladá v dvoch taktoch z tónov $hgah
 Môžme si všimnúť, že stále zanedbávame dlžky jednotlivých tónov. Rišenie bude prezentované v nadchádzajúcej kapitole.
 
 \section{Spracovanie nôt}
+V tejto sekcii si rozoberieme akým spôsobom sú ďalej reprezentované noty. Reprezentacia nôt v programe nie je vôbec jednoduchá. Sú to grafické značky a zapisujú sa do notového zápisu, ktorý je tiež grafický. Toto znemožňuje ich jednoduchú reprezentáciu ako v programe, ale i vo vstupnom súbore. Keď sa pozrieme do notového zápisu nejakého taktu tak vidíme samotnú značku. Ako prvé podľa jej tvaru vieme odčítať jej dlžku či ide o celú, polovú, štvrťovú alebo osminovú notu. Ak chceme zistiť tón tak ho odčítame z pozície noty v notovej osnove.
 
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l}
+    \hline
+        ~ & c1 & d1 & e1 & f1 & g1 & a1 & h1 \\ \hline
+        celá & c1\_c & d1\_c & e1\_c & f1\_c & g1\_c & a1\_c & h1\_c \\ \hline
+        polová & c1\_p & d1\_p & d1\_p & f1\_p & g1\_p & a1\_p & h1\_p \\ \hline
+        štvrťová & c1\_š & d1\_š & d1\_š & f1\_š & g1\_š & a1\_š & h1\_š \\ \hline
+        osminová & c1\_o & d1\_o & d1\_o & f1\_o & g1\_o & a1\_o & h1\_o  \\ \hline
+    \end{tabular}
+    \caption{\label{tab:notes} Prehlad popisu nôt.}
+\end{table}
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l}
+    \hline
+        ~ & c2 & d2 & e2 & f2 & g2 & a2 & h2 & c3 \\ \hline
+        celá & c2\_c & d2\_c & e2\_c & f2\_c & g2\_c & a2\_c & h2\_c & c3\_c \\ \hline
+        polová & c2\_p & d2\_p & e2\_p & f2\_p & g2\_p & a2\_p & h2\_p & c3\_p \\ \hline
+        štvrťová & c2\_š & d2\_š & e2\_š & f2\_š & g2\_š & a2\_š & h2\_š & c3\_š \\ \hline
+        osminová & c2\_o & d2\_o & e2\_o & f2\_o & g2\_o & a2\_o & h2\_o & c3\_o \\ \hline
+    \end{tabular}
+    \caption{\label{tab:notes} Prehlad popisu nôt.}
+\end{table}
 \section{LL gramatika s rozptýleným kontextom.}
 
 
