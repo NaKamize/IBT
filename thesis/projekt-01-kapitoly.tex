@@ -1,4 +1,5 @@
 \newtheorem{definition}{Definícia}[section]
+\newtheorem{example}{Príklad}[section]
 
 \def\UrlBreaks{\do\/\do-}
 
@@ -146,7 +147,9 @@ Preto v tejto práci bolo použitých šesť bežných druhov motívových vari�
     \end{figure}
     \item V prípade variovania témy predlžovaním alebo znižovaním dĺžky nôt je motív opakovaný. Variovanie motívu prebieha na obrázku \ref{fig:augmentacia} zdvojnásobením pôvodnej dĺžky noty. Keďže je stále potrebné dodržať rytmus taktu, tak sa museli posledné dve noty presunúť do extra taktu. Z taktového predpisu jeden takt môže obsahovať 4 doby. Po zdvojnásobení tejto dĺžky je potrebné rozložiť 8 dôb do dvoch taktov.
     
-    Na obrázku \ref{fig:Diminution} je dvojnásobné zníženie dĺžky nôt. Keďže takt trvá 4 doby, potom jeho polovičné zníženie trvá 2 doby. Pre dodržanie tohto taktového predpisu je k dvom dobám pridaná pomlčka, ktorá trvá 2 doby.
+    Na obrázku \ref{fig:Diminution} je dvojnásobné zníženie dĺžky nôt. Keďže takt trvá 4 doby, potom jeho polovičné zníženie trvá 2 doby. Pre dodržanie tohto taktového predpisu je k dvom dobám pridaná pomlčka, ktorá trvá 2 doby. Pomlčky nie sú súčasťou práce, ale v tomto prípade sú použité pre korektný zápis taktu.    Na obrázku \ref{fig:Diminution} je dvojnásobné zníženie dĺžky nôt. Keďže takt trvá 4 doby, potom jeho polovičné zníženie trvá 2 doby. Pre dodržanie tohto taktového predpisu je k dvom dobám pridaná pomlčka, ktorá trvá 2 doby. Pomlčky nie sú súčasťou práce, ale v tomto prípade sú použité pre korektný zápis taktu.
+
+
     
     \begin{figure}[H]
     \centering
@@ -305,9 +308,7 @@ Rekurzívne vyčísliteľné jazyky sú jazyky, ktoré sú tvorené všeobecným
 \label{chap:app}
 Obsahom tejto sekcie návrh nových modelov, ktoré by sa mohli aplikovať v hudbe. Návrh vychádza z gramatík s rozptýleným kontextom, ktoré sa ukázali vhodné v mnohých aspektoch tvorby hudby. Ako obrovská výhoda sa ukázala preskočenie kontextu, ktorý sa v rôznych pasážiach hudby vyskytuje. Ich ďalšou výhodou je, že umožňujú generovanie bezkontextových jazykov, ale i kontextových jazykov. Gramatík s rozptýleným kontextom našli aplikácie v lingvistike. Aplikácia týchto gramatik v lingvistike je podobného princípu ako sú aplikácie v hudbe. Na základe toho sa ukázali gramatiky s rozptýleným kontextom vhodné pre aplikáciu v hudbe. Teória ku gramatikám s rozptýleným kontextom je prevzaná z knižky \cite{FITPUB8997}.
 
-\section{Spracovanie nôt}
-
-\section{Gramatiky s rozptýleným kontextom}
+\section{Gramatika s rozptýleným kontextom}
 \begin{definition}
 Gramatikou s rozptýleným kontextom rozumieme štvoricu $G = (V,T,P,S)$, ktorá sa skladá z
 \begin{itemize}\itemsep0.05em
@@ -324,9 +325,25 @@ Ak platí $dl\check{z}ka(p) \geq 2$, potorom hovoríme že $p$ je kontextovom pr
 
 Jazyk s rozptýleným kontextom je jazyk $L$ právte vtedy, ak vieme nájsť takú gramatiku s rozptýleným kontextom $G$, kedy platí $L = L(G)$. Gramatiky s rozptýleným kontextom generujú jazyky s rozptýleným kontextom, ktoré označujeme ako $JRC$.
 
-\section{Hlboký zásobnikový automat.}
+\begin{example}
+    Zoberme si jazyk typu-1, ktorý je zobrazený na obrázku \ref{fig:chomhier} \\ $L = \{a^n b^n c^n| n \geq 2\}$. Aby sme mohli tento jazyk generovať gramatikou v hudbe je potrebné ho zapísať pomocou tónov. Tento jazyk vyzerá následovne: $L = \{c^n d^n e^n| n \geq 2\}$. Aby sme vygenerovali tento jazyk pomocou gramatiky s rozptýleným kontextom definujeme ju následovne: $$ G = (\{S, X, c, d, e\}, \{c,d,e\}, P, S)$$ kde $$P = \{(S) \rightarrow (ccXddXeeX), (X,X,X) \rightarrow (cX, dX, eX), (X,X,X) \rightarrow (\epsilon, \epsilon, \epsilon)\}.$$
+    Majme užívateľa, ktorý by chcel vytvoriť hudobnú myšlienku v tvare $cccdddeee$. Myšlienka by bola vytvorená následovne: $$ S \Rightarrow_G  ccXddXeeX \Rightarrow_G cccXdddXeeeX \Rightarrow_G cccdddeee.$$
+\end{example}
+
+Samotná gramatika s rozptýleným kontextom sa ukázala ako vhodná pre generovanie rôznych viet. Tento prístup je vhodný v prípade že uživatel vie ako by mal výstup vyzerať. No v prípade hudobníkov to vždy tak nie je. Predstavme si hudobníka, ktorý si nosí v hlave nejakú tému skladby. Dopredu nevie povedať ako bude vyzerať variácia tejto hudobnej myšlienky. Variácie existujú rôzne a vybrať si jednu, ktorá by sa mu hodila pre pokračovanie ďalej v skladbe vôbec nie je jednoduché. Zložitosť predstaviť si takú variáciu narastá s dĺžkou témy, od ktorej by sa mala rozvíjať. Princíp tohto riešenia môžeme spozorovať na pravej strane obrázku \ref{fig:dependencies}. Kedy by sa mohla v prvom takte nachádzať nejaká myšlienka skladatela, a na druhej strane jej obmenenie, čiže variácia. Hovoríme teda o spomínanom kopírovacom jazyku, a krížiacich sa závislostiach. Krížiace sa závislosti je možné reprezentovať gramatikami s rozptýleným kontextom. Príklad gramatiky, ktorá vytvorí vetu z obrázka je nasledovný.
+
+\begin{example}
+Veta z obrázka \ref{fig:dependencies} sa skladá v dvoch taktoch z tónov $hgahga$. Majme gramatiku $$G = (\{S,X,h,g,a\}, \{h,g,a\}, P, S)$$ kde $$P = \{(S) \rightarrow (XX), (X,X) \rightarrow (hX,hX)$$ $$(X,X) \rightarrow (aX,aX), (X,X) \rightarrow (gX,gX), (X,X) \rightarrow (\epsilon, \epsilon)\}.$$ Postup tvorby spomínanych dvoch taktov je následovný: $$S \Rightarrow_G XX \Rightarrow_G hXhX \Rightarrow_G hgXhgX \Rightarrow_G hgaXhgaX \Rightarrow_G hgahga.$$
+\end{example}
+
+Môžme si všimnúť, že stále zanedbávame dlžky jednotlivých tónov. Rišenie bude prezentované v nadchádzajúcej kapitole.
+
+\section{Spracovanie nôt}
 
 \section{LL gramatika s rozptýleným kontextom.}
+
+
+\section{Hlboký zásobnikový automat.}
 
 \section{Algoritmus}
 
