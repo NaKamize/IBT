@@ -403,6 +403,43 @@ Majme gramatiku s rozptýleným kontextom $G = (N, T, P, S)$. Nech $k$ je kladn�
     \item Druhá LL podmienka. Majme dve rozdielne pravidlá $$(A_1,A_2, ...,A_m) \rightarrow (x_1, x_2, ..., x_m) \in P$$ a $$(B_1, B_2, ..., B_n) \rightarrow (y_1, y_2, ..., y_n),$$ ktoré splňujú podmienku $A_1 = A_2$, platí že $$prv\acute{y}(pjadro(G),x_1) \cap prv\acute{y}(pjadro(G),y_1) = \emptyset$$
 \end{enumerate}
 
+\begin{example}
+Majme LL 2-lineárnu gramatiku s rozptýleným kontextom \\ $G = (\{S,X\},\{c1\_p, d1\_p, |\}, P, S)$, kde $$P = \{(S) \rightarrow (XX), (X,X) \rightarrow (c1\_pX, c1\_pX), (X,X) \rightarrow (d1\_pX, d1\_pX)\}.$$ potom tvorba nasledujúcej dvojice taktov z obrázku \ref{fig:Priklad1} vyzerá následovne:
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{thesis/obrazky-figures/Priklad1.png}
+    \caption{Variácia opakovaním.}
+    \label{fig:Priklad1}
+\end{figure}
+$$S \Rightarrow_G XX \Rightarrow_G c1\_pXc1\_pX \Rightarrow_G c1\_pd1\_pXc1\_pd1\_pX \Rightarrow_G c1\_pd1\_p|c1\_pd1\_p|.$$
+
+Zjavne platí, že $|XX| = 2$, na pravej strane pravidiel na nevyskytuje S a $$prv\acute{y}(pjadro(G),x_1) \cap prv\acute{y}(pjadro(G),y_1) = \emptyset.$$
+\end{example}
+
+Aby bolo možné správne reprezentovať tvorbu variácií pomocou gramatiky budeme musieť vytvoriť novú gramatiku, ktorá bude obsahovať určité úpravy. Preto gramatika pre tvorbu variácií je následovná:
+
+\begin{definition}
+$G = (\{S, X, R, c1\_c, d1\_c, e1\_c, f1\_c, g1\_c, a1\_c, h1\_c, c2\_c, d2\_c, \\ e2\_c, f2\_c, g2\_c, a2\_c, h2\_c, c3\_c, c1\_p, d1\_p, d1\_p, f1\_p, g1\_p, a1\_p, h1\_p, c2\_p, \\ d2\_p, e2\_p, f2\_p, g2\_p, a2\_p, h2\_p, c3\_p, c1\_\check{s}, d1\_\check{s}, d1\_\check{s}, f1\_\check{s}, g1\_\check{s}, a1\_\check{s}, h1\_\check{s}, \\ c2\_\check{s}, d2\_\check{s}, e2\_\check{s}, f2\_\check{s}, g2\_\check{s}, a2\_\check{s}, h2\_\check{s}, c3\_\check{s}, c1\_o, d1\_o, d1\_o, f1\_o, g1\_o, a1\_o, \\ h1\_o, c2\_o, d2\_o, e2\_o, f2\_o, g2\_o, a2\_o, h2\_o, c3\_o\}, \{c1\_c, d1\_c, e1\_c, f1\_c, g1\_c, \\ a1\_c, h1\_c, c2\_c, d2\_c, e2\_c, f2\_c, g2\_c, a2\_c, h2\_c, c3\_c, c1\_p, d1\_p, d1\_p, f1\_p, \\ g1\_p, a1\_p, h1\_p, c2\_p, d2\_p, e2\_p, f2\_p, g2\_p, a2\_p, h2\_p, c3\_p, c1\_\check{s}, d1\_\check{s}, d1\_\check{s}, \\ f1\_\check{s}, g1\_\check{s}, a1\_\check{s}, h1\_\check{s}, c2\_\check{s}, d2\_\check{s}, e2\_\check{s}, f2\_\check{s}, g2\_\check{s}, a2\_\check{s}, h2\_\check{s}, c3\_\check{s}, c1\_o, d1\_o, \\ d1\_o, f1\_o, g1\_o, a1\_o, h1\_o, c2\_o, d2\_o, e2\_o, f2\_o, g2\_o, a2\_o, h2\_o, c3\_o\}, P, S),$ \\
+kde $$P = \{\{(S) \rightarrow (XX)\} \, \cup $$ 
+$$\{(X,X) \rightarrow (c1\_cX, c1\_cX), (X,X) \rightarrow (d1\_cX, d1\_cX)$$
+$$\vdots$$
+$$(X,X) \rightarrow (c1\_pX, c1\_pX), (X,X) \rightarrow (d1\_pX, d1\_pX)$$
+$$\vdots$$
+$$(X,X) \rightarrow (c1\_\check{s}X, c1\_\check{s}X), (X,X) \rightarrow (d1\_\check{s}X, d1\_\check{s}X)\}\, \cup$$
+$$\{(X,X) \rightarrow (c1\_cX, d1\_cX), (X,X) \rightarrow (d1\_cX, e1\_cX)$$
+$$\vdots$$
+$$(X,X) \rightarrow (c1\_pX, d1\_pX), (X,X) \rightarrow (d1\_pX, e1\_pX)$$
+$$\vdots$$
+$$(X,X) \rightarrow (c1\_\check{s}X, d1\_\check{s}X), (X,X) \rightarrow (d1\_\check{s}X, e1\_\check{s}X)\}\, \cup$$
+$$\{(X,X) \rightarrow (d1\_cX, c1\_cX), (X,X) \rightarrow (e1\_cX, d1\_cX)$$
+$$\vdots$$
+$$\{(X,X) \rightarrow (g1\_oX, f1\_oX), (X,X) \rightarrow (a1\_oX, g1\_oX)$$
+$$\{(X,X) \rightarrow (h1\_oX, a1\_oX), (X,X) \rightarrow (c2\_oX, h1\_oX)$$
+$$\vdots$$
+$$\}\, \cup$$
+
+\end{definition}
+
 \section{Hlboký zásobnikový automat.}
 
 \section{Algoritmus}
