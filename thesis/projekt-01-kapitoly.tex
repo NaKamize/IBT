@@ -341,7 +341,7 @@ Veta z obrázka \ref{fig:dependencies} sa skladá v dvoch taktoch z tónov $hgah
 Môžme si všimnúť, že stále zanedbávame dlžky jednotlivých tónov. Rišenie bude prezentované v nadchádzajúcej kapitole.
 
 \section{Spracovanie nôt}
-V tejto sekcii si rozoberieme akým spôsobom sú ďalej reprezentované noty. Reprezentacia nôt v programe nie je vôbec jednoduchá. Sú to grafické značky a zapisujú sa do notového zápisu, ktorý je tiež grafický. Toto znemožňuje ich jednoduchú reprezentáciu ako v programe, ale i vo vstupnom súbore. Keď sa pozrieme do notového zápisu nejakého taktu tak vidíme samotnú značku. Ako prvé podľa jej tvaru vieme odčítať jej dlžku či ide o celú, polovú, štvrťovú alebo osminovú notu. Ak chceme zistiť tón tak ho odčítame z pozície noty v notovej osnove.
+V tejto sekcii si rozoberieme akým spôsobom sú ďalej reprezentované noty. Reprezentácia nôt v programe nie je vôbec jednoduchá. Sú to grafické značky a zapisujú sa do notového zápisu, ktorý je tiež grafický. Toto znemožňuje ich jednoduchú reprezentáciu ako v programe, ale i vo vstupnom súbore. Keď sa pozrieme do notového zápisu nejakého taktu tak vidíme samotnú značku. Ako prvé podľa jej tvaru vieme odčítať jej dĺžku či ide o celú, polovú, štvrťovú alebo osminovú notu. Ak chceme zistiť tón tak ho odčítame z pozície noty v notovej osnove. Preto boli zavedené nasledovné značenia pre jednotlivé noty.
 
 \begin{table}[!ht]
     \centering
@@ -365,10 +365,43 @@ V tejto sekcii si rozoberieme akým spôsobom sú ďalej reprezentované noty. R
         štvrťová & c2\_š & d2\_š & e2\_š & f2\_š & g2\_š & a2\_š & h2\_š & c3\_š \\ \hline
         osminová & c2\_o & d2\_o & e2\_o & f2\_o & g2\_o & a2\_o & h2\_o & c3\_o \\ \hline
     \end{tabular}
-    \caption{\label{tab:notes} Prehlad popisu nôt.}
+    \caption{\label{tab:notes1} Prehlad popisu nôt.}
 \end{table}
-\section{LL gramatika s rozptýleným kontextom.}
 
+Tabuľky \ref{tab:notes} a \ref{tab:notes1} zobrazujú ako boli pomenované jednotlivé terminály, ktoré sú použité ďalej v práci. Stĺpce tabuľky sú pomenované po tónoch, ktoré sa nachádzajú na jednočiarkovanej a dvojčiarkovanej sústave. Existuje množstvo tónov, ale tieto sú v bežných skladbách najpoužívanejšie. Riadky tabuľky sú pomenované po jednotlivých dĺžkach tónov, ktoré sú použité v tejto práci.
+
+\section{LL gramatika s rozptýleným kontextom.}
+Táto sekcia sa zaoberá a definuje gramatiku s lineárnymi pravidlami $LL(k)$ verziu gramatiky s rozptýleným kontextom. Pre získanie tejto gramatiky je potrebné modifikovať gramatiku s rozptýleným kontextom. Nižšie je rozoberaný spôsob v troch bodoch, ktorý popisuje tento proces. Ako bol upravený pre potrebu tvorby hudobných pasáži, ako sú variacie. Text, ale i definície v tejto kapitole sú prevzané z \cite{FITPUB10498}.
+
+\begin{enumerate}[label=\arabic*)]
+    \item Každé pravidlo gramatiky, ktorá by malo tvoriť hudobné pasáže sa musí skladať iba z lineárnych pravidiel. Pod tým rozumieme, že každé $x_i$ môže obsahovať naraz iba jeden neterminál. Existuje ale jedna výnimka pre pravidlo pre počiatočný symbol S v tvare $(S) \rightarrow (x)$. Pod $x$ rozumieme neprázdny reťazec, kde môže byť naraz $k$ neterminalov. Kde $k$ je pozitívne celé číslo pre každú gramatiku. Pre pravidlá ďalej platí, že $S$ sa snesmie objaviť na pravej strane.
+    
+    \item Majme pravidlo typu $(X,X) \rightarrow (c1\_c, c1\_c)$, ktoré vieme použiť pri koprívaní tónov. Ak zoberieme prvé komponenty všetkých takýchto pravidiel vo forme $X \rightarrow c1\_c$, potom získame bezkotexntovú gramatiku, ktorá je LL gramatikou.
+    
+    \item Zoberme si variáciu opakovaním témy z obrázku \ref{fig:repetition}. Aby sme prepísali terminály reprezentujúce tieto takty $HGAHGA$, potrebujeme pravidlá aplikovať iba najľavejším spôsobom. Prepísanie pravidlom $(X,X,X) \rightarrow (h1\_c, g1\_\check{s}, a1\_\check{s})$ je možné iba na $h1\_c \, g1\_\check{s} \, a1\_\check{s}HGA$. Teda $HHGGAA$ nie je možné prepísať týmto spôsobom.
+\end{enumerate}
+
+Pred definovaním samotnej gramatiky, je potrené definovať dva pojmy.
+
+\begin{definition}
+Majme bezkontextovú gramatiku $G = (N, T, P, S)$. Potom pre každé $x \in (N \cup T)^*$ máme množinu $$prv\acute{y}(G,x) = \{a \in T \, | \, x \Rightarrow^*_G ay \, vo \, G, y \in (N \cup T)^*\}.$$ 
+\end{definition}
+
+\begin{definition}
+Majme gramatiku s rozptýleným kontextom $G = (N, T, P, S)$. Značenie $pjadro(G)$ značí prvý komponent jadra gramatiky $G$. Definujeme ho ako bezkontextovú gramatiku $$pjadro(G) = (N,T,P^\prime,S),$$ kde $$P^\prime = \{A_1 \rightarrow x_1 \, | \, (A_1, A_2, ..., A_m) \rightarrow (x_1, x_2, ..., x_m) \in P^\prime\}.$$
+\end{definition}
+
+\begin{definition}
+Majme gramatiku s rozptýleným kontextom $G = (N, T, P, S)$. Nech $k$ je kladné celé číslo. Potom hovoríme o $G$ ako o LL k-lineárnej gramatike s rozptýleným kontextom ak sú splnené tieto tri podmienky. 
+\end{definition}
+
+\begin{enumerate}[label=\arabic*)]
+    \item Podmienka k-linearity. Pre každé pravidlo $P$ platí, že je vo forme $$(S) \rightarrow (x),$$ kde platí $x \in (N \setminus \{S\})^+, |x| \leq k,$ alebo $$(A_1,A_2, ..., A_m) \rightarrow (x_1, x_2, ..., x_m).$$ V pravidlách tohto typu platí, že $A_i \in (N \setminus \{S\}), x_i \in T^*(N \setminus \{S\})T^* \cup T^+,$ pre všetký i ohraničené $1 \leq i \leq m, $ pre nejaké $m \geq 1.$
+    
+    \item Prvá LL podmienka. Majme relaciu $\Rightarrow_G$, ktorá je definovaná derivačným krokom od u po v, značená ako $u \Rightarrow_G v$. Vtedy a iba vtedy ak $$u = u_1A_1u_2A_2...u_mA_my$$ $$v = u_1x_1u_2x_2...u_mx_my$$ a $$(A_1,A_2, ...,A_m) \rightarrow (x_1,x_2, ..., x_m) \in P.$$ kde $y \in V^*, u_i \in T^*,$ pre všetky i, ktoré sú ohraničené $1 \leq i \leq m.$ 
+    
+    \item Druhá LL podmienka. Majme dve rozdielne pravidlá $$(A_1,A_2, ...,A_m) \rightarrow (x_1, x_2, ..., x_m) \in P$$ a $$(B_1, B_2, ..., B_n) \rightarrow (y_1, y_2, ..., y_n),$$ ktoré splňujú podmienku $A_1 = A_2$, platí že $$prv\acute{y}(pjadro(G),x_1) \cap prv\acute{y}(pjadro(G),y_1) = \emptyset$$
+\end{enumerate}
 
 \section{Hlboký zásobnikový automat.}
 
