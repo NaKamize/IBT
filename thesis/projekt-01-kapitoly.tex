@@ -392,6 +392,7 @@ Majme gramatiku s rozptýleným kontextom $G = (N, T, P, S)$. Značenie $pjadro(
 \end{definition}
 
 \begin{definition}
+\label{def:ll}
 Majme gramatiku s rozptýleným kontextom $G = (N, T, P, S)$. Nech $k$ je kladné celé číslo. Potom hovoríme o $G$ ako o LL k-lineárnej gramatike s rozptýleným kontextom ak sú splnené tieto tri podmienky. 
 \end{definition}
 
@@ -413,32 +414,73 @@ Majme LL 2-lineárnu gramatiku s rozptýleným kontextom \\ $G = (\{S,X\},\{c1\_
 \end{figure}
 $$S \Rightarrow_G XX \Rightarrow_G c1\_pXc1\_pX \Rightarrow_G c1\_pd1\_pXc1\_pd1\_pX \Rightarrow_G c1\_pd1\_p|c1\_pd1\_p|.$$
 
-Zjavne platí, že $|XX| = 2$, na pravej strane pravidiel na nevyskytuje S a $$prv\acute{y}(pjadro(G),x_1) \cap prv\acute{y}(pjadro(G),y_1) = \emptyset.$$
+Zjavne platí, že $|XX| = 2$, na pravej strane pravidiel na nevyskytuje S.
 \end{example}
 
 Aby bolo možné správne reprezentovať tvorbu variácií pomocou gramatiky budeme musieť vytvoriť novú gramatiku, ktorá bude obsahovať určité úpravy. Preto gramatika pre tvorbu variácií je následovná:
 
 \begin{definition}
 $G = (\{S, X, R, c1\_c, d1\_c, e1\_c, f1\_c, g1\_c, a1\_c, h1\_c, c2\_c, d2\_c, \\ e2\_c, f2\_c, g2\_c, a2\_c, h2\_c, c3\_c, c1\_p, d1\_p, d1\_p, f1\_p, g1\_p, a1\_p, h1\_p, c2\_p, \\ d2\_p, e2\_p, f2\_p, g2\_p, a2\_p, h2\_p, c3\_p, c1\_\check{s}, d1\_\check{s}, d1\_\check{s}, f1\_\check{s}, g1\_\check{s}, a1\_\check{s}, h1\_\check{s}, \\ c2\_\check{s}, d2\_\check{s}, e2\_\check{s}, f2\_\check{s}, g2\_\check{s}, a2\_\check{s}, h2\_\check{s}, c3\_\check{s}, c1\_o, d1\_o, d1\_o, f1\_o, g1\_o, a1\_o, \\ h1\_o, c2\_o, d2\_o, e2\_o, f2\_o, g2\_o, a2\_o, h2\_o, c3\_o\}, \{c1\_c, d1\_c, e1\_c, f1\_c, g1\_c, \\ a1\_c, h1\_c, c2\_c, d2\_c, e2\_c, f2\_c, g2\_c, a2\_c, h2\_c, c3\_c, c1\_p, d1\_p, d1\_p, f1\_p, \\ g1\_p, a1\_p, h1\_p, c2\_p, d2\_p, e2\_p, f2\_p, g2\_p, a2\_p, h2\_p, c3\_p, c1\_\check{s}, d1\_\check{s}, d1\_\check{s}, \\ f1\_\check{s}, g1\_\check{s}, a1\_\check{s}, h1\_\check{s}, c2\_\check{s}, d2\_\check{s}, e2\_\check{s}, f2\_\check{s}, g2\_\check{s}, a2\_\check{s}, h2\_\check{s}, c3\_\check{s}, c1\_o, d1\_o, \\ d1\_o, f1\_o, g1\_o, a1\_o, h1\_o, c2\_o, d2\_o, e2\_o, f2\_o, g2\_o, a2\_o, h2\_o, c3\_o\}, P, S),$ \\
-kde $$P = \{\{(S) \rightarrow (XX)\} \, \cup $$ 
+kde $$P = \{\{(S) \rightarrow (XX)\} \, \cup $$
+%opakovanie
 $$\{(X,X) \rightarrow (c1\_cX, c1\_cX), (X,X) \rightarrow (d1\_cX, d1\_cX)$$
 $$\vdots$$
 $$(X,X) \rightarrow (c1\_pX, c1\_pX), (X,X) \rightarrow (d1\_pX, d1\_pX)$$
 $$\vdots$$
-$$(X,X) \rightarrow (c1\_\check{s}X, c1\_\check{s}X), (X,X) \rightarrow (d1\_\check{s}X, d1\_\check{s}X)\}\, \cup$$
+$$(X,X) \rightarrow (c1\_\check{s}X, c1\_\check{s}X), (X,X) \rightarrow (d1\_\check{s}X, d1\_\check{s}X)$$
+$$\vdots$$
+%zvysenie tonov
+$$\}\, \cup$$
 $$\{(X,X) \rightarrow (c1\_cX, d1\_cX), (X,X) \rightarrow (d1\_cX, e1\_cX)$$
 $$\vdots$$
 $$(X,X) \rightarrow (c1\_pX, d1\_pX), (X,X) \rightarrow (d1\_pX, e1\_pX)$$
 $$\vdots$$
-$$(X,X) \rightarrow (c1\_\check{s}X, d1\_\check{s}X), (X,X) \rightarrow (d1\_\check{s}X, e1\_\check{s}X)\}\, \cup$$
-$$\{(X,X) \rightarrow (d1\_cX, c1\_cX), (X,X) \rightarrow (e1\_cX, d1\_cX)$$
-$$\vdots$$
-$$\{(X,X) \rightarrow (g1\_oX, f1\_oX), (X,X) \rightarrow (a1\_oX, g1\_oX)$$
-$$\{(X,X) \rightarrow (h1\_oX, a1\_oX), (X,X) \rightarrow (c2\_oX, h1\_oX)$$
+$$(X,X) \rightarrow (c1\_\check{s}X, d1\_\check{s}X), (X,X) \rightarrow (d1\_\check{s}X, e1\_\check{s}X)$$
 $$\vdots$$
 $$\}\, \cup$$
+%znizenie tonov
+$$\{(X,X) \rightarrow (d1\_cX, c1\_cX), (X,X) \rightarrow (e1\_cX, d1\_cX)$$
+$$\vdots$$
+$$(X,X) \rightarrow (g1\_oX, f1\_oX), (X,X) \rightarrow (a1\_oX, g1\_oX)$$
+$$(X,X) \rightarrow (h1\_oX, a1\_oX), (X,X) \rightarrow (c2\_oX, h1\_oX)$$
+$$\vdots$$
+$$\}\, \cup$$
+%predlzenie
+$$\{(X,X) \rightarrow (c1\_pX, c1\_cX), (X,X) \rightarrow (e1\_pX, e1\_cX)$$
+$$\vdots$$
+$$(X,X) \rightarrow (g1\_oX, g1\_\check{s}X), (X,X) \rightarrow (a1\_oX, a1\_\check{s}X)$$
+$$(X,X) \rightarrow (h1\_oX, h1\_\check{s}X), (X,X) \rightarrow (c2\_oX, c2\_\check{s}X)$$
+$$\vdots$$
+$$\}\, \cup$$
+%skratenie
+$$\{(X,X) \rightarrow (c1\_cX, c1\_pX), (X,X) \rightarrow (e1\_cX, e1\_pX)$$
+$$\vdots$$
+$$(X,X) \rightarrow (g1\_\check{s}X, g1\_oX), (X,X) \rightarrow (a1\_\check{s}X, a1\_oX)$$
+$$(X,X) \rightarrow (h1\_\check{s}X, h1\_oX), (X,X) \rightarrow (c2\_\check{s}X, c2\_oX)$$
+$$\vdots$$
+$$\}\, \cup$$
+%transpozicia
+$$\{(X,X) \rightarrow (c1\_cX, c2\_pX), (X,X) \rightarrow (d1\_cX, d2\_cX)$$
+$$\vdots$$
+$$\}\, \cup$$
+%protipohyb
+$$\{$$
+$$\vdots$$
+$$(X,X) \rightarrow (c2\_oX, d1\_oX), (X,X) \rightarrow (f1\_oX, a1\_oX)$$
+$$(X,X) \rightarrow (c2\_cX, d1\_cX)$$
+$$\vdots$$
+$$\}\, \cup$$
+$$\{(S) \rightarrow R$$
+$$\vdots$$
+$$R \rightarrow g1\_\check{s}Rg1\_\check{s}, R \rightarrow a1\_\check{s}Ra1\_\check{s}$$
+$$R \rightarrow h1\_\check{s}Rh1\_\check{s}, R \rightarrow c2\_\check{s}Rc2\_\check{s}$$
+$$\vdots$$
+$$\}$$
 
+U výslednej gramatiky platí $|XX| = 2$. Na žiadnych z pravidiel sa na pravej strane nevyskytuje počiatočný symbol S. U tejto gramatiky si môžeme všimnúť, že je porušená druhá LL podmienka z definície \ref{def:ll}. Zoberme si pravidlá $$(X,X) \rightarrow (c1\_cX, c1\_cX), (X,X) \rightarrow (c1\_cX, d1\_cX).$$ Prvé pravidlo patrí variácií kopírovaním, a druhé pravidlo patrí variácií, ktorá postupne zvyšuje tému o jeden tón. Potom $$prv\acute{y}(pjadro(G),c1\_cX) \cap prv\acute{y}(pjadro(G),c1\_cX) \neq \emptyset.$$ Porušenie tejto podmienky spôsobuje nejednoznačnosť pravidiel, z ktorých je konštruovaná výsledná LL tabuľka. Riešením tohto problému je, že jednotlivé skupiny pravidiel patria príslušným variáciám. Užívateľ, ktorý si zvolí tvorbu variácie opakovaním, by zvolí prvé uvedené pravidlo. Zvolenie variácie pre postupne zvýšenie témy o jeden tón zvolí množinu pravidiel z množiny pre postupné zvýšenie témy o jeden tón. Vďaka základe voľby užívateľa nedochádza k takýmto konfliktom.
 \end{definition}
+
+Definovaná gramatika obsahuje terminály, ktoré boli uvedené v tabulkách \ref{tab:notes} a \ref{tab:notes1}. Kompletný zoznam pravidiel, ktoré boli použité v tejto práci je možné nájsť v prílohe. Vybrané pravidlá, ktoré sú uvedené vyššie boli použité na následujúce hudobné pasáže. 
 
 \section{Hlboký zásobnikový automat.}
 
