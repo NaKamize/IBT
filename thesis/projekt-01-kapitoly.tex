@@ -405,7 +405,8 @@ Majme gramatiku s rozptýleným kontextom $G = (N, T, P, S)$. Nech $k$ je kladn�
 \end{enumerate}
 
 \begin{example}
-Majme LL 2-lineárnu gramatiku s rozptýleným kontextom \\ $G = (\{S,X\},\{c1\_p, d1\_p, |\}, P, S)$, kde $$P = \{(S) \rightarrow (XX), (X,X) \rightarrow (c1\_pX, c1\_pX), (X,X) \rightarrow (d1\_pX, d1\_pX)\}.$$ potom tvorba nasledujúcej dvojice taktov z obrázku \ref{fig:Priklad1} vyzerá následovne:
+Majme LL 2-lineárnu gramatiku s rozptýleným kontextom \\ $G = (\{S,X\},\{c1\_p, d1\_p, |\}, P, S)$, kde $$P = \{(S) \rightarrow (XX), (X,X) \rightarrow (c1\_pX, c1\_pX), $$
+$$ (X,X) \rightarrow (d1\_pX, d1\_pX, (X,X) \rightarrow (|, |)\}.$$ potom tvorba nasledujúcej dvojice taktov z obrázku \ref{fig:Priklad1} vyzerá následovne:
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{thesis/obrazky-figures/Priklad1.png}
@@ -420,7 +421,7 @@ Zjavne platí, že $|XX| = 2$, na pravej strane pravidiel na nevyskytuje S.
 Aby bolo možné správne reprezentovať tvorbu variácií pomocou gramatiky budeme musieť vytvoriť novú gramatiku, ktorá bude obsahovať určité úpravy. Preto gramatika pre tvorbu variácií je následovná:
 
 \begin{definition}
-$G = (\{S, X, R, c1\_c, d1\_c, e1\_c, f1\_c, g1\_c, a1\_c, h1\_c, c2\_c, d2\_c, \\ e2\_c, f2\_c, g2\_c, a2\_c, h2\_c, c3\_c, c1\_p, d1\_p, d1\_p, f1\_p, g1\_p, a1\_p, h1\_p, c2\_p, \\ d2\_p, e2\_p, f2\_p, g2\_p, a2\_p, h2\_p, c3\_p, c1\_\check{s}, d1\_\check{s}, d1\_\check{s}, f1\_\check{s}, g1\_\check{s}, a1\_\check{s}, h1\_\check{s}, \\ c2\_\check{s}, d2\_\check{s}, e2\_\check{s}, f2\_\check{s}, g2\_\check{s}, a2\_\check{s}, h2\_\check{s}, c3\_\check{s}, c1\_o, d1\_o, d1\_o, f1\_o, g1\_o, a1\_o, \\ h1\_o, c2\_o, d2\_o, e2\_o, f2\_o, g2\_o, a2\_o, h2\_o, c3\_o\}, \{c1\_c, d1\_c, e1\_c, f1\_c, g1\_c, \\ a1\_c, h1\_c, c2\_c, d2\_c, e2\_c, f2\_c, g2\_c, a2\_c, h2\_c, c3\_c, c1\_p, d1\_p, d1\_p, f1\_p, \\ g1\_p, a1\_p, h1\_p, c2\_p, d2\_p, e2\_p, f2\_p, g2\_p, a2\_p, h2\_p, c3\_p, c1\_\check{s}, d1\_\check{s}, d1\_\check{s}, \\ f1\_\check{s}, g1\_\check{s}, a1\_\check{s}, h1\_\check{s}, c2\_\check{s}, d2\_\check{s}, e2\_\check{s}, f2\_\check{s}, g2\_\check{s}, a2\_\check{s}, h2\_\check{s}, c3\_\check{s}, c1\_o, d1\_o, \\ d1\_o, f1\_o, g1\_o, a1\_o, h1\_o, c2\_o, d2\_o, e2\_o, f2\_o, g2\_o, a2\_o, h2\_o, c3\_o\}, P, S),$ \\
+$G = (\{S, X, R, c1\_c, d1\_c, e1\_c, f1\_c, g1\_c, a1\_c, h1\_c, c2\_c, d2\_c, \\ e2\_c, f2\_c, g2\_c, a2\_c, h2\_c, c3\_c, c1\_p, d1\_p, d1\_p, f1\_p, g1\_p, a1\_p, h1\_p, c2\_p, \\ d2\_p, e2\_p, f2\_p, g2\_p, a2\_p, h2\_p, c3\_p, c1\_\check{s}, d1\_\check{s}, d1\_\check{s}, f1\_\check{s}, g1\_\check{s}, a1\_\check{s}, h1\_\check{s}, \\ c2\_\check{s}, d2\_\check{s}, e2\_\check{s}, f2\_\check{s}, g2\_\check{s}, a2\_\check{s}, h2\_\check{s}, c3\_\check{s}, c1\_o, d1\_o, d1\_o, f1\_o, g1\_o, a1\_o, \\ h1\_o, c2\_o, d2\_o, e2\_o, f2\_o, g2\_o, a2\_o, h2\_o, c3\_o\}, \{c1\_c, d1\_c, e1\_c, f1\_c, g1\_c, \\ a1\_c, h1\_c, c2\_c, d2\_c, e2\_c, f2\_c, g2\_c, a2\_c, h2\_c, c3\_c, c1\_p, d1\_p, d1\_p, f1\_p, \\ g1\_p, a1\_p, h1\_p, c2\_p, d2\_p, e2\_p, f2\_p, g2\_p, a2\_p, h2\_p, c3\_p, c1\_\check{s}, d1\_\check{s}, d1\_\check{s}, \\ f1\_\check{s}, g1\_\check{s}, a1\_\check{s}, h1\_\check{s}, c2\_\check{s}, d2\_\check{s}, e2\_\check{s}, f2\_\check{s}, g2\_\check{s}, a2\_\check{s}, h2\_\check{s}, c3\_\check{s}, c1\_o, d1\_o, \\ d1\_o, f1\_o, g1\_o, a1\_o, h1\_o, c2\_o, d2\_o, e2\_o, f2\_o, g2\_o, a2\_o, h2\_o, c3\_o, |\}, P, S),$ \\
 kde $$P = \{\{(S) \rightarrow (XX)\} \, \cup $$
 %opakovanie
 $$\{(X,X) \rightarrow (c1\_cX, c1\_cX), (X,X) \rightarrow (d1\_cX, d1\_cX)$$
@@ -469,13 +470,13 @@ $$\vdots$$
 $$(X,X) \rightarrow (c2\_oX, d1\_oX), (X,X) \rightarrow (f1\_oX, a1\_oX)$$
 $$(X,X) \rightarrow (c2\_cX, d1\_cX)$$
 $$\vdots$$
-$$\}\, \cup$$
+$$(X,X) \rightarrow (|, |)\}\, \cup$$
 $$\{(S) \rightarrow R$$
 $$\vdots$$
 $$R \rightarrow g1\_\check{s}Rg1\_\check{s}, R \rightarrow a1\_\check{s}Ra1\_\check{s}$$
 $$R \rightarrow h1\_\check{s}Rh1\_\check{s}, R \rightarrow c2\_\check{s}Rc2\_\check{s}$$
 $$\vdots$$
-$$\}$$
+$$R \rightarrow |\}$$
 
 U výslednej gramatiky platí $|XX| = 2$. Na žiadnych z pravidiel sa na pravej strane nevyskytuje počiatočný symbol S. U tejto gramatiky si môžeme všimnúť, že je porušená druhá LL podmienka z definície \ref{def:ll}. Zoberme si pravidlá $$(X,X) \rightarrow (c1\_cX, c1\_cX), (X,X) \rightarrow (c1\_cX, d1\_cX).$$ Prvé pravidlo patrí variácií kopírovaním, a druhé pravidlo patrí variácií, ktorá postupne zvyšuje tému o jeden tón. Potom $$prv\acute{y}(pjadro(G),c1\_cX) \cap prv\acute{y}(pjadro(G),c1\_cX) \neq \emptyset.$$ Porušenie tejto podmienky spôsobuje nejednoznačnosť pravidiel, z ktorých je konštruovaná výsledná LL tabuľka. Riešením tohto problému je, že jednotlivé skupiny pravidiel patria príslušným variáciám. Užívateľ, ktorý si zvolí tvorbu variácie opakovaním, by zvolí prvé uvedené pravidlo. Zvolenie variácie pre postupne zvýšenie témy o jeden tón zvolí množinu pravidiel z množiny pre postupné zvýšenie témy o jeden tón. Vďaka základe voľby užívateľa nedochádza k takýmto konfliktom.
 \end{definition}
@@ -483,43 +484,76 @@ U výslednej gramatiky platí $|XX| = 2$. Na žiadnych z pravidiel sa na pravej 
 Definovaná gramatika obsahuje terminály, ktoré boli uvedené v tabulkách \ref{tab:notes} a \ref{tab:notes1}. Kompletný zoznam pravidiel, ktoré boli použité v tejto práci je možné nájsť v prílohe. Vybrané pravidlá, ktoré sú uvedené vyššie boli použité na následujúce hudobné pasáže.
 
 \begin{example}
-Majme variáciu opakovaním. Príkladom tejto variácie
+Majme variáciu opakovaním.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{thesis/obrazky-figures/copyvar.png}
     \caption{Variácia opakovaním.}
     \label{fig:copyvar}
     \end{figure}
+    Aby sme mohli vytvoriť štvoricú taktov z obrázku \ref{fig:copyvar} musí derivácia vyzerať následovne: $$ (S) \Rightarrow_G (XX) $$ 
+    $$\Rightarrow_G c1\_cXc1\_cX$$ 
+    $$\Rightarrow_G c1\_cc1\_pXc1\_cc1\_pX$$ 
+    $$\Rightarrow_G c1\_cc1\_pd1\_\check{s}Xc1\_cc1\_pd1\_\check{s}X$$ 
+    $$\Rightarrow_G c1\_cc1\_pd1\_\check{s}d1\_\check{s}Xc1\_cc1\_pd1\_\check{s}d1\_\check{s}X$$
+    $$\Rightarrow_G c1\_cc1\_pd1\_\check{s}d1\_\check{s}|c1\_cc1\_pd1\_\check{s}d1\_\check{s}|.$$
 \end{example}
 
 \begin{example}
+Majme variáciu, ktorá zvýší tému o jeden tón.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{thesis/obrazky-figures/sequp.png}
-    \caption{Variácia zvýšením témy o jeden ton.}
+    \caption{Variácia zvýšením témy o jeden tón.}
     \label{fig:zvysenievar}
     \end{figure}
+    Vytvorenie tejto variácie zo štorice taktov \ref{fig:zvysenievar} je sprevádzané nasledujúcou deriváciou:
+    $$ S \Rightarrow_G XX $$
+    $$\Rightarrow_G  c1\_pXd1\_pX$$
+    $$\Rightarrow_G  c1\_pd1\_pXd1\_pe1\_pX$$
+    $$\Rightarrow_G  c1\_pd1\_pd1\_pXd1\_pe1\_pe1\_pX$$
+    $$\Rightarrow_G  c1\_pd1\_pd1\_pd1\_\check{s}Xd1\_pe1\_pe1\_pd1\_\check{s}X$$
+    $$\Rightarrow_G  c1\_pd1\_pd1\_pd1\_\check{s}c1\_\check{s}Xc1\_pd1\_pd1\_pd1\_\check{s}d1\_\check{s}X$$
+    $$\Rightarrow_G  c1\_pd1\_pd1\_pc1\_\check{s}c1\_\check{s}|d1\_pe1\_pe1\_pd1\_\check{s}d1\_\check{s}|.$$
 \end{example}
 
 \begin{example}
+Majme variáciu, ktorá zníži tému o jeden tón.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{thesis/obrazky-figures/seqdown.png}
-    \caption{Variácia zníženim témy o jeden ton.}
+    \caption{Variácia zníženim témy o jeden tón.}
     \label{fig:znizenievar}
     \end{figure}
+    Pre tvorbu variácie z obrázku \ref{fig:znizenievar} je zostavená derivácia:
+    $$ S \Rightarrow_G XX $$
+    $$\Rightarrow_G  g1\_oXf1\_oX$$
+    $$\Rightarrow_G  g1\_oc2\_oXf1\_oh1\_oX$$
+    $$\Rightarrow_G  g1\_oc2\_oa1\_oXf1\_oh1\_og1\_oX$$
+    $$\Rightarrow_G  g1\_oc2\_oa1\_oh1\_oXf1\_oh1\_og1\_oa1\_oX$$
+    $$\Rightarrow_G  g1\_oc2\_oa1\_oh1\_o|f1\_oh1\_og1\_oa1\_o|$$
 \end{example}
 
 \begin{example}
+Majme variáciu, ktorá predlži tóny témy o polovicu.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{thesis/obrazky-figures/augvar.png}
     \caption{Predlženie dlžky tonu o polovicu.}
     \label{fig:predlzenievar}
     \end{figure}
+    Derivácia variácie z obrázku \ref{fig:predlzenievar} je následovná: 
+    $$ S \Rightarrow_G XX $$
+    $$\Rightarrow_G e1\_pXe1\_cX $$
+    $$\Rightarrow_G e1\_pa1\_oXe1\_ca1\_\check{s}X $$
+    $$\Rightarrow_G e1\_pa1\_oa1\_oXe1\_ca1\_\check{s}a1\_\check{s}X $$
+    $$\Rightarrow_G e1\_pa1\_oa1\_oh1\_oXe1\_ca1\_\check{s}a1\_\check{s}h1\_\check{s}X $$
+    $$\Rightarrow_G e1\_pa1\_oa1\_oh1\_oc2\_oXe1\_ca1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}X $$
+    $$\Rightarrow_G e1\_pa1\_oa1\_oh1\_oc2\_o|e1\_ca1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}| $$
 \end{example}
 
 \begin{example}
+Majme variáciu, ktorá predlži dlžku tónov témy.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{thesis/obrazky-figures/dimivar.png}
@@ -529,15 +563,17 @@ Majme variáciu opakovaním. Príkladom tejto variácie
 \end{example}
 
 \begin{example}
+Majme variáciu, ktorá vykoná transpozíciu témy.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{thesis/obrazky-figures/transpos.png}
-    \caption{Postupné zníženie témy o jeden ton.}
+    \caption{Postupné zníženie témy o jeden tón.}
     \label{fig:transpovar}
     \end{figure}
 \end{example}
 
 \begin{example}
+Majme variáciu, ktorá vykoná protipohyb témy.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{thesis/obrazky-figures/contraryvar.png}
@@ -547,6 +583,7 @@ Majme variáciu opakovaním. Príkladom tejto variácie
 \end{example}
 
 \begin{example}
+Majme variáciu, ktorá vykoná retrogradáciu témy.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{thesis/obrazky-figures/retgradvar.png}
