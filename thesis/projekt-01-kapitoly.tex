@@ -622,8 +622,10 @@ Majme variáciu, ktorá vykoná retrogradáciu témy.
 \section{Hlboký zásobnikový automat.}
 
 \section{Algoritmus}
+Táto sekcia je venovaná návrhu algoritmu, vďaka ktorému budeme môcť pravidlami tvoriť výsledné variácie. Tento algoritmus je založený na poznatkoch z prác s. 648 \cite{FITPUB10498} a \cite{tablemusic}. Obe práce spracujú s iným spôsobom prekladania gramatík s rozptýleným kontextom. Ak hovoríme o využití oneskoreného vyhodnotenia, tak hovoríme o práci \cite{tablemusic}. Ďalším spôsobom je použitie prechodného poľa a hlbokého zásobníkového automatu. Výsledný algoritmus sa zabera práve týmto spôsobom.
+Tento spôsob nám umožňuje expanziu nie len na vrchole zásobníka, ale i hlboko v jeho vnútri. V tomto prípade je potrebné, aby zásobník bol implementovaný pomocou obojstranne viazaného zoznamu.
 
-\begin{algorithm}[H]
+\begin{algorithm}
 \label{algoritmus1}
 \SetNlSkip{-1em}
 \caption{Tabuľkou riadené spracovanie gramatiky s rozptýleným kontextom}
@@ -675,7 +677,7 @@ inicializácia dočastného poľa s $pos\_S$\;
             \eIf{$deep\_push$}{
                 $pos := do\check{c}as\_pole[0]$\;
                 $do\check{c}as\_pole.remove(TOP\_P.pop())$\;
-                $vyme\check{n} TOP\_P za preto\check{c}(pravidlo[2][1])$\;
+                vymeň v zasobniku pos za $preto\check{c}(pravidlo[2][1])$\;
                 $deep\_push = False$\;
             }{
                 $pos := do\check{c}as\_pole[0]$\;
