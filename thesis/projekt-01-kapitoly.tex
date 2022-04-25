@@ -531,7 +531,7 @@ Majme variáciu, ktorá zníži tému o jeden tón.
     $$\Rightarrow_G  g1\_oc2\_oXf1\_oh1\_oX$$
     $$\Rightarrow_G  g1\_oc2\_oa1\_oXf1\_oh1\_og1\_oX$$
     $$\Rightarrow_G  g1\_oc2\_oa1\_oh1\_oXf1\_oh1\_og1\_oa1\_oX$$
-    $$\Rightarrow_G  g1\_oc2\_oa1\_oh1\_o|f1\_oh1\_og1\_oa1\_o|$$
+    $$\Rightarrow_G  g1\_oc2\_oa1\_oh1\_o|f1\_oh1\_og1\_oa1\_o|.$$
 \end{example}
 
 \begin{example}
@@ -549,17 +549,25 @@ Majme variáciu, ktorá predlži tóny témy o polovicu.
     $$\Rightarrow_G e1\_pa1\_oa1\_oXe1\_ca1\_\check{s}a1\_\check{s}X $$
     $$\Rightarrow_G e1\_pa1\_oa1\_oh1\_oXe1\_ca1\_\check{s}a1\_\check{s}h1\_\check{s}X $$
     $$\Rightarrow_G e1\_pa1\_oa1\_oh1\_oc2\_oXe1\_ca1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}X $$
-    $$\Rightarrow_G e1\_pa1\_oa1\_oh1\_oc2\_o|e1\_ca1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}| $$
+    $$\Rightarrow_G e1\_pa1\_oa1\_oh1\_oc2\_o|e1\_ca1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}|.$$
 \end{example}
 
 \begin{example}
-Majme variáciu, ktorá predlži dlžku tónov témy.
+Majme variáciu, ktorá skráti dlžku tónov témy.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{thesis/obrazky-figures/dimivar.png}
     \caption{Skrátenie dlžky tonu o polovicu.}
     \label{fig:skratenievar}
     \end{figure}
+    Derivácia pre variáciu z obrázku \ref{fig:skratenievar} vyzerá následovne:
+    $$ S \Rightarrow_G XX $$
+    $$\Rightarrow_G e1\_cXe1\_pX $$
+    $$\Rightarrow_G e1\_ca1\_\check{s}Xe1\_pa1\_oX $$
+    $$\Rightarrow_G e1\_ca1\_\check{s}a1\_\check{s}Xe1\_pa1\_oa1\_oX $$
+    $$\Rightarrow_G e1\_ca1\_\check{s}a1\_\check{s}h1\_\check{s}Xe1\_pa1\_oa1\_oh1\_oX $$
+    $$\Rightarrow_G e1\_ca1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}Xe1\_pa1\_oa1\_oh1\_oc2\_oX $$
+    $$\Rightarrow_G e1\_ca1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}|e1\_pa1\_oa1\_oh1\_oc2\_o|.$$
 \end{example}
 
 \begin{example}
@@ -570,6 +578,11 @@ Majme variáciu, ktorá vykoná transpozíciu témy.
     \caption{Postupné zníženie témy o jeden tón.}
     \label{fig:transpovar}
     \end{figure}
+    Derivácia pre transpozíciu z obrázku \ref{fig:transpovar} je následovná:
+    $$ S \Rightarrow_G XX $$
+    $$ \Rightarrow_G d1\_cXd2\_cX $$
+    $$ \Rightarrow_G d1\_cc1\_cXd2\_cc2\_cX $$
+    $$ \Rightarrow_G d1\_cc1\_c|d2\_cc2\_c| $$
 \end{example}
 
 \begin{example}
@@ -580,6 +593,13 @@ Majme variáciu, ktorá vykoná protipohyb témy.
     \caption{Variácia protipohybom.}
     \label{fig:potrivar}
     \end{figure}
+    Vzdialenosti pre variáciu protipohybom na obrázku sú $+3, -1, +3$. Vo výslednej variácií sú vzdialenosti oproti prvému tónu $-3, +1, -3$.
+    $$ S \Rightarrow_G XX $$
+    $$ \Rightarrow_G g1\_\check{s}Xg1\_\check{s}X $$
+    $$ \Rightarrow_G g1\_\check{s}c2\_\check{s}Xg1\_\check{s}d1\_\check{s}X $$
+    $$ \Rightarrow_G g1\_\check{s}c2\_\check{s}f1\_\check{s}Xg1\_\check{s}d1\_\check{s}a1\_\check{s}X $$
+    $$ \Rightarrow_G g1\_\check{s}c2\_\check{s}f1\_\check{s}c2\_\check{s}Xg1\_\check{s}d1\_\check{s}a1\_\check{s}d1\_\check{s}X $$
+    $$ \Rightarrow_G g1\_\check{s}c2\_\check{s}f1\_\check{s}c2\_\check{s}|g1\_\check{s}d1\_\check{s}a1\_\check{s}d1\_\check{s}| $$
 \end{example}
 
 \begin{example}
@@ -590,6 +610,13 @@ Majme variáciu, ktorá vykoná retrogradáciu témy.
     \caption{Variácia retrogradáciou.}
     \label{fig:retrogradvar}
     \end{figure}
+    Dvojica taktov na obrázku \ref{fig:retrogradvar} je vytvorená deriváciou:
+    $$ S \Rightarrow_G R $$
+    $$ \Rightarrow_G g1\_\check{s}Rg1\_\check{s} $$
+    $$ \Rightarrow_G g1\_\check{s}a1\_\check{s}Rg1\_\check{s}a1\_\check{s}$$
+    $$ \Rightarrow_G g1\_\check{s}a1\_\check{s}h1\_\check{s}Rg1\_\check{s}a1\_\check{s}h1\_\check{s}$$
+    $$ \Rightarrow_G g1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}Rg1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}$$
+    $$ \Rightarrow_G g1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}|g1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}.$$
 \end{example}
 
 \section{Hlboký zásobnikový automat.}
