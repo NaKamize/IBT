@@ -85,6 +85,7 @@
 \usepackage{color}
 \usepackage{etoolbox}
 \usepackage{enumitem}
+\usepackage[ruled,czech,linesnumbered,longend,noline]{algorithm2e}
 
 \ifczech
   \main@language{czech}

@@ -199,7 +199,7 @@ Frázovú gramatiku definujeme ako štvoricu $G = (N,T,P,S)$, ktorá sa skladá 
     \item počiatočný symbol S pre ktorý platí $S \in N$
 \end{itemize}
 
-Množina V = $N \cup T$ vyjadruje kompletnú abecedu gramatiky G. Prepisujúce pravidlá sa skladajú z dvojíc $(u,v) \in P$, ktoré označujeme ako $u \rightarrow v$. Mazacie pravidlo označujeme ako $u \rightarrow v, v = \varepsilon$. Frázové gramatiky generujú rekurzívne vyčísliteľné jazyky. Rekurzívne vyčísliteľné jazyky vedia prijať Turingové stroje.
+Množina V = $N \cup T$ vyjadruje kompletnú abecedu gramatiky G. Prepisujúce pravidlá sa skladajú z dvojíc $(u,v) \in P$, ktoré označujeme ako $u \rightarrow v$. Mazacie pravidlo označujeme ako $u \rightarrow v, v = \varepsilon$. Frázové gramatiky generujú rekurzívne spočítatelné jazyky. Rekurzívne spočítatelné jazyky vedia prijať Turingové stroje.
 \end{definition}
 
 \begin{definition}
@@ -303,8 +303,8 @@ Napriek všetkým týmto komplikáciám je stále možné kontextové závislost
 
 Gramatika \ref{def:kontextgram} generujúca jazyky, ktoré patria medzi kontextové sa ukázala ako vhodný kandidát pre popis hudobnej štruktúry. Vďaka tomu, že na oboch stranách pravidiel vieme dosadiť reťazce, potom sa dá jednoducho popísať notový zápis na pravej strane na obrázku \ref{fig:dependencies}. Deriváciami kontextovej gramatiky vieme pokryť tvorbu všetkých variácií. Nedeterministickosť kontextových gramatík neobmedzuje tvorby takej štruktúry, ako je téma a jej variácie. Práve naopak je táto vlastnosť vítaná, pretože nezväzuje ruky tvorcovi tejto štruktúry. Táto gramatika bude musieť umožniť tvorbu každej križiacej sa závislosti, ktoré obsahujú variácie. Konkrétna gramatika, ktorá bola použitá pre popis tejto štruktúry bude rozoberaná v nasledujúcej kapitole.
 
-\subsection*{Typ-0 (Rekurzívne vyčísliteľné jazyky)}
-Rekurzívne vyčísliteľné jazyky sú jazyky, ktoré sú tvorené všeobecnými gramatikami. Tieto gramatiky nezavádzajú žiadne obmedzenia na produkčné pravidla. Z definície tieto gramatiky umožňujú vznik nekonečných reťazcov, ktoré samotné v hudbe nepredstavujú zmysel a nevedú tak k rozumnému riešeniu. Existujú, ale hudobné prostredia, ktoré sa zaoberajú generovaním a syntézou v reálnom čase. Tieto prostredia sú turingovo úplne a volia si silnú generatívnu kapacitu. Problém s výpočtovou náročnosťou nechávajú v rukách užívateľa. Definácia \ref{def:frazgram} definuje gramatiku, ktorá generuje tieto jazyky. Využitie tejto gramatiky nie je momentálne v tejto práci, ale využitie môžu nájsť v jej ďalšom vývoji tejto práce.
+\subsection*{Typ-0 (Rekurzívne spočítatelné jazyky)}
+Rekurzívne spočítatelné jazyky sú jazyky, ktoré sú tvorené všeobecnými gramatikami. Tieto gramatiky nezavádzajú žiadne obmedzenia na produkčné pravidla. Z definície tieto gramatiky umožňujú vznik nekonečných reťazcov, ktoré samotné v hudbe nepredstavujú zmysel a nevedú tak k rozumnému riešeniu. Existujú, ale hudobné prostredia, ktoré sa zaoberajú generovaním a syntézou v reálnom čase. Tieto prostredia sú turingovo úplne a volia si silnú generatívnu kapacitu. Problém s výpočtovou náročnosťou nechávajú v rukách užívateľa. Definácia \ref{def:frazgram} definuje gramatiku, ktorá generuje tieto jazyky. Využitie tejto gramatiky nie je momentálne v tejto práci, ale využitie môžu nájsť v jej ďalšom vývoji tejto práce.
 
 \chapter{Návrh modelu pre tvorbu nových hudobných pasáži}
 \label{chap:app}
@@ -312,7 +312,7 @@ Obsahom tejto sekcie návrh nových modelov, ktoré by sa mohli aplikovať v hud
 
 \section{Gramatika s rozptýleným kontextom}
 \begin{definition}
-Gramatikou s rozptýleným kontextom rozumieme štvoricu $G = (V,T,P,S)$, ktorá sa skladá z
+Gramatikou s rozptýleným kontextom rozumieme štvoricu \\ $G = (V,T,P,S),$ ktorá sa skladá z
 \begin{itemize}\itemsep0.05em
     \item úplnej abecedy V 
     \item množiny terminálov T, pre ktorú platí $T \subset V$
@@ -622,6 +622,76 @@ Majme variáciu, ktorá vykoná retrogradáciu témy.
 \section{Hlboký zásobnikový automat.}
 
 \section{Algoritmus}
+
+\begin{algorithm}[H]
+\label{algoritmus1}
+\SetNlSkip{-1em}
+\caption{Tabuľkou riadené spracovanie gramatiky s rozptýleným kontextom}
+\SetNlSty{}{}{:}
+\KwIn{ LL tabuľka pre $G = (N, T, P, S);x \in T^*$ }
+\KwOut{ variácie pre $x$, kde $x \in L = (G)$, inak $chyba$}
+\SetStartEndCondition{ }{}{}%
+\SetKwProg{Fn}{def}{\string:}{}
+\SetKwFunction{Range}{range}%%
+\SetKw{KwTo}{in}\SetKwFor{For}{for}{\string:}{}%
+\SetKwIF{If}{ElseIf}{Else}{if}{:}{elif}{else:}{}%
+\SetKwFor{While}{while}{:}{fintq}%
+\AlgoDontDisplayBlockMarkers\SetAlgoNoEnd\SetAlgoNoLine%
+\Indp
+\Indpp
+\medskip
+$var\_count := len(var) - 1$\;
+$var\_position,\, position := 0$\;
+$deep\_push := False$\;
+inicializácia zásobníka s $\langle \$ \rangle, \langle S \rangle$\;
+inicializácia dočastného poľa s $pos\_S$\;
+    \While{zasobník nie je prázdny} {
+        nech $TOP\_P$ je vrchol zásobnika, t je momentálny token\;
+        \uIf{$ TOP\_P = | $}{
+            $var\_position += 1$\;
+           \uIf{$ t = \$ $ a zároveň $var\_position > var\_count$}{
+                $save\_variation()$\;
+                $TOP\_P.pop()$
+            }
+            \uElseIf{$ t = | $ a zároveň $var\_position > var\_count$}{
+                $position += 1$\;
+            }
+            \Else{
+                $save\_variation()$\;
+                $restart()$\;
+            }
+        }
+        \uElseIf{$ TOP\_P \in T $}{
+            \eIf{$ t = TOP\_P $}{
+                $TOP\_P.pop()$\;
+            }{
+                $chyba$\;
+            }
+        }
+        \uElseIf{$ TOP\_P \in N $}{
+            $vari\acute{a}cia := get\_variation(var\_position)$\;
+            $r := (X\_1, X\_2, \dots, X_n) \rightarrow (x_1, x_2, \dots. x_n) \in LL-tabu\check{l}ke[TOP\_P, t]$\;
+            $pravidlo = r[vari\acute{a}cia]$\;
+            \eIf{$deep\_push$}{
+                $pos := do\check{c}as\_pole[0]$\;
+                $do\check{c}as\_pole.remove(TOP\_P.pop())$\;
+                $vyme\check{n} TOP\_P za preto\check{c}(pravidlo[2][1])$\;
+                $deep\_push = False$\;
+            }{
+                $pos := do\check{c}as\_pole[0]$\;
+                $do\check{c}as\_pole.remove(TOP\_P.pop())$\;
+                vymeň TOP\_P za $preto\check{c}(pravidlo[2][0])$\;
+                \If {$vari\acute{a}cia \neq retrograd\acute{a}cia$} {
+                    $deep\_push = True$\;
+                }
+            }
+
+        }
+        \Else{
+            $chyba$\;
+        }
+    }
+\end{algorithm}
 
 \chapter{Implementácia}
 \label{chap:imp}
