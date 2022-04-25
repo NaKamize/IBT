@@ -244,6 +244,7 @@ Pravidla sú vo forme $py \rightarrow q \in R$ na rozdiel od $(p,y,q) \in R$. Ak
 \end{definition}
 
 \begin{definition}
+\label{def:zasaut}
 Zásobnikový automat je konečný automat obohatený o zásobnik. Zásobníkový automat je teda definovaný sedmicou $M = (Q,\Sigma, \Gamma , R,s,S,F)$, ktorá sa skladá z
 \begin{itemize}\itemsep0.05em
     \item konečnej množiny stavov $Q$,
@@ -421,6 +422,7 @@ Zjavne platí, že $|XX| = 2$, na pravej strane pravidiel na nevyskytuje S.
 Aby bolo možné správne reprezentovať tvorbu variácií pomocou gramatiky budeme musieť vytvoriť novú gramatiku, ktorá bude obsahovať určité úpravy. Preto gramatika pre tvorbu variácií je následovná:
 
 \begin{definition}
+\label{mainalg}
 $G = (\{S, X, R, c1\_c, d1\_c, e1\_c, f1\_c, g1\_c, a1\_c, h1\_c, c2\_c, d2\_c, \\ e2\_c, f2\_c, g2\_c, a2\_c, h2\_c, c3\_c, c1\_p, d1\_p, d1\_p, f1\_p, g1\_p, a1\_p, h1\_p, c2\_p, \\ d2\_p, e2\_p, f2\_p, g2\_p, a2\_p, h2\_p, c3\_p, c1\_\check{s}, d1\_\check{s}, d1\_\check{s}, f1\_\check{s}, g1\_\check{s}, a1\_\check{s}, h1\_\check{s}, \\ c2\_\check{s}, d2\_\check{s}, e2\_\check{s}, f2\_\check{s}, g2\_\check{s}, a2\_\check{s}, h2\_\check{s}, c3\_\check{s}, c1\_o, d1\_o, d1\_o, f1\_o, g1\_o, a1\_o, \\ h1\_o, c2\_o, d2\_o, e2\_o, f2\_o, g2\_o, a2\_o, h2\_o, c3\_o\}, \{c1\_c, d1\_c, e1\_c, f1\_c, g1\_c, \\ a1\_c, h1\_c, c2\_c, d2\_c, e2\_c, f2\_c, g2\_c, a2\_c, h2\_c, c3\_c, c1\_p, d1\_p, d1\_p, f1\_p, \\ g1\_p, a1\_p, h1\_p, c2\_p, d2\_p, e2\_p, f2\_p, g2\_p, a2\_p, h2\_p, c3\_p, c1\_\check{s}, d1\_\check{s}, d1\_\check{s}, \\ f1\_\check{s}, g1\_\check{s}, a1\_\check{s}, h1\_\check{s}, c2\_\check{s}, d2\_\check{s}, e2\_\check{s}, f2\_\check{s}, g2\_\check{s}, a2\_\check{s}, h2\_\check{s}, c3\_\check{s}, c1\_o, d1\_o, \\ d1\_o, f1\_o, g1\_o, a1\_o, h1\_o, c2\_o, d2\_o, e2\_o, f2\_o, g2\_o, a2\_o, h2\_o, c3\_o, |\}, P, S),$ \\
 kde $$P = \{\{(S) \rightarrow (XX)\} \, \cup $$
 %opakovanie
@@ -625,12 +627,20 @@ Majme variáciu, ktorá vykoná retrogradáciu témy.
 Táto sekcia je venovaná návrhu algoritmu, vďaka ktorému budeme môcť pravidlami tvoriť výsledné variácie. Tento algoritmus je založený na poznatkoch z prác s. 648 \cite{FITPUB10498} a \cite{tablemusic}. Obe práce spracujú s iným spôsobom prekladania gramatík s rozptýleným kontextom. Ak hovoríme o využití oneskoreného vyhodnotenia, tak hovoríme o práci \cite{tablemusic}. Ďalším spôsobom je použitie prechodného poľa a hlbokého zásobníkového automatu. Výsledný algoritmus sa zabera práve týmto spôsobom.
 Tento spôsob nám umožňuje expanziu nie len na vrchole zásobníka, ale i hlboko v jeho vnútri. V tomto prípade je potrebné, aby zásobník bol implementovaný pomocou obojstranne viazaného zoznamu.
 
+Algoritmus, ktorý nám umožňuje tvoriť variácie je založený na preklade bezkotextových gramatik viz \cite{FITPUB10524}. Počas tohto algoritmu pracujeme so zásobnikom ako obojstranne viazaným zoznamom. Každý symbol, ktorý vkladame do zásobnika má tvar $ \langle Symbol \rangle $. Vstup pre tento algoritmus je zostrojená LL-tabuľka na základe gramatiky \ref{mainalg}. Ďalším vstupom je téma od užívateľa v podobe reťazca tokenov a požadované variácie.
+
+Začiatok algoritmu (riadky 1--3) spočíva v inicializácií pomocných premenných. Jednou z nich je maximálny index poľa s variáciami, potom pozície pre pole variácií a vstupné tokeny. Poslednou pomocnou premennou je príznak pre expanziu vo vnútri zásobníka. Na riadku 4--5 máme inicializáciu samotného zásobnika a prechodného poľa.
+
+Prechodné pole vieme limitovať dlžkou 2. Je to vďaka tomu, že v jednom čase na základe našej gramatiky bude obsahovať maximálne 2 neterminály. V poli každý element $i$ ukazuje na jeden neterminál vo vnútri zásobniku. Na začiatku je pole inicializované aby ukazovalo na prvý neterminál S.
+
+V prípade variácie retrogradácia, je správanie sa tohto algoritmu podobné obyčajnému zásobnikovému automatu \ref{def:zasaut}. Je to vďaka tomu, že túto variáciu vieme popísať bezkotextovou gramatikou. Počas tejto variácie sa nevykonáva expanzia vo vnútri zásobniku (Alg. \ref{algoritmus1} Riad. 36-37).
+
 \begin{algorithm}
 \label{algoritmus1}
 \SetNlSkip{-1em}
 \caption{Tabuľkou riadené spracovanie gramatiky s rozptýleným kontextom}
 \SetNlSty{}{}{:}
-\KwIn{ LL tabuľka pre $G = (N, T, P, S);x \in T^*$ }
+\KwIn{ LL tabuľka pre $G = (N, T, P, S);x \in T^*$; variácie }
 \KwOut{ variácie pre $x$, kde $x \in L = (G)$, inak $chyba$}
 \SetStartEndCondition{ }{}{}%
 \SetKwProg{Fn}{def}{\string:}{}
