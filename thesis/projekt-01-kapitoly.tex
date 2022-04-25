@@ -631,7 +631,13 @@ Algoritmus, ktorý nám umožňuje tvoriť variácie je založený na preklade b
 
 Začiatok algoritmu (riadky 1--3) spočíva v inicializácií pomocných premenných. Jednou z nich je maximálny index poľa s variáciami, potom pozície pre pole variácií a vstupné tokeny. Poslednou pomocnou premennou je príznak pre expanziu vo vnútri zásobníka. Na riadku 4--5 máme inicializáciu samotného zásobnika a prechodného poľa.
 
-Prechodné pole vieme limitovať dlžkou 2. Je to vďaka tomu, že v jednom čase na základe našej gramatiky bude obsahovať maximálne 2 neterminály. V poli každý element $i$ ukazuje na jeden neterminál vo vnútri zásobniku. Na začiatku je pole inicializované aby ukazovalo na prvý neterminál S.
+Prechodné pole vieme limitovať dĺžkou 2. Je to vďaka tomu, že v jednom čase na základe našej gramatiky bude obsahovať maximálne 2 neterminály. V poli každý element $i$ ukazuje na jeden neterminál vo vnútri zásobníku. Na začiatku je pole inicializované tak, aby ukazovalo na prvý neterminál S.
+
+Ďalej sa program vo vnútri \texttt{while} slučky vetvy na tri časti. Prvá na riadkoch 8--17 zahrňuje situáciu, kedy sa na vrchole zásobníka objaví znak pre ukončenie témy. Tento stav naznačuje to, že sa buď blížime ku koncu tvorby variácií alebo prechádzame na tvorbu ďalšej. Stav prechodu na ďalšiu variáciu detekujeme tým, že sme nevyčerpali všetky variácie podľa pomocnej premennej. Výslednu variáciu uložíme a pokračujeme  v tvorbe ďalšej variácie. Ak ide o ukončenie celej tvorby posunieme pozíciu premennej, ktorá číta tokeny zo vstupného reťazca. Po tomto stave sa nachádza na vstupe koniec témy a na zásobníku koncový symbol. Nasleduje uloženie poslednej variácie a vyprázdnenie zásobníka.
+
+Druhá časť 18--20 je o čosi jednoduchšia. Tu detekujeme na vrchole zásobníka terminál, ktorý nie je koncom témy. Tento terminál odstránime z vrcholu zásobníka.
+
+Tretia čast 23--37 
 
 V prípade variácie retrogradácia, je správanie sa tohto algoritmu podobné obyčajnému zásobnikovému automatu \ref{def:zasaut}. Je to vďaka tomu, že túto variáciu vieme popísať bezkotextovou gramatikou. Počas tejto variácie sa nevykonáva expanzia vo vnútri zásobniku (Alg. \ref{algoritmus1} Riad. 36-37).
 
@@ -652,7 +658,7 @@ V prípade variácie retrogradácia, je správanie sa tohto algoritmu podobné o
 \Indp
 \Indpp
 \medskip
-$var\_count := len(var) - 1$\;
+$var\_count := len(vari\acute{a}cie) - 1$\;
 $var\_position,\, position := 0$\;
 $deep\_push := False$\;
 inicializácia zásobníka s $\langle \$ \rangle, \langle S \rangle$\;
