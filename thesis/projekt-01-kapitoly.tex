@@ -635,9 +635,9 @@ Prechodné pole vieme limitovať dĺžkou 2. Je to vďaka tomu, že v jednom ča
 
 Ďalej sa program vo vnútri \texttt{while} slučky vetvy na tri časti. Prvá na riadkoch 8--17 zahrňuje situáciu, kedy sa na vrchole zásobníka objaví znak pre ukončenie témy. Tento stav naznačuje to, že sa buď blížime ku koncu tvorby variácií alebo prechádzame na tvorbu ďalšej. Stav prechodu na ďalšiu variáciu detekujeme tým, že sme nevyčerpali všetky variácie podľa pomocnej premennej. Výslednu variáciu uložíme a pokračujeme  v tvorbe ďalšej variácie. Ak ide o ukončenie celej tvorby posunieme pozíciu premennej, ktorá číta tokeny zo vstupného reťazca. Po tomto stave sa nachádza na vstupe koniec témy a na zásobníku koncový symbol. Nasleduje uloženie poslednej variácie a vyprázdnenie zásobníka.
 
-Druhá časť 18--20 je o čosi jednoduchšia. Tu detekujeme na vrchole zásobníka terminál, ktorý nie je koncom témy. Tento terminál odstránime z vrcholu zásobníka.
+Druhá časť 18--20 je o čosi jednoduchšia. Tu detekujeme na vrchole zásobníka terminál, ktorý nie je koncom témy. Tento terminál odstránime z vrcholu zásobníka pomocou jeho operácie \textit{pop}. Vrchol zásobnika sa nahradí ďalším tokenom.
 
-Tretia čast 23--37 
+Tretia časť 23--37 nastáva vtedy, kedy sa na vrcholu zásobníka nachádza neterminál. Prvým krokom je získanie aktuálnej variácie. Potom sa začne s hľadaním pravidla v LL--tabuľke. Hľadanie prebieha na základe neterminálu \textit{TOP\_P} na vrchole zásobníka a terminálu \textit{t}. Po získaní tohto pravidla je potrebné vybrať to, ktoré patrí k aktuálnej variácii. Ďalej mame podmienku, ktorá rozhoduje o expanzií zásobníka. Majme príznak pre expanziu zásobníka v hĺbke je nastavený na \textit{True}. Vyberieme z dočasného pola pozíciu neterminálu z hĺbky zásobníka. Túto pozíciu odstránime z dočasného pola. Neterminal na získanej pozícii nahradíme tónom variácie hlboko v zásobníku. Nastavíme príznak expanzie v hĺbke na \textit{False}.
 
 V prípade variácie retrogradácia, je správanie sa tohto algoritmu podobné obyčajnému zásobnikovému automatu \ref{def:zasaut}. Je to vďaka tomu, že túto variáciu vieme popísať bezkotextovou gramatikou. Počas tejto variácie sa nevykonáva expanzia vo vnútri zásobniku (Alg. \ref{algoritmus1} Riad. 36-37).
 
