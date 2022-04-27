@@ -621,9 +621,14 @@ Majme variáciu, ktorá vykoná retrogradáciu témy.
     $$ \Rightarrow_G g1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}|g1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}.$$
 \end{example}
 
-\section{Hlboký zásobnikový automat.}
+\section{Nelimitovaný hlboký zásobnikový automat.}
+Táto sekcia definuje nelimitovaný hlboký zásobníkový automat. Z jeho definície vychádzame pri návrhu tvorby algoritmu v nasledujúcej sekcii \ref{sec:alg}. Oboznamuje čitateľa s jeho využitím pri tvorbe variácií. Popisuje jeho novú verziu pomocou ktorej tvoríme variácie témy. Popisuje taktiež aj kľúčovú vlastnosť tohto automatu, ktorá je potrebná pre tvorbu variácií pomocou tohto automatu. Poznatky a definícia tohto automatu je prevzatá z \cite{FITPUB10978}.
+\begin{definition}
+\end{definition}
+
 
 \section{Algoritmus}
+\label{sec:alg}
 Táto sekcia je venovaná návrhu algoritmu, vďaka ktorému budeme môcť pravidlami tvoriť výsledné variácie. Tento algoritmus je založený na poznatkoch z prác s. 648 \cite{FITPUB10498} a \cite{tablemusic}. Obe práce spracujú s iným spôsobom prekladania gramatík s rozptýleným kontextom. Ak hovoríme o využití oneskoreného vyhodnotenia, tak hovoríme o práci \cite{tablemusic}. Ďalším spôsobom je použitie prechodného poľa a hlbokého zásobníkového automatu. Výsledný algoritmus sa zabera práve týmto spôsobom.
 Tento spôsob nám umožňuje expanziu nie len na vrchole zásobníka, ale i hlboko v jeho vnútri. V tomto prípade je potrebné, aby zásobník bol implementovaný pomocou obojstranne viazaného zoznamu.
 
@@ -641,7 +646,7 @@ Tretia časť 23--37 nastáva vtedy, kedy sa na vrcholu zásobníka nachádza ne
 
 V prípade variácie retrogradácia, je správanie sa tohto algoritmu podobné obyčajnému zásobnikovému automatu \ref{def:zasaut}. Je to vďaka tomu, že túto variáciu vieme popísať bezkotextovou gramatikou. Počas tejto variácie sa nevykonáva expanzia vo vnútri zásobniku (Alg. \ref{algoritmus1} Riad. 36-37).
 
-Koniec algoritmu nastáva vtedy, keď sme došli na koniec pola zadaných variácií. Funkcia \textit{save\_variation} nam postupne uložila tony požadovaných variácií. Vstupný reťazec je prijatý, inak nastáva chyba.
+Koniec algoritmu nastáva vtedy, keď sme došli na koniec pola zadaných variácií. Funkcia \textit{save\_variation} nam postupne uložila tony požadovaných variácií. Vstupný reťazec je prijatý, inak nastáva chyba. Reťazec je prijatý ako prvá čásť jazyka, pod druhými časťami tohto jazyka rozumieme nami vytvorené variácie.
 
 \begin{algorithm}
 \label{algoritmus1}
