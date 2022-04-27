@@ -480,7 +480,7 @@ $$R \rightarrow h1\_\check{s}Rh1\_\check{s}, R \rightarrow c2\_\check{s}Rc2\_\ch
 $$\vdots$$
 $$R \rightarrow |\}$$
 
-U výslednej gramatiky platí $|XX| = 2$. Na žiadnych z pravidiel sa na pravej strane nevyskytuje počiatočný symbol S. U tejto gramatiky si môžeme všimnúť, že je porušená druhá LL podmienka z definície \ref{def:ll}. Zoberme si pravidlá $$(X,X) \rightarrow (c1\_cX, c1\_cX), (X,X) \rightarrow (c1\_cX, d1\_cX).$$ Prvé pravidlo patrí variácií kopírovaním, a druhé pravidlo patrí variácií, ktorá postupne zvyšuje tému o jeden tón. Potom $$prv\acute{y}(pjadro(G),c1\_cX) \cap prv\acute{y}(pjadro(G),c1\_cX) \neq \emptyset.$$ Porušenie tejto podmienky spôsobuje nejednoznačnosť pravidiel, z ktorých je konštruovaná výsledná LL tabuľka. Riešením tohto problému je, že jednotlivé skupiny pravidiel patria príslušným variáciám. Užívateľ, ktorý si zvolí tvorbu variácie opakovaním, by zvolí prvé uvedené pravidlo. Zvolenie variácie pre postupne zvýšenie témy o jeden tón zvolí množinu pravidiel z množiny pre postupné zvýšenie témy o jeden tón. Vďaka základe voľby užívateľa nedochádza k takýmto konfliktom.
+U výslednej gramatiky platí $|XX| = 2$. Na žiadnych z pravidiel sa na pravej strane nevyskytuje počiatočný symbol S. U tejto gramatiky si môžeme všimnúť, že je porušená druhá LL podmienka z definície \ref{def:ll}. Zoberme si pravidlá $$(X,X) \rightarrow (c1\_cX, c1\_cX), (X,X) \rightarrow (c1\_cX, d1\_cX).$$ Prvé pravidlo patrí variácií kopírovaním, a druhé pravidlo patrí variácií, ktorá postupne zvyšuje tému o jeden tón. Potom $$prv\acute{y}(pjadro(G),c1\_cX) \cap prv\acute{y}(pjadro(G),c1\_cX) \neq \emptyset.$$ Porušenie tejto podmienky spôsobuje nejednoznačnosť pravidiel, z ktorých je konštruovaná výsledná LL tabuľka. Riešením tohto problému je, že jednotlivé skupiny pravidiel patria príslušným variáciám. Užívateľ, ktorý si zvolí tvorbu variácie opakovaním, by zvolil prvé uvedené pravidlo. Zvolenie variácie pre postupne zvýšenie témy o jeden tón vyberie množinu pravidiel z množiny pre postupné zvýšenie témy o jeden tón. Vďaka voľbe užívateľa nedochádza k takýmto konfliktom.
 \end{definition}
 
 Definovaná gramatika obsahuje terminály, ktoré boli uvedené v tabulkách \ref{tab:notes} a \ref{tab:notes1}. Kompletný zoznam pravidiel, ktoré boli použité v tejto práci je možné nájsť v prílohe. Vybrané pravidlá, ktoré sú uvedené vyššie boli použité na následujúce hudobné pasáže.
@@ -621,8 +621,10 @@ Majme variáciu, ktorá vykoná retrogradáciu témy.
     $$ \Rightarrow_G g1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}|g1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}.$$
 \end{example}
 
-\section{Nelimitovaný hlboký zásobnikový automat.}
-Táto sekcia definuje nelimitovaný hlboký zásobníkový automat. Z jeho definície vychádzame pri návrhu tvorby algoritmu v nasledujúcej sekcii \ref{sec:alg}. Oboznamuje čitateľa s jeho využitím pri tvorbe variácií. Popisuje jeho novú verziu pomocou ktorej tvoríme variácie témy. Popisuje taktiež aj kľúčovú vlastnosť tohto automatu, ktorá je potrebná pre tvorbu variácií pomocou tohto automatu. Poznatky a definícia tohto automatu je prevzatá z \cite{FITPUB10978}.
+\section{Nelimitovaný hlboký zásobníkový automat.}
+Táto sekcia definuje nelimitovaný hlboký zásobníkový automat. Z jeho definície vychádzame pri návrhu tvorby algoritmu v nasledujúcej sekcii \ref{sec:alg}. Sekcia oboznamuje čitateľa s jeho využitím pri tvorbe variácií. Popisuje jeho novú verziu pomocou ktorej tvoríme variácie témy. Popisuje taktiež aj kľúčovú vlastnosť tohto automatu, ktorá je potrebná pre tvorbu variácií pomocou tohto automatu. Poznatky a definícia tohto automatu sú prevzaté z \cite{FITPUB10978}.
+
+\subsection{Definícia}
 \begin{definition}
 Pod absolútne nelimitovaným zásobnikovým automatom rozumieme osmicu $M = (Q, \Sigma, \Gamma, \$, R, s, S, F)$, ktorá sa skladá z
 \begin{itemize}\itemsep0.05em
@@ -637,9 +639,14 @@ Pod absolútne nelimitovaným zásobnikovým automatom rozumieme osmicu $M = (Q,
 \end{itemize}
 \end{definition}
 
-Pravidlá nezapisujeme $(a, A, q, x) \in R$, ale ako $pA \rightarrow qx$. Majme reláciu ${}^a_p\vdash$ nad $Q \times \Sigma^* \times (\Gamma \setminus \{\$\})^*)\{\$\}$ takú že, $(p, aw, az) \, {}^a_p\vdash (p, w, z)$. Pre uvedené symboli platí $p \in Q, a \in \Sigma, w \in \Sigma^*$ a $z \in \Gamma^*$. Hovoríme potom o operácií zásobnika $pop$ pre $M$, ktorá odstraní $a \in \Sigma$ z $(p, aw, az)$ na $(p, w, z)$. Pod $(p, q, uAv) {}^a_\epsilon \vdash (p, q, uAv)[pA \rightarrow qx]$ rozumieme, že $M$ expanduje svoj zásobník s absolutne nelimitovanou expanziou z $(p, w, uAv)$ po $(q, w, uxv)$ na základe $pAv \rightarrow qx$.
+Pravidlá nezapisujeme $(a, A, q, x) \in R$, ale ako $pA \rightarrow qx$. Majme reláciu ${}^a_p\vdash$ nad $Q \times \Sigma^* \times (\Gamma \setminus \{\$\})^*)\{\$\}$ takú, že $(p, aw, az) \, {}^a_p\vdash (p, w, z)$. Pre uvedené symboly platí $p \in Q, a \in \Sigma, w \in \Sigma^*$ a $z \in \Gamma^*$. Hovoríme potom o operácií zásobníka $pop$ pre $M$, ktorá odstráni $a \in \Sigma$ z $(p, aw, az)$ na $(p, w, z)$. Pod $(p, q, uAv) {}^a_\epsilon \vdash (p, q, uAv)[pA \rightarrow qx]$ rozumieme, že $M$ expanduje svoj zásobník s absolútne nelimitovanou expanziou z $(p, w, uAv)$ po $(q, w, uxv)$ na základe $pAv \rightarrow qx$.
 
-Jazyk, ktorý $M$ prijma pomocou prázdneho zásobnika, $L(M)_\epsilon$ je definovaný ako $$L(M)_\epsilon = \{w \in \Sigma^* \,| \, (s, w, S\$) {}^a\vdash^* (q, \epsilon, \$), kde \, q \in Q\}.$$.
+Jazyk, ktorý $M$ prijíma pomocou prázdneho zásobníka, $L(M)_\epsilon$ je definovaný ako $$L(M)_\epsilon = \{w \in \Sigma^* \,| \, (s, w, S\$) {}^a\vdash^* (q, \epsilon, \$), kde \, q \in Q\}.$$.
+
+\subsection{Aplikácia}
+Hlboký zásobníkový automat definovaný s. 589 \cite{FITPUB10498} je generalizáciou zásobníkového automatu \ref{def:zasaut}. Využitie hlbokého zásobníkového automatu spočíva v LL syntaktickej analýze. V nej môžeme vrchný symbol zásobníka buď expandovať alebo ho odstrániť. Vďaka hlbokému zásobníkovému automatu môžeme túto expanziu vykonávať vo vnútri tohto zásobníka. Týmto sme zvíšili akceptačnú silu zásoníkového automatu. Vďaka tejto vlastnosti môžeme LL prekladačmi spracovať kontextové jazyky. Samozrejme, že toto neplatí pre všetky kontextové jazyky, pretože hĺbka expanzie je limitovaná.
+
+Aby mohol užívateľ tvoriť variácie z nami navrhnutej gramatiky \ref{mainalg} budeme potrebovať hlboký zásobníkový automat. Dopredu však nepoznáme dĺžku reťazca, ktorý môže reprezentovať tému.
 
 \section{Algoritmus}
 \label{sec:alg}
