@@ -637,14 +637,9 @@ Pod absolútne nelimitovaným zásobnikovým automatom rozumieme osmicu $M = (Q,
 \end{itemize}
 \end{definition}
 
+Pravidlá nezapisujeme $(a, A, q, x) \in R$, ale ako $pA \rightarrow qx$. Majme reláciu ${}^a_p\vdash$ nad $Q \times \Sigma^* \times (\Gamma \setminus \{\$\})^*)\{\$\}$ takú že, $(p, aw, az) \, {}^a_p\vdash (p, w, z)$. Pre uvedené symboli platí $p \in Q, a \in \Sigma, w \in \Sigma^*$ a $z \in \Gamma^*$. Hovoríme potom o operácií zásobnika $pop$ pre $M$, ktorá odstraní $a \in \Sigma$ z $(p, aw, az)$ na $(p, w, z)$. Pod $(p, q, uAv) {}^a_\epsilon \vdash (p, q, uAv)[pA \rightarrow qx]$ rozumieme, že $M$ expanduje svoj zásobník s absolutne nelimitovanou expanziou z $(p, w, uAv)$ po $(q, w, uxv)$ na základe $pAv \rightarrow qx$.
 
-%\item konečnej množiny stavov $Q$,
-%    \item vstupnej abecedy $\Sigma$,
-%    \item zásobnikovej abecedy $\Gamma$,
-%    \item pravidiel alebo prechodov $R$, ktoré sú konečnou reláciou $R \subseteq \Gamma^* \times Q \times (\Sigma \cup \{\epsilon\}) \times \Gamma^* \times Q$,
-%    \item počiatočného stavu $s \in Q$,
-%    \item počiatočného symbolu zásobnika $S$,
-%    \item množiny konečných stavov $F \subseteq Q$.
+Jazyk, ktorý $M$ prijma pomocou prázdneho zásobnika, $L(M)_\epsilon$ je definovaný ako $$L(M)_\epsilon = \{w \in \Sigma^* \,| \, (s, w, S\$) {}^a\vdash^* (q, \epsilon, \$), kde \, q \in Q\}.$$.
 
 \section{Algoritmus}
 \label{sec:alg}
