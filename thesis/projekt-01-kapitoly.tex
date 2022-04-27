@@ -649,7 +649,23 @@ Hlboký zásobníkový automat definovaný s. 589 \cite{FITPUB10498} je generali
 Aby mohol užívateľ tvoriť variácie z nami navrhnutej gramatiky \ref{mainalg} budeme potrebovať hlboký zásobníkový automat. Dopredu však nepoznáme dĺžku reťazca, ktorý reprezentuje tému alebo celú skladbu. Aby sme mohli naďalej vytvárať variácie podľa našej gramatiky, budeme potrebovať nami definovaný absolútne nelimitovaný hlboký zásobníkový automat. Ten nás nelimituje v dĺžke expanzií, takže môžeme vytvárať variácie o ľubovoľnej dĺžke.
 
 \subsection{Konštruovanie variácií}
-Majme definovanú gramatiku pre tvorbu variácií \ref{mainalg}. Aby sme mohli tvoriť variácie na základe reťazca, ktorý zadal užívateľ, musíme zaviesť absolútne nelimitovaný hlboký zásobníkový automat $M$. Pre každé pravidlo s rozptýleným kontextom $$(A_1, A_2, ..., A_n) \rightarrow (x_1, x_2, ..., x_n)$$ zavádzame pravidlá pre absolútne nelimitovaný zásobníkový automat $$sA_m \rightarrow s_{m-1}x_m$$ $$s_{m-1}A_{m-1} \rightarrow s_{m-2}x_{m - 1}$$ $$\vdots$$ $$s_1A_1 \rightarrow sx_1.$$ M ma štartovný symbol $s$. Od $s_1$ po $s_{m - 1}$ máme nové unikátne stavy. M expanduje nevstupný symbol vo vnútri zásobniku, ktorým musí byť $A$ na $x$ a presunie sa na stav q podľa pravidla $pA \rightarrow qx$. Oproti hlbokému zásobnikovému automatu sme sa zbavili číslovania expanzií. Napriek tomu musíme dodržovať poradie expanzie, ktoré je uvedené vyššie. Ak by sme to nedodržali, tak by táto konštrukcia nefungovala správne.
+Majme definovanú gramatiku pre tvorbu variácií \ref{mainalg}. Aby sme mohli tvoriť variácie na základe reťazca, ktorý zadal užívateľ, musíme zaviesť absolútne nelimitovaný hlboký zásobníkový automat $M$. Pre každé pravidlo s rozptýleným kontextom $$(A_1, A_2, ..., A_n) \rightarrow (x_1, x_2, ..., x_n)$$ zavádzame pravidlá pre absolútne nelimitovaný zásobníkový automat $$sA_m \rightarrow s_{m-1}x_m$$ $$s_{m-1}A_{m-1} \rightarrow s_{m-2}x_{m - 1}$$ $$\vdots$$ $$s_1A_1 \rightarrow sx_1.$$ M ma štartovný symbol $s$. Od $s_1$ po $s_{m - 1}$ máme nové unikátne stavy. M expanduje nevstupný symbol vo vnútri zásobníku, ktorým musí byť $A$. Expanzia $A$ na $x$ a presunutie sa do stavu q je podľa pravidla $pA \rightarrow qx$. Oproti hlbokému zásobníkovému automatu sme sa zbavili číslovania expanzií. Napriek tomu musíme dodržovať poradie expanzie, ktoré je uvedené vyššie. Ak by sme to nedodržali, tak by táto konštrukcia nefungovala správne.
+
+\begin{table}[!ht]
+\label{tabulLL}
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+  & c1\_c & | \\ \hline
+S & 1     & 1 \\ \hline
+X & 2/3   & 4\\ \hline
+\end{tabular}
+\caption{LL tabuľka}
+\end{table}
+
+Zostrojená tabuľka \ref{tabulLL} je ukážkou z gramatiky \ref{mainalg}. Očíslované pravidlá sú $$1: (S) \rightarrow (XX)$$$$2: (X,X) \rightarrow (c1\_cX, c1\_cX),3: (X,X) \rightarrow (c1\_cX, d1\_cX)$$$$4:(X,X) \rightarrow (|,|).$$ Vo výslednej tabuľke uvažujeme iba o netermináloch, ktoré sú na ľavej strane. Nerozhodnosť, ktorá nastala medzi pravidlami 2 a 3 je rozhodnutá užívateľom. Ak si užívateľ zvolil variáciu opakovaním, zvolí sa pravidlo 2 inak 3.
+
+Tento spôsob tvorby variácií podľa užívateľa a dodržania poradia expanzie zásobníka nám zanecháva hotové variácie. Zamerajme sa na pravú stranu pravidla 3. Tá sa skladá z dvoch tónov c1\_c a d1\_c. Ton c1\_c reprezentuje tému a d1\_c je tónom variácie. Tento princíp je aplikovaný u všetkých pravidiel. Takýmto spôsobom nahrádzame tony témy na vrchole zásobníka a nelimitovane expandujeme zásobník $M$ tónami variácie.
 
 \section{Algoritmus}
 \label{sec:alg}
@@ -668,7 +684,7 @@ Druhá časť 18--20 je o čosi jednoduchšia. Tu detekujeme na vrchole zásobn�
 
 Tretia časť 23--37 nastáva vtedy, kedy sa na vrcholu zásobníka nachádza neterminál. Prvým krokom je získanie aktuálnej variácie. Potom sa začne s hľadaním pravidla v LL--tabuľke. Hľadanie prebieha na základe neterminálu \textit{TOP\_P} na vrchole zásobníka a terminálu \textit{t}. Po získaní tohto pravidla je potrebné vybrať to, ktoré patrí k aktuálnej variácii. Ďalej mame podmienku, ktorá rozhoduje o expanzií zásobníka. Majme príznak pre expanziu zásobníka v hĺbke je nastavený na \textit{True}. Vyberieme z dočasného poľa pozíciu neterminálu z hĺbky zásobníka. Túto pozíciu odstránime z dočasného poľa. Neterminal na získanej pozícii nahradíme tónom variácie hlboko v zásobníku. Nastavíme príznak expanzie v hĺbke na \textit{False}. Ak je tento príznam nastavený na \textit{False}. Získame pozíciu z dočasného poľa, ktorou je neterminál na vrchole zásobníka. Odstránime adresu tohto neterminálu z dočasného poľa. Zmeníme tento neterminal na vrcholu zásobníku za otočenú časť pravidla pre variáciu. V prípade, že aktuálna variácia je retrogradácia, potom neumožňujeme expanziu vo vnútri zásobníka.
 
-V prípade variácie retrogradácia, je správanie sa tohto algoritmu podobné obyčajnému zásobnikovému automatu \ref{def:zasaut}. Je to vďaka tomu, že túto variáciu vieme popísať bezkotextovou gramatikou. Počas tejto variácie sa nevykonáva expanzia vo vnútri zásobniku (Alg. \ref{algoritmus1} Riad. 36-37).
+V prípade variácie retrogradácia, je správanie sa tohto algoritmu podobné obyčajnému zásobnikovému automatu \ref{def:zasaut}. Je to vďaka tomu, že túto variáciu vieme popísať bezkotextovou gramatikou. Počas tejto variácie sa nevykonáva expanzia vo vnútri zásobníku (Alg. \ref{algoritmus1} Riad. 36-37).
 
 Koniec algoritmu nastáva vtedy, keď sme došli na koniec pola zadaných variácií. Funkcia \textit{save\_variation} nam postupne uložila tony požadovaných variácií. Vstupný reťazec je prijatý, inak nastáva chyba. Reťazec je prijatý ako prvá čásť jazyka, pod druhými časťami tohto jazyka rozumieme nami vytvorené variácie.
 
