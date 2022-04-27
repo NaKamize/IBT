@@ -624,8 +624,27 @@ Majme variáciu, ktorá vykoná retrogradáciu témy.
 \section{Nelimitovaný hlboký zásobnikový automat.}
 Táto sekcia definuje nelimitovaný hlboký zásobníkový automat. Z jeho definície vychádzame pri návrhu tvorby algoritmu v nasledujúcej sekcii \ref{sec:alg}. Oboznamuje čitateľa s jeho využitím pri tvorbe variácií. Popisuje jeho novú verziu pomocou ktorej tvoríme variácie témy. Popisuje taktiež aj kľúčovú vlastnosť tohto automatu, ktorá je potrebná pre tvorbu variácií pomocou tohto automatu. Poznatky a definícia tohto automatu je prevzatá z \cite{FITPUB10978}.
 \begin{definition}
+Pod absolútne nelimitovaným zásobnikovým automatom rozumieme osmicu $M = (Q, \Sigma, \Gamma, \$, R, s, S, F)$, ktorá sa skladá z
+\begin{itemize}\itemsep0.05em
+\item konečnej množiny stavov $Q$,
+\item vstupnej abecedy $\Sigma$,
+\item zásobnikovej abecedy $\Gamma$,
+\item množiny pravidiel $R$, ktoré sú konečnou reláciou $R \subseteq Q \times (\Gamma \setminus (\Sigma \cup \{\$\})) \times Q \times (\Gamma \setminus \{\$\})^* \times Q \times (\Gamma \setminus \{\$\})^*)\{\$\})$,
+\item špecialneho symbolu $\$ \in \Gamma \setminus \Sigma$ pre spodok zásobnika,
+\item počiatočného stavu $s \in Q$,
+\item počiatočného zásobnikového symbolu $S \in \Gamma$
+\item množiny konečných stavov $F$
+\end{itemize}
 \end{definition}
 
+
+%\item konečnej množiny stavov $Q$,
+%    \item vstupnej abecedy $\Sigma$,
+%    \item zásobnikovej abecedy $\Gamma$,
+%    \item pravidiel alebo prechodov $R$, ktoré sú konečnou reláciou $R \subseteq \Gamma^* \times Q \times (\Sigma \cup \{\epsilon\}) \times \Gamma^* \times Q$,
+%    \item počiatočného stavu $s \in Q$,
+%    \item počiatočného symbolu zásobnika $S$,
+%    \item množiny konečných stavov $F \subseteq Q$.
 
 \section{Algoritmus}
 \label{sec:alg}
@@ -722,8 +741,8 @@ inicializácia dočastného poľa s $pos\_S$\;
 \label{chap:imp}
 \chapter{Záver}
 \label{chap:end}
+\section{Dosiahnuté výsledky}
 Predmetom práce bolo sa zoznámiť s rôznymi formálnymi modelmi. Jedným z nich, ktoré našli uplatnenie v hudbe sú markovské procesy. Uplatnenie týchto modelov môžme nájsť v práci \cite{afrpub}. Taktiež by sme vedeli nájsť rôzne uplatnenia pre automaty a gramatiky, ktoré sú rozoberané v tejto práci. Z pozorovania vyplynulo, že rôzne vlastností gramatík a automatov umožňujú popísať, a postupne pravidlami tvoriť rôzne druhy hudobných konštrukcií. 
-
 Štúdiom hudobných konštrukcii a úsekov sme zistili, že tie ktoré by sme vedeli popísať formálnymi modelmi, sú téma a jej variácie. Variácie, ktoré boli použité pre výsledné modely pochádzajú z sématického rozpoznávania hudobných objektov. Tieto variácie sú opakovanie, transpozícia, postupnosť, protipohyb, retrogradácia, predĺženie a skrátenie dĺžky tónu. Študovali sme tieto variácie. Hľadaním spôsobu ako popísať tieto konštrukcie formálnymi modelmi sme zistili, že vhodný formálny model sú gramatiky. Rôzne variácie, ktoré sú zapísané v notovom zápise sa ukázali ako reťazce. Tieto reťazce vykazujú vlastnosti, ktoré vieme popísať bezkontextovým a kontextovým jazykmi. Hovoríme o vnorených závislostiach pre bezkontextové jazyky a krížiace sa závislosti pre kontextové jazyky. Variácia retrogradácia ukázala tvorbu vnorenými závislosťami medzi tónmi. Výsledkom tohto porozovania je bezkotextová gramatika, ktorá pravidlami popisuje túto konštrukciu. Vďaka tejto gramatike sme pravidlami vytvorili variáciu retrogradácia. Ostatné variácie sa ukázali ako nepopísateľné bezkotextovými gramatikami. Aby sme mohli ostatné variácie tvoriť museli sme zájsť do kontextových gramatik.
 
 Kontextové gramatiky sú silnejší formalizmus akým sú bezkontextové gramatiky. Vďaka tomu sme mohli do nej zahrnúť aj tvorbu retrogradácie, ktorá je bezkotextova. Štúdium rôznych kontextových gramatík, ktoré by mohli byť vhodné pre tvorbu hudobnej štruktúry ukázalo, že vhodnou gramatikou bude gramatika s rozptýleným kontextom. Existujúce aplikácie gramatiky s rozptýleným kontextom v lingvistike ukázali možnosť generovania gramatických viet. Tento princíp sme uplatnili v hudbe. Preskočenie kontextu v hudbe nám umožnilo generovať rôzne reťazce. Pod týmito reťazcami chápeme variácie témy. Tieto variácie chceme tvoriť programovo vstupom užívateľa, zostavili sme teda prekladač na základe LL gramatiky s rozptýleným kontextom a absolútne nelimitovaným hlbokým zásobníkovým automatom. Výsledná LL tabuľka sa skladá z pravidiel, ktoré znázorňujú tvorbu jednotlivých križiacich sa závislosti vo variáciách. Výsledná tabuľka by bola nerozhodnuteľná, ale vďaka tomu, že rozlišujeme pravidlá pre jednotlivé variácie, tak vieme zvoliť výsledné pravidlo pre konkrétnu variáciu.
@@ -732,11 +751,13 @@ Na základe týchto výsledkov sme si mohli zaviesť nový model, ktorý je zalo
 
 Dosiahnutý výsledok tejto práce spočíva vo variovaní rôznych tém, ktoré zadáva užívateľ. Na základe vytvorených výstupov si vie pozrieť zápis, ale aj vypočuť výsledné variácie. To mu zjednoduší rozhodovanie o tom, ktorú variáciu použije a či ju použije. Pre zápis sa používajú rôzne editory. Zjednodušenie je v tom, že užívateľ nemusí odchádzať od počítača k overeniu si svojej predstavy na hudobnom nástroji. Nemusí si taktiež ani zapisovať variáciu aby si ju následne overil.
 
-Ďalší vývoj tohto projektu sa môže uberať viacerými smermi. Jedným z nich môže byť zbieraním podkladov a analýza existujúcich variácií, a ich popisovaním pomocou pravidiel gramatiky. Ponúkať týmto spôsobom väčšiu množinu variácií v ponuke. Vďaka tomu by sa mohol užívateľ zahrať so svojou myšlienkou nejakej pesničky na Bacha, Vivaldiho a iných. Zistil by mohla byť jeho myšlienka existovať ich podaní.
+\section{Ďalší vývoj}
+Ďalší vývoj tohto projektu sa môže uberať viacerými smermi. Jedným z nich môže byť zbieraním podkladov a analýza existujúcich variácií. To by mohlo viesť ešte ku komplexnejšiemu systému. Tento komplexnejší systém by sa mohol ďalej zaoberať absolútnym neohraničeným zásobníkom a jeho vlastnosťami. Výsledok by mohol priniesť nový model, ktorý tvorí hudbu v reálnom čase zo zozbieraných podkladov a vstupu užívateľa. Tvorená hudba by mohla znieť počas expanzie zásobníka.
 
-Ďalším spôsobom môže byť tvorenie hudby v reálnom čase pomocou jazykov typu-0. Tento formálny model by sa už nemal odrážať od určitých úsekov, alebo objektov hudby ako tento projekt. Jeho výsledkom by mal byť popis hudby, ktorá je vhodná do nejakej situácie, kedy by si užívateľ zvolil situáciu, v ktorej sa nachádza. Či už tancuje na polku, valčík, snaží sa popri hudbe sústrediť alebo oddychovať. Zaujímavá myšlienka môže byť pridanie pravdepodobností do tohto systému. Určité tóny majú väčšiu pravdepodobnosť, že budú nasledovať ako iné tóny. Vďaka tomu vytvoriť rôzne melodické a uchu lahodiace konštrukcie v realnom čase. Využitie tohto prístupu by existovalo aj napríklad v počítačových hrách. 
+Ďalším spôsobom môže byť tvorenie hudby v reálnom čase pomocou jazykov typu-0. Tento formálny model by sa už nemal odrážať od určitých úsekov, alebo objektov hudby ako tento projekt. Jeho výsledkom by mal byť popis hudby, ktorá je vhodná do nejakej situácie. Tá by sa mohla v reálnom čase meniť na základe vstupu užívateľa. Ten by si určoval vlastnosti hudby. Zaujímavá myšlienka môže byť pridanie pravdepodobností do tohto systému. Určité tóny majú väčšiu pravdepodobnosť, že budú nasledovať ako iné tóny. Vďaka tomu vytvoriť rôzne melodické a uchu lahodiace konštrukcie v realnom čase. Využitie tohto prístupu by existovalo aj napríklad v počítačových hrách. 
 
-Gramatiky s rozptýleným kontextom sa uplatnili v lingvistike pri transformácií rôznych vetných konštrukcii. Tieto transformačné gramatiky by mohli byť zostrojené nové, so zameraním na transformáciu rôznych skladieb. Každá skladba sa nachádza v nejakej molovej (melódií) alebo v durovej (melódií). Úlohou transformačných gramatík by bolo pretvoriť existujúce úseky, alebo celé skladby do iných tónin zmysluplným spôsobom. Zmysluplný spôsob musí byť vždy ponechaný na užívateľovi. Môžeme sa akokoľvek snažiť pretvárať skladby, hudobné úseky ale výsledok vieme zhodnotiť uchom, nie počítačom.
+Aplikácie v hudbe našli aj rôzne ďalšie formálne modely. Ďalšie práce by sa mohli zaoberať štúdiom rôznych formálnych modelov. Jedným z nich môžu byť pravdepodobnostné bezkontextové gramatiky. Vybraním sa týmto smerom prináša štúdium článku \cite{gil:2022:Citace}. Ten sa zaoberá aplikovaním rôznych existujúcich modelov pre hľadanie štruktúry v hudbe. Tieto modely pochádzajú z aplikácií na bežný jazyk.  
+Taktiež zaujímavý pohľad prináša článok \cite{wilanimal:2022:Citace}. Ten sa zaoberá štruktúrami, ktoré sa nachádzajú v jazyku, hudbe a určitých častiach zvieracích zvukoch. K týmto štruktúram sa snaží priradiť formálne modely pomocou Chomskeho hierarichie.
 
 
 
