@@ -4,7 +4,7 @@
 % Autoři / Authors: 2007 Zdeněk Vašíček, 2008 Michal Bidlo, 2019 Jaroslav Dytrych
 % ----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fitthesis}[2017/11/07 Sablona pro BP/DP]
+\ProvidesClass{}[2017/11/07 Sablona pro BP/DP]
 
 %Vychozi hodnoty parametru / Default values for parameters
 \newif\ifczech \let\ifczech\iftrue
@@ -1017,11 +1017,11 @@ Management}{\@fit@EN}%
 %zadani / assignment
 \iftoggle{zadaniTwop}{
   \cleardoublepage
-  \includepdf[pages=-,offset=-0.1cm -0.2cm]{zadani.pdf}
+  \includepdf[pages=-,offset=-0.1cm -0.2cm]{zadanie.pdf}
   %\ifzadani\includepdf[pages=-,offset=0.6cm -1.7cm]{assignment.pdf}\fi
 }{
   \ifzadani
-    \includepdf[pages=-,offset=0.6cm -1.7cm]{zadani.pdf}
+    \includepdf[pages=-,offset=0.6cm -1.7cm]{zadanie.pdf}
     %\ifzadani\includepdf[pages=-,offset=0.6cm -1.7cm]{assignment.pdf}\fi
   \fi
 }
@@ -1351,4 +1351,4 @@ Management}{\@fit@EN}%
 
 \endinput
 %%
-%% End of file `fitthesis.cls'.
+%% End of file `.cls'.
