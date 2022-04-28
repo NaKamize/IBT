@@ -771,10 +771,45 @@ Keďže predmetom tejto práce nie je kladený dôraz na rýchlosť prekladu, ta
 
 Mimo štandardných balíčkov, implementovaný program používa jeden balíček, ktorý je pod všeobecnou verejnou licenciou. Ide o syntezátor, ktorého použitie si môže zvoliť užívateľ na prehrávanie výsledku tvorby variácií. Vďaka nemu si môže človek neznalý notového zápisu prehrať výsledne variácie. Ide o virtuálny analógový syntezátor. Návod na jeho manipuláciu a ukážky použitia môžeme nájsť v \cite{synt:site}.
 
+\section{Vstupy a výstupy}
+Vstup aj výstup programu je vo formáte XML. Tento princíp je prevzatý z \cite{afrpub}. Tento formát nám umožňuje reprezentovať určitým spôsobom notový zápis. Tento formát sa skladá z elementov, ktorým vieme pripísať rôzne atribúty. To sa nám hodí pri popise notového zápisu, inakším spôsobom ako je on samotný. Notový zápis sa skladá taktiež z rôznych elementov (tónov) a atribútov (dĺžka). Príklad vstupného súboru je nasledujúci.
+\lstset{language=XML}
+\begin{lstlisting}
+<theme time_signature="3/4">
+    <measure>
+        <tone note="half">c1</tone>
+        <tone note="eight">d1</tone>
+        <tone note="eight">e1</tone>
+    </measure>
+</theme>
+\end{lstlisting}
+
+Vstupný súbor obsahuje koreňový element \textit{theme}. Tento element musí obsahovať atribút s predpisom dĺžky taktu \textit{time\_signature}. Aby sme predišli nezmyselným konštrukciám, tak sme tento atribút obmedzili na hodnoty 2/4, 3/4 a 4/4. Tieto predpisy taktov sú v hudbe najrozšírenejšie.
+
+Vo vnútri koreňového elementu sú elementy \textit{measure}. Ide o element pre takt. Ten obsahuje elementy pre jednotlivé tony nazývane \textit{tone}.
+
+V notovom zápise je počet elementov \textit{tone} závislí od taktového predpisu, ktorý je v tomto súbore 3/4. Tento element má atribút \textit{note}, ktorý popisuje dĺžku tónu. Aby sme si overili dĺžku uvedeného elementu \textit{measure} potrebujeme spočítať dĺžky tónov v atribúte \textit{note}. Maximálny počet dôb v takte je podľa \textit{time\_signature} 3. Zo štvorky vyčítame trvanie štvrťovej noty, ktoré je jednu dobu. Potom výpočet je nasledovný $2 + 1/2 + 1/2 = 3.$ Textom elementov \textit{tone} je názov tónov.
+
+Na podobnom princípe je založený aj formát výstupu. Ten sa skladá z koreňového elementu \textit{variations}. Vo vnútri tohto koreňového elementu sú zahrnuté všetky výsledné variácie. Tie sú zoradené podľa zoznamu argumentov uvedenom v \ref{args}.
+\lstset{language=XML}
+\begin{lstlisting}
+<?xml version="1.0" ?>
+<variations>
+	<variation>
+		<measure>
+			<tone note="half">c1</tone>
+			<tone note="eighth">d1</tone>
+			<tone note="eighth">e1</tone>
+		</measure>
+	</variation>
+</variations>
+\end{lstlisting}
+
 \section{Prehľad tried}
 Výsledná implementácia využíva objektovo orientované programovanie. Štrukútra programu je rozdelená do tried. Tieto triedy vykonávajú rôzne činnosti ako sú spracovanie argumentov, extrahovanie vstupu, tvorby variácií, prehrávanie variácií a vytvorenie výstupu.
 
 \subsection{Argumenty}
+\label{args}
 Pomocou argumentov si užívateľ môže zvoliť variácie, ktoré sa budú vytvárať. Spracovanie argumentov zabezpečuje trieda \textit{ArgParser}. Hlavnou metódou tejto triedy je \textit{parse}. Cieľom tejto metódy je overiť správnosť argumentov a uložiť zadané argumenty pre ďalšie spracovanie. Jednotlivé variácie majú pridelené nasledujúce argumenty:
 
 \begin{itemize}\itemsep0.05em
@@ -799,29 +834,10 @@ Tieto argumenty patria všetkým variáciám, ktoré sme si navrhli a podarilo s
 súvisia s použitou knižnicou syntetizátora. Argument \textit{-p} prehrá výsledné variácie, \textit{save} uloží výsledok variácií do súboru pre prehratie a \textit{v} nastaví hlasitosť výstupu.
 
 \subsection{Spracovanie vstupu a výstupu}
-Vstup aj výstup programu je vo formáte XML. Tento princíp je prevzatý z \cite{afrpub}. Tento formát nám umožňuje reprezentovať určitým spôsobom notový zápis. Tento formát sa skladá z elementov, ktorým vieme pripísať rôzne atribúty. To sa nám hodí pri popise notového zápisu, inakším spôsobom ako je on samotný. Notový zápis sa skladá taktiež z rôznych elementov (tónov) a atribútov (dĺžka). Príklad vstupného súboru je nasledujúci.
-\lstset{language=XML}
-\begin{lstlisting}
-<theme time_signature="3/4">
-    <measure>
-        <tone note="half">c1</tone>
-        <tone note="eight">d1</tone>
-        <tone note="eight">e1</tone>
-    </measure>
-</theme>
-\end{lstlisting}
-
-Vstupný súbor obsahuje koreňový element \textit{theme}. Tento element musí obsahovať atribút s predpisom dĺžky taktu \textit{time\_signature}. Aby sme predišli nezmyselným konštrukciám, tak sme tento atribút obmedzili na hodnoty 2/4, 3/4 a 4/4. Tieto predpisy taktov sú v hudbe najrozšírenejšie.
-
-Vo vnútri koreňového elementu sú elementy \textit{measure}. Ide o element pre takt. Ten obsahuje elementy pre jednotlivé tony nazývane \textit{tone}.
-
-V notovom zápise je počet elementov \textit{tone} závislí od taktového predpisu, ktorý je v tomto súbore 3/4. Tento element má atribút \textit{note}, ktorý popisuje dĺžku tónu. Aby sme si overili dĺžku uvedeného elementu \textit{measure} potrebujeme spočítať dĺžky tónov v atribúte \textit{note}. Maximálny počet dôb v takte je podľa \textit{time\_signature} 3. Zo štvorky vyčítame trvanie štvrťovej noty, ktoré je jednu dobu. Potom výpočet je nasledovný $2 + 1/2 + 1/2 = 3.$ Textom elementov \textit{tone} je názov tónov.
 
 \subsection{Zásobnik}
 \subsection{Tvorba variácií}
 \subsection{Prehranie výstupu}
-
-\section{Vstupy a výstupy}
 \section{Výsledky a porovnanie}
 
 \chapter{Záver}
