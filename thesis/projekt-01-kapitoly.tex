@@ -762,7 +762,6 @@ inicializácia dočastného poľa s $pos\_S$\;
 
 \chapter{Implementácia}
 \label{chap:imp}
-<<<<<<< HEAD
 Kapitola implementácia sa zaoberá nami navrhnutého modelu pre tvorbu variácií. Implementácia tohto modelu vychádza z doteraz zozbieraných poznatkoch a vlastnostiach o bezkontextových a kontextových gramatikách. Jadrom výslednej implementácie bude algoritmus \ref{algoritmus1}. Pravidla, ktoré budú aplikované vychádzajú z gramatiky \ref{mainalg}.
 
 Najprv si rozoberieme technológie, ktoré sme si vybrali pre implementáciu. Zároveň uvedieme knižnicu, ktorá umožňuje prehrávanie výsledku. Potom zájdeme hlbšie, a to do štruktúry samotnej implementácie. Tá sa skladá z tried. Ďalej prezentujeme formát vstupu a výstupu, ktorý bol použitý pre reprezentácií taktového zápisu. Ako posledné si rozoberieme výsledky implementácie a jej porovnanie s existujúcimi skladbami.
@@ -776,17 +775,28 @@ Mimo štandardných balíčkov, implementovaný program používa jeden balíče
 Výsledná implementácia využíva objektovo orientované programovanie. Štrukútra programu je rozdelená do tried. Tieto triedy vykonávajú rôzne činnosti ako sú spracovanie argumentov, extrahovanie vstupu, tvorby variácií, prehrávanie variácií a vytvorenie výstupu.
 
 \subsection{Argumenty}
-Pomocou argumentov si užívateľ môže zvoliť variácie, ktoré sa budú vytvárať. Spracovanie argumentov zabezpečuje trieda \textit{ArgParser}. Hlavnou metódou tejto triedy je \textit{parse}. Cieľom tejto metódy je overiť správnosť argumentov a uložiť zadané argumenty. Jednotlivé variácie majú pridelené nasledujúce argumenty:
+Pomocou argumentov si užívateľ môže zvoliť variácie, ktoré sa budú vytvárať. Spracovanie argumentov zabezpečuje trieda \textit{ArgParser}. Hlavnou metódou tejto triedy je \textit{parse}. Cieľom tejto metódy je overiť správnosť argumentov a uložiť zadané argumenty pre ďalšie spracovanie. Jednotlivé variácie majú pridelené nasledujúce argumenty:
 
 \begin{itemize}\itemsep0.05em
-    \item -r, -{}-repetition
-    \item -t, -{}-transposition
-    \item -S, -{}-sequence-up
-    \item -c, -{}-contrary\_motion
-    \item -R, -{}-retro\_gradation
-    \item -a, -{}-augmentation
-    \item -d, -{}-diminution
+    \item -r, -{}-repetition pre variáciu opakovanim
+    \item -t, -{}-transposition pre variáciu transpozíciou
+    \item -S, -{}-sequence-up pre postupne zvyšovanie o jeden tón
+    \item -s, -{}-sequence-down pre postupne zníženie o jeden tón
+    \item -c, -{}-contrary\_motion pre variáciu proti pohybom
+    \item -R, -{}-retro\_gradation pre variáciu retrogradáciou
+    \item -a, -{}-augmentation pre variáciu zdvojnásobenia dĺžky tónov
+    \item -d, -{}-diminution pre variáciu skrátenia dĺžky tónov
 \end{itemize}
+
+Tieto argumenty patria všetkým variáciám, ktoré sme si navrhli a podarilo sa ich implementovať. Keďže sa pohybujeme na jednočiarkovanej a dvojčiarkovanej oktáve, nie všetky variácie sa môžu vykonávať viackrát pre jednu tému. Tie, ktoré vieme vykonať viackrát sú zvýšenie a zníženie o jeden tón. Patria pre ne obmedzenia, že sa môžu vykonať iba pre jednu oktávu. Takže pre tieto argumenty vieme zadať počet vykonaní od 1 po 7 vrátane. Ostatné argumenty iba povolia vykonanie príslušnej variácie. Argumenty
+
+\begin{itemize}\itemsep0.05em
+    \item -p, -{}-play 
+    \item -{}-save
+    \item -v, -{}-volume
+\end{itemize}
+
+súvisia s použitou knižnicou syntetizátora. Argument \textit{-p} prehrá výsledné variácie, \textit{save} uloží výsledok variácií do súboru pre prehratie a \textit{v} nastaví hlasitosť výstupu.
 
 \subsection{Spracovanie vstupu a výstupu}
 \subsection{Zásobnik}
@@ -795,8 +805,7 @@ Pomocou argumentov si užívateľ môže zvoliť variácie, ktoré sa budú vytv
 
 \section{Vstupy a výstupy}
 \section{Výsledky a porovnanie}
-=======
->>>>>>> parent of 5ced66b (Removed template figues.)
+
 \chapter{Záver}
 \label{chap:end}
 \section{Dosiahnuté výsledky}
