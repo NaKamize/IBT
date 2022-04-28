@@ -770,9 +770,29 @@ Najprv si rozoberieme technológie, ktoré sme si vybrali pre implementáciu. Z�
 \section{Použité technologie a knižnice}
 Keďže predmetom tejto práce nie je kladený dôraz na rýchlosť prekladu, tak bol k implementácií použitý jazyk Python. Python je interpretovaný, ojektovo orientovaný, dynamický typovaný a vysoko úrovňový programovací jazyk. Oproti jazykom akým je jazyk C alebo C++ postráda rýchlosť prekladu. Tá je kľúčová k implementácií prekladačov nových programovacích jazykov. Programovací jazyk python na oplátku ponúka jednoduchý syntax, obrovský výber a jednoduchú manipuláciu s balíčkami. Viac o tomto jazyku v \cite{python:site}.
 
-Mimo štandardných balíčkov implementovaný program používa jeden balíček, ktorý je pod všeobecnou verejnou licenciou. Ide o syntezátor, ktorého použitie si môže zvoliť užívateľ na prehrávanie výsledku tvorby variácií. Ide o virtuálny analógový syntezátor. Návod na jeho manipuláciu a ukážky použitia môžeme nájsť v \cite{synt:site}.
+Mimo štandardných balíčkov, implementovaný program používa jeden balíček, ktorý je pod všeobecnou verejnou licenciou. Ide o syntezátor, ktorého použitie si môže zvoliť užívateľ na prehrávanie výsledku tvorby variácií. Vďaka nemu si môže človek neznalý notového zápisu prehrať výsledne variácie. Ide o virtuálny analógový syntezátor. Návod na jeho manipuláciu a ukážky použitia môžeme nájsť v \cite{synt:site}.
 
 \section{Prehľad tried}
+Výsledná implementácia využíva objektovo orientované programovanie. Štrukútra programu je rozdelená do tried. Tieto triedy vykonávajú rôzne činnosti ako sú spracovanie argumentov, extrahovanie vstupu, tvorby variácií, prehrávanie variácií a vytvorenie výstupu.
+
+\subsection{Argumenty}
+Pomocou argumentov si užívateľ môže zvoliť variácie, ktoré sa budú vytvárať. Spracovanie argumentov zabezpečuje trieda \textit{ArgParser}. Hlavnou metódou tejto triedy je \textit{parse}. Cieľom tejto metódy je overiť správnosť argumentov a uložiť zadané argumenty. Jednotlivé variácie majú pridelené nasledujúce argumenty:
+
+\begin{itemize}\itemsep0.05em
+    \item -r, -{}-repetition
+    \item -t, -{}-transposition
+    \item -S, -{}-sequence-up
+    \item -c, -{}-contrary\_motion
+    \item -R, -{}-retro\_gradation
+    \item -a, -{}-augmentation
+    \item -d, -{}-diminution
+\end{itemize}
+
+\subsection{Spracovanie vstupu a výstupu}
+\subsection{Zásobnik}
+\subsection{Tvorba variácií}
+\subsection{Prehranie výstupu}
+
 \section{Vstupy a výstupy}
 \section{Výsledky a porovnanie}
 =======
