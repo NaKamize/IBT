@@ -799,6 +799,17 @@ Tieto argumenty patria všetkým variáciám, ktoré sme si navrhli a podarilo s
 súvisia s použitou knižnicou syntetizátora. Argument \textit{-p} prehrá výsledné variácie, \textit{save} uloží výsledok variácií do súboru pre prehratie a \textit{v} nastaví hlasitosť výstupu.
 
 \subsection{Spracovanie vstupu a výstupu}
+Vstup aj výstup programu je vo formáte XML. Tento princíp je prevzatý z \cite{afrpub}. Tento formát nam umožňuje reprezentovať určitým spôsobom notový zápis. Tento formát sa skladá z elementov, ktorým vieme pripísať rôzne atribúty. To sa nám hodí pri popise notového zápisu, inakším spôsobom ako je on samotný. Notový zápis sa skladá taktiež z rôznych elementov (tónov) a atribútov (dĺžka). Príklad vstupného súboru je následujúci 
+\lstset{language=XML}
+\begin{lstlisting}
+<theme time_signature="3/4">
+    <measure>
+        <tone note="half">c1</tone>
+        <tone note="eight">d1</tone>
+        <tone note="eight">e1</tone>
+    </measure>
+</theme>
+\end{lstlisting}
 \subsection{Zásobnik}
 \subsection{Tvorba variácií}
 \subsection{Prehranie výstupu}
