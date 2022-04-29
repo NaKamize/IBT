@@ -345,6 +345,7 @@ Môžeme si všimnúť, že stále zanedbávame dlžky jednotlivých tónov. Ri�
 V tejto sekcii si rozoberieme akým spôsobom sú ďalej reprezentované noty. Reprezentácia nôt v programe nie je vôbec jednoduchá. Sú to grafické značky a zapisujú sa do notového zápisu, ktorý je tiež grafický. Toto znemožňuje ich jednoduchú reprezentáciu ako v programe, ale i vo vstupnom súbore. Keď sa pozrieme do notového zápisu nejakého taktu tak vidíme samotnú značku. Ako prvé podľa jej tvaru vieme odčítať jej dĺžku či ide o celú, polovú, štvrťovú alebo osminovú notu. Ak chceme zistiť tón tak ho odčítame z pozície noty v notovej osnove. Preto boli zavedené nasledovné značenia pre jednotlivé noty.
 
 \begin{table}[!ht]
+\label{tab:tone}
     \centering
     \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l}
     \hline
@@ -862,6 +863,16 @@ Aby sme mohli odstrániť neterminály v hĺbke zásobníka používame operáci
 Trieda \textit{DLL} obsahuje ďalšie pomocné metódy ako sú \textit{not\_empty} pre zistenie či zásobník nie je prázdny. Obsahuje vypísanie obsahu \textit{printList} a \textit{dll\_len} na získanie počtu symbolov v zásobníku.
 
 \subsection{Tvorba variácií}
+Tvorba variácií je sústredená do triedy \textit{CSGparser}. Atribútmi tejto triedy sú tokeny podľa tabuľky \ref{tab:tone}. Ďalej kompletná LL tabuľka na základe gramatiky \ref{mainalg} a kompletný zoznam pravidiel. Tento kompletný zoznam pravidiel je uložený v poli \textit{rules}.
+
+\subsubsection*{def tokenizer()}
+Úlohou tejto metódy je tvoriť tokeny, ktoré sa skladajú z názvu tonu a jeho dĺžky. Ukladajú sa postupne do poľa \textit{tokens}. Ich tvar je definovaný atribútmi triedy. Tieto tokeny sa tvoria zo slovníka, ktorý je vytvorený triedou \textit{InputExtractor}. Na konci tohto procesu sa priložia tokeny pre taktovu čiaru a symbol, ktorý značí koniec tohto reťazca tokenov. Návratová hodnota je výsledný reťazec tokenov.
+
+\subsubsection*{Metody pre prácu s pravidlami a tabuľkou}
+\subsubsection*{def save\_result()}
+\subsubsection*{def get\_distances()}
+\subsubsection*{def reverse\_push()}
+
 \subsection{Prehranie výstupu a jeho výpis}
 \section{Výsledky a porovnanie}
 
