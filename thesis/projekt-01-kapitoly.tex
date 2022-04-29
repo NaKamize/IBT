@@ -844,34 +844,17 @@ Aby sme mohli zásobník expandovať v nejakej hĺbke, potrebujeme ho implemento
 
 Implementácia zásobníka sa nachádza v súbore \textit{DLL.py}. Súbor sa skladá z dvoch tried \textit{Node} a \textit{DLL}.
 
-Trieda \textit{Node} znázorňuje symbol v zásobníku. Tým môže byť hociktorý z zásobníkovej abecedy. Súčasťou tohto symbolu sú odkazy na nasledujúci symbol a predchádzajúci symbol. Dôležitými operáciami tohto zásobníka sú:
+Trieda \textit{Node} znázorňuje symbol v zásobníku. Tým môže byť hociktorý zo zásobníkovej abecedy. Súčasťou tohto symbolu sú odkazy na nasledujúci symbol a predchádzajúci symbol. Dôležitými operáciami tohto zásobníka sú:
 
-\begin{algorithm}[H]
-\label{push}
-\SetNlSkip{-1em}
-\caption{Operácia push}
-\SetStartEndCondition{ }{}{}%
-\SetKwProg{Fn}{def}{\string:}{}
-\SetKwFunction{Range}{range}%%
-\SetKw{KwTo}{in}\SetKwFor{For}{for}{\string:}{}%
-\SetKwIF{If}{ElseIf}{Else}{if}{:}{elif}{else:}{}%
-\SetKwFor{While}{while}{:}{fintq}%
-\AlgoDontDisplayBlockMarkers\SetAlgoNoEnd\SetAlgoNoLine%
-\Indp
-\Indpp
-\medskip
-\Fn {push (dáta)}{
-    nový\_symbol := Node(dáta)\;
-    nový\_symbol.next := vrch\_zásobníka\;
-    nový\_symbol.prev := prázdne\;
-    \If{hlava\_zásobnika nie je prádzna}{
-        hlava.prev = nový\_symbol
-    }
-    hlava\_zásobnika := nový\_symbol
-}
-\end{algorithm}
+\subsubsection*{def push(data)}
+Pomocou tejto operácie vkladáme prvé častí z pravých strán pravidiel gramatiky s rozptýleným kontextom. Tie sú vkladane na vrch zásobníka. Pod nimi rozumieme tóny hlavnej témy alebo skladby, ktorú chce užívateľ variovať.
 
-Pomocou algoritmu \ref{push} vkladáme prvé častí z pravých strán pravidiel gramatiky s rozptýleným kontextom. Pod nimi rozumieme tóny hlavnej témy alebo skladby, ktorú chce užívateľ variovať.
+\subsubsection*{def pop()}
+Vložené tóny na vrchu zásobníka sú rovnaké ako tie, ktoré si zadal užívateľ. Tie sú postupne z vrchu zásobníka odstraňované. Týmto spôsobom sa vyhneme tomu, že by výsledné variácie obsahovali tóny témy. Metoda nahradí na vrchu zásobníka nasledujúci symbol. Odkaz odstráneného symbolu je vráteny touto metódou.
+
+\subsubsection*{def insert()}
+
+\subsubsection*{def remove(symbol)}
 
 \subsection{Tvorba variácií}
 \subsection{Prehranie výstupu a jeho výpis}
