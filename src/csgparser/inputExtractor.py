@@ -67,9 +67,6 @@ class InputExtractor:
                 print("Wrong measure element.")
                 exit(1)
             measure = self.__fill_list(measure)
-            # if (measure != 4 and self.__time_sig == '4/4') and (measure != 2 and self.__time_sig == '2/4'):
-            #    print("Wrong measure duration !")
-            #    exit(1)
             if not (measure == 4.0 and self.__time_sig == '4/4') and not (measure == 2.0 and self.__time_sig == '2/4'
             ) and not (measure == 3.0 and self.__time_sig == '3/4'):
                 print("Wrong measure duration !")

@@ -1371,7 +1371,7 @@ class SCGparser:
 
     """ Generating music with help of syntax analysis. """
 
-    def syntax_analysis(self):
+    def variator(self):
         variation_count = len(self.__variations) - 1
         # Pushdown initialization
         self.__dll.push(self.__THEME_END)

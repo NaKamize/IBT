@@ -9,7 +9,7 @@ def main():
     arg_parser = ArgParser(sys.argv)
     arg_parser.parse()  # parsing arguments
     csgparse = SCGparser(arg_parser.get_theme(), arg_parser.get_variations())
-    csgparse.syntax_analysis()   # Syntax analysis of variations
+    csgparse.variator()   # Syntax analysis of variations
     variations = csgparse.get_result()  # save result
     volume = arg_parser.get_volume()
     if volume is not None:
