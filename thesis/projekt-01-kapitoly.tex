@@ -877,9 +877,16 @@ Jednou z nich je \textit{get\_rule}. Táto metóda vyberie bunku z tabuľky na z
 Pomocou tejto metódy vieme pretočiť obsah pravej strany pravidiel LL gramatiky s rozptýleným kontextom. Tento otočený obsah pravidiel vkladáme do zásobníka. Vkladanie prebieha buď do hĺbky alebo na vrch zásobníka. Keďže pravidlá sa skladajú z n-tíc, ktoré sa nedajú metódami otočiť, tak sme použili radu z \cite{stack:site}. Pod parametrom \textit{items} rozumieme obsah, ktorý sa vkladá do zásobníka. Odkaz na neterminál v zásobníku z dočasného poľa je \textit{nonterminal} a \textit{deep} rozhoduje o vkladaní do hĺbky.
 
 \subsubsection*{def save\_result(), def restart()}
-Obe metódy spolu úzko súvisia. Aby sme mohli uložiť jednotlivé úseky variácií, tak používame metódu \textit{save\_result}. Tá na konci zozbiera tony vytvorenej variácie zo zásobníka a uloží ich. Aby sme mohli tvoriť ďalšie variácie, tak potrebujeme vynulovať pozície čítania vstupu od užívateľa. V prípade, že bol zadaný väčší počet variácií zvyšovania a znižovania tónov témy, potom sa variácie netvoria z témy. Tieto nasledujúce variácie sa tvoria z poslednej variácie zvyšovania a znižovania tónu.
+Obe metódy spolu úzko súvisia. Aby sme mohli uložiť jednotlivé úseky variácií, tak používame metódu \textit{save\_result}. Tá na konci zozbiera tóny vytvorenej variácie zo zásobníka a uloží ich. Aby sme mohli tvoriť ďalšie variácie, tak potrebujeme vynulovať pozície čítania vstupu od užívateľa. To robíme pomocou metódy \textit{restart}. V prípade, že bol zadaný väčší počet variácií zvyšovania a znižovania tónov témy, potom sa variácie tvoria z témy. Tieto nasledujúce variácie sa tvoria z poslednej variácie zvyšovania a znižovania tónu.
 
-\subsubsection*{def get\_distances()}
+\subsubsection*{def get\_distances(tokens)}
+Aby sme mohli tvoriť variácie protipohybom, je potrebné získať vzdialenosti tónov zo vstupu. Tieto vzdialenosti sa počítajú na základe prvého tónu pre celú variáciu. Vzdialenosti sa počítajú vzorcom: $$vzdialenos\check{t} = (prv\acute{y}\_t\acute{o}n\_poz - t\acute{o}n\_poz) * 2.$$ Kde $prv\acute{y}\_t\acute{o}n\_poz$ je pozícia prvého tónu témy v poli $tuple\_list$ a $t\acute{o}n\_poz$ je pozícia každého ďalšieho tónu témy.
+
+\begin{example}
+Majme tému z tónov e a d. Pozícia tónu e je 2 a pozícia tónu d je 1. Potom $$(2 - 1) * 2 = 2.$$ Výsledna variácia bude musieť posunúť tón d o 2 pozície hore. Preto výsledna variácia sa skladá z tónov e a f.
+\end{example}
+
+Návratová hodnota je zoznam týchto vzdialenosti. Tie sa použijú pri zadanej variácií protipohyb. Variácia protipohybom je tou, ktorá obsahuje najviac pravidiel gramatiky. Je to preto, že tu sa krížiace sa závislosti riadia vzdialenosťami. Tie posúvajú tón hore o rovnakú dlžku ako ho posúvajú dole.
 
 \subsection{Prehranie výstupu a jeho výpis}
 \section{Výsledky a porovnanie}
