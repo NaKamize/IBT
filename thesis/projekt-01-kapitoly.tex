@@ -771,7 +771,8 @@ Keďže predmetom tejto práce nie je kladený dôraz na rýchlosť prekladu, ta
 
 Mimo štandardných balíčkov, implementovaný program používa jeden balíček, ktorý je pod všeobecnou verejnou licenciou. Ide o syntezátor, ktorého použitie si môže zvoliť užívateľ na prehrávanie výsledku tvorby variácií. Vďaka nemu si môže človek neznalý notového zápisu prehrať výsledne variácie. Ide o virtuálny analógový syntezátor. Návod na jeho manipuláciu a ukážky použitia môžeme nájsť v \cite{synt:site}.
 
-\section{Vstupy a výstupy}
+\section{Vstup a výstup}
+\label{inputoutput}
 Vstup aj výstup programu je vo formáte XML. Tento princíp je prevzatý z \cite{afrpub}. Tento formát nám umožňuje reprezentovať určitým spôsobom notový zápis. Tento formát sa skladá z elementov, ktorým vieme pripísať rôzne atribúty. To sa nám hodí pri popise notového zápisu, inakším spôsobom ako je on samotný. Notový zápis sa skladá taktiež z rôznych elementov (tónov) a atribútov (dĺžka). Príklad vstupného súboru je nasledujúci.
 \lstset{language=XML}
 \begin{lstlisting}
@@ -833,11 +834,47 @@ Tieto argumenty patria všetkým variáciám, ktoré sme si navrhli a podarilo s
 
 súvisia s použitou knižnicou syntetizátora. Argument \textit{-p} prehrá výsledné variácie, \textit{save} uloží výsledok variácií do súboru pre prehratie a \textit{v} nastaví hlasitosť výstupu.
 
-\subsection{Spracovanie vstupu a výstupu}
+\subsection{Spracovanie vstupu}
+Spracovanie vstupu zabezpečuje trieda \textit{InputExtractor}. Jej úlohou je spracovať vstup zadaný užívateľom. Formát tohto vstupu je rozoberaný v \ref{inputoutput}. 
 
-\subsection{Zásobnik}
+Hlavnou metódou tejto triedy je \textit{read\_input}. Pomocou nej čítame vstup, z ktorého potrebujeme predpis taktov. Ten je potrebný pre formatovanie výstupu. Ďalej z elementov vo vstupnom súbore vyberie dĺžky tónov a ich názvy. Toto uskutočňuje pomocou metody \textit{fill\_list}. Dvojice ton a dĺžka sú uložené do slovníka pre tvorbu variácií.
+
+\subsection{Zásobník}
+Aby sme mohli zásobník expandovať v nejakej hĺbke, potrebujeme ho implementovať pomocou obojstranne viazaneho zoznamu. Informácie a časť metód pre obojstranne viazaný zoznam boli prevzaté z \cite{dll:site}.
+
+Implementácia zásobníka sa nachádza v súbore \textit{DLL.py}. Súbor sa skladá z dvoch tried \textit{Node} a \textit{DLL}.
+
+Trieda \textit{Node} znázorňuje symbol v zásobníku. Tým môže byť hociktorý z zásobníkovej abecedy. Súčasťou tohto symbolu sú odkazy na nasledujúci symbol a predchádzajúci symbol. Dôležitými operáciami tohto zásobníka sú:
+
+\begin{algorithm}[H]
+\label{push}
+\SetNlSkip{-1em}
+\caption{Operácia push}
+\SetStartEndCondition{ }{}{}%
+\SetKwProg{Fn}{def}{\string:}{}
+\SetKwFunction{Range}{range}%%
+\SetKw{KwTo}{in}\SetKwFor{For}{for}{\string:}{}%
+\SetKwIF{If}{ElseIf}{Else}{if}{:}{elif}{else:}{}%
+\SetKwFor{While}{while}{:}{fintq}%
+\AlgoDontDisplayBlockMarkers\SetAlgoNoEnd\SetAlgoNoLine%
+\Indp
+\Indpp
+\medskip
+\Fn {push (dáta)}{
+    nový\_symbol := Node(dáta)\;
+    nový\_symbol.next := vrch\_zásobníka\;
+    nový\_symbol.prev := prázdne\;
+    \If{hlava\_zásobnika nie je prádzna}{
+        hlava.prev = nový\_symbol
+    }
+    hlava\_zásobnika := nový\_symbol
+}
+\end{algorithm}
+
+Pomocou algoritmu \ref{push} vkladáme prvé častí z pravých strán pravidiel gramatiky s rozptýleným kontextom. Pod nimi rozumieme tóny hlavnej témy alebo skladby, ktorú chce užívateľ variovať.
+
 \subsection{Tvorba variácií}
-\subsection{Prehranie výstupu}
+\subsection{Prehranie výstupu a jeho výpis}
 \section{Výsledky a porovnanie}
 
 \chapter{Záver}
