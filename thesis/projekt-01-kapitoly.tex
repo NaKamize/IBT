@@ -876,7 +876,9 @@ Jednou z nich je \textit{get\_rule}. Táto metóda vyberie bunku z tabuľky na z
 \subsubsection*{def reverse\_push(items, deep, nonterminal)}
 Pomocou tejto metódy vieme pretočiť obsah pravej strany pravidiel LL gramatiky s rozptýleným kontextom. Tento otočený obsah pravidiel vkladáme do zásobníka. Vkladanie prebieha buď do hĺbky alebo na vrch zásobníka. Keďže pravidlá sa skladajú z n-tíc, ktoré sa nedajú metódami otočiť, tak sme použili radu z \cite{stack:site}. Pod parametrom \textit{items} rozumieme obsah, ktorý sa vkladá do zásobníka. Odkaz na neterminál v zásobníku z dočasného poľa je \textit{nonterminal} a \textit{deep} rozhoduje o vkladaní do hĺbky.
 
-\subsubsection*{def save\_result()}
+\subsubsection*{def save\_result(), def restart()}
+Obe metódy spolu úzko súvisia. Aby sme mohli uložiť jednotlivé úseky variácií, tak používame metódu \textit{save\_result}. Tá na konci zozbiera tony vytvorenej variácie zo zásobníka a uloží ich. Aby sme mohli tvoriť ďalšie variácie, tak potrebujeme vynulovať pozície čítania vstupu od užívateľa. V prípade, že bol zadaný väčší počet variácií zvyšovania a znižovania tónov témy, potom sa variácie netvoria z témy. Tieto nasledujúce variácie sa tvoria z poslednej variácie zvyšovania a znižovania tónu.
+
 \subsubsection*{def get\_distances()}
 
 \subsection{Prehranie výstupu a jeho výpis}
