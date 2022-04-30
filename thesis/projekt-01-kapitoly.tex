@@ -768,6 +768,7 @@ Kapitola implementácia sa zaoberá nami navrhnutého modelu pre tvorbu variáci
 Najprv si rozoberieme technológie, ktoré sme si vybrali pre implementáciu. Zároveň uvedieme knižnicu, ktorá umožňuje prehrávanie výsledku. Potom zájdeme hlbšie, a to do štruktúry samotnej implementácie. Tá sa skladá z tried. Ďalej prezentujeme formát vstupu a výstupu, ktorý bol použitý pre reprezentácií taktového zápisu. Ako posledné si rozoberieme výsledky implementácie a jej porovnanie s existujúcimi skladbami.
 
 \section{Použité technologie a knižnice}
+\label{technologies}
 Keďže predmetom tejto práce nie je kladený dôraz na rýchlosť prekladu, tak bol k implementácií použitý jazyk Python. Python je interpretovaný, ojektovo orientovaný, dynamický typovaný a vysoko úrovňový programovací jazyk. Oproti jazykom akým je jazyk C alebo C++ postráda rýchlosť prekladu. Tá je kľúčová k implementácií prekladačov nových programovacích jazykov. Programovací jazyk python na oplátku ponúka jednoduchý syntax, obrovský výber a jednoduchú manipuláciu s balíčkami. Viac o tomto jazyku v \cite{python:site}.
 
 Mimo štandardných balíčkov, implementovaný program používa jeden balíček, ktorý je pod všeobecnou verejnou licenciou. Ide o syntezátor, ktorého použitie si môže zvoliť užívateľ na prehrávanie výsledku tvorby variácií. Vďaka nemu si môže človek neznalý notového zápisu prehrať výsledne variácie. Ide o virtuálny analógový syntezátor. Návod na jeho manipuláciu a ukážky použitia môžeme nájsť v \cite{synt:site}.
@@ -893,6 +894,10 @@ Táto metóda je implementáciou algoritmu \ref{algoritmus1}. Tvorí výsledné 
 
 
 \subsection{Prehranie výstupu a jeho výpis}
+Aby si užívateľ mohol prehrať vytvorené variácie, tak sme vytvorili triedu \textit{TonesPlayer}. Cieľom tejto triedy je vytvoriť sínusové vlny podľa frekvencií, ktoré sme prevzali z \cite{strankaFrekvencii}. Trvanie týchto vĺn je určené podľa dĺžky nôt, ktoré sú vo variácií. Aby sme mohli toto všetko prehrať a vytvoriť, použili sme knižnicu, ktorú sme rozoberali v sekcii \ref{technologies}. Tieto výsledky je možné prehrať, ale i uložiť do súboru s príponou \textit{.wav}. Tento súbor sa uloží do rovnakého priečinku ako vstupný súbor.
+
+
+
 \section{Výsledky a porovnanie}
 
 \chapter{Záver}
