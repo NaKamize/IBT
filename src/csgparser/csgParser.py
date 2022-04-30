@@ -491,7 +491,7 @@ class SCGparser:
         [(__N_X, __N_X), '->', ((__T_F1_FULL, __N_X), (__T_E1_FULL, __N_X))],  # 247
         [(__N_X, __N_X), '->', ((__T_F1_HALF, __N_X), (__T_E1_HALF, __N_X))],  # 248
         [(__N_X, __N_X), '->', ((__T_F1_QUARTER, __N_X), (__T_E1_QUARTER, __N_X))],  # 249
-        [(__N_X, __N_X), '->', ((__T_F1_EIGHT, __N_X), (__T_F1_EIGHT, __N_X))],  # 250
+        [(__N_X, __N_X), '->', ((__T_F1_EIGHT, __N_X), (__T_E1_EIGHT, __N_X))],  # 250
         [(__N_X, __N_X), '->', ((__T_G1_FULL, __N_X), (__T_F1_FULL, __N_X))],  # 251
         [(__N_X, __N_X), '->', ((__T_G1_HALF, __N_X), (__T_F1_HALF, __N_X))],  # 252
         [(__N_X, __N_X), '->', ((__T_G1_QUARTER, __N_X), (__T_F1_QUARTER, __N_X))],  # 253
@@ -506,8 +506,8 @@ class SCGparser:
         [(__N_X, __N_X), '->', ((__T_H1_EIGHT, __N_X), (__T_A1_EIGHT, __N_X))],  # 262
         [(__N_X, __N_X), '->', ((__T_C2_FULL, __N_X), (__T_H1_FULL, __N_X))],  # 263
         [(__N_X, __N_X), '->', ((__T_C2_HALF, __N_X), (__T_H1_HALF, __N_X))],  # 264
-        [(__N_X, __N_X), '->', ((__T_C2_QUARTER, __N_X), (__T_H2_QUARTER, __N_X))],  # 265
-        [(__N_X, __N_X), '->', ((__T_C2_EIGHT, __N_X), (__T_H2_EIGHT, __N_X))],  # 266
+        [(__N_X, __N_X), '->', ((__T_C2_QUARTER, __N_X), (__T_H1_QUARTER, __N_X))],  # 265
+        [(__N_X, __N_X), '->', ((__T_C2_EIGHT, __N_X), (__T_H1_EIGHT, __N_X))],  # 266
         [(__N_X, __N_X), '->', ((__T_D2_FULL, __N_X), (__T_C2_FULL, __N_X))],  # 267
         [(__N_X, __N_X), '->', ((__T_D2_HALF, __N_X), (__T_C2_HALF, __N_X))],  # 268
         [(__N_X, __N_X), '->', ((__T_D2_QUARTER, __N_X), (__T_C2_QUARTER, __N_X))],  # 269
@@ -519,7 +519,7 @@ class SCGparser:
         [(__N_X, __N_X), '->', ((__T_F2_FULL, __N_X), (__T_E2_FULL, __N_X))],  # 275
         [(__N_X, __N_X), '->', ((__T_F2_HALF, __N_X), (__T_E2_HALF, __N_X))],  # 276
         [(__N_X, __N_X), '->', ((__T_F2_QUARTER, __N_X), (__T_E2_QUARTER, __N_X))],  # 277
-        [(__N_X, __N_X), '->', ((__T_F2_EIGHT, __N_X), (__T_F2_EIGHT, __N_X))],  # 278
+        [(__N_X, __N_X), '->', ((__T_F2_EIGHT, __N_X), (__T_E2_EIGHT, __N_X))],  # 278
         [(__N_X, __N_X), '->', ((__T_G2_FULL, __N_X), (__T_F2_FULL, __N_X))],  # 279
         [(__N_X, __N_X), '->', ((__T_G2_HALF, __N_X), (__T_F2_HALF, __N_X))],  # 280
         [(__N_X, __N_X), '->', ((__T_G2_QUARTER, __N_X), (__T_F2_QUARTER, __N_X))],  # 281
