@@ -899,6 +899,256 @@ Aby si užívateľ mohol prehrať vytvorené variácie, tak sme vytvorili triedu
 O vypísanie výsledných variácii sa stará trieda \textit{Generator}. Formát tohto výstupu sme rozoberali v \ref{inputoutput}. Výstupný xml formát je ešte formatovaný tak, aby nebol vypísaný na jednom riadku. O to sa stará knižnica \textit{mini.dom}.
 
 \section{Výsledky a porovnanie}
+V tejto sekcií si predvedieme výsledky našej implementácie. Ukážeme si tému (vstup) a pre ňu vytvorené variácie (výstupy). Naša téma je jednoduchá a skladá sa z troch taktov. Zápis témy v notovom zápise s jej ekvivalentným v xml je nasledovný.
+
+\begin{minipage}{.45\textwidth}
+\includegraphics[width=\textwidth]{thesis/obrazky-figures/theme.png}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\lstset{language=XML}
+\begin{lstlisting}
+<theme time_signature="3/4">
+    <measure>
+        <tone note="half">a1</tone>
+        <tone note="eight">g1</tone>
+        <tone note="eight">h1</tone>
+    </measure>
+    <measure>
+        <tone note="quarter">c2</tone>
+        <tone note="quarter">c2</tone>
+        <tone note="quarter">f1</tone>
+    </measure>
+    <measure>
+        <tone note="quarter">g1</tone>
+        <tone note="half">a1</tone>
+    </measure>
+</theme>
+\end{lstlisting}
+\end{minipage}
+
+Ako prvú variáciu vytvoríme opakovanie témy. Táto variácie prevezme tony témy a okopíruje ich. Výsledok programu vo formáte xml a v notovom zápise je:
+
+\begin{minipage}{.45\textwidth}
+\includegraphics[width=\textwidth]{thesis/obrazky-figures/var1.png}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\lstset{language=XML}
+\begin{lstlisting}
+<variation>
+    <measure>
+        <tone note="half">a1</tone>
+        <tone note="eighth">g1</tone>
+        <tone note="eighth">h1</tone>
+    </measure>
+    <measure>
+        <tone note="quarter">c2</tone>
+        <tone note="quarter">c2</tone>
+        <tone note="quarter">f1</tone>
+    </measure>
+    <measure>
+        <tone note="quarter">g1</tone>
+        <tone note="half">a1</tone>
+    </measure>
+</variation>
+\end{lstlisting}
+\end{minipage}
+
+Druhou variáciou je transpozícia. Vytvorená variácia zdvihla našu tému o jednu oktávu vyššie.
+
+\begin{minipage}{.4\textwidth}
+\includegraphics[width=\textwidth]{thesis/obrazky-figures/var22.png}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\lstset{language=XML}
+\begin{lstlisting}
+<variation>
+    <measure>
+        <tone note="half">a2</tone>
+        <tone note="eighth">g2</tone>
+        <tone note="eighth">h2</tone>
+    </measure>
+    <measure>
+        <tone note="quarter">c3</tone>
+        <tone note="quarter">c3</tone>
+        <tone note="quarter">f2</tone>
+    <measure>
+        <tone note="quarter">g2</tone>
+        <tone note="half">a2</tone>
+    </measure>
+</variation>
+\end{lstlisting}
+\end{minipage}
+
+Pomocou tretej variácie sme postupne zvýšili tému o jeden tón.
+
+\begin{minipage}{.4\textwidth}
+\includegraphics[width=\textwidth]{thesis/obrazky-figures/var3.png}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\lstset{language=XML}
+\begin{lstlisting}
+<variation>
+    <measure>
+        <tone note="half">h1</tone>
+        <tone note="eighth">a1</tone>
+        <tone note="eighth">c2</tone>
+    </measure>
+    <measure>
+        <tone note="quarter">d2</tone>
+        <tone note="quarter">d2</tone>
+        <tone note="quarter">g1</tone>
+    </measure>
+    <measure>
+        <tone note="quarter">a1</tone>
+        <tone note="half">h1</tone>
+    </measure>
+</variation>
+\end{lstlisting}
+\end{minipage}
+
+Štvrá variácie, ktorá znizila tému o jeden ton je:
+
+\begin{minipage}{.4\textwidth}
+\includegraphics[width=\textwidth]{thesis/obrazky-figures/var4.png}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\lstset{language=XML}
+\begin{lstlisting}
+<variation>
+    <measure>
+        <tone note="half">g1</tone>
+        <tone note="eighth">f1</tone>
+        <tone note="eighth">a1</tone>
+    </measure>
+    <measure>
+        <tone note="quarter">h1</tone>
+        <tone note="quarter">h1</tone>
+        <tone note="quarter">e1</tone>
+    </measure>
+    <measure>
+        <tone note="quarter">f1</tone>
+        <tone note="half">g1</tone>
+    </measure>
+</variation>
+\end{lstlisting}
+\end{minipage}
+
+Piata variácia
+
+\begin{minipage}{.4\textwidth}
+\includegraphics[width=\textwidth]{thesis/obrazky-figures/var5.png}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\lstset{language=XML}
+\begin{lstlisting}
+<variation>
+    <measure>
+        <tone note="half">a1</tone>
+        <tone note="eighth">h1</tone>
+        <tone note="eighth">g1</tone>
+    </measure>
+    <measure>
+        <tone note="quarter">f1</tone>
+        <tone note="quarter">f1</tone>
+        <tone note="quarter">f1</tone>
+    </measure>
+    <measure>
+        <tone note="quarter">h1</tone>
+        <tone note="half">a1</tone>
+    </measure>
+</variation>
+\end{lstlisting}
+\end{minipage}
+
+šiesta variácia
+
+\begin{minipage}{.4\textwidth}
+\includegraphics[width=\textwidth]{thesis/obrazky-figures/var7.png}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\lstset{language=XML}
+\begin{lstlisting}
+<variation>
+    <measure>
+        <tone note="half">a1</tone>
+        <tone note="quarter">g1</tone>
+    </measure>
+    <measure>
+        <tone note="quarter">f1</tone>
+        <tone note="quarter">c2</tone>
+        <tone note="quarter">c2</tone>
+    </measure>
+    <measure>
+        <tone note="eighth">h1</tone>
+        <tone note="eighth">g1</tone>
+        <tone note="half">a1</tone>
+    </measure>
+</variation>
+\end{lstlisting}
+\end{minipage}
+
+siedma variácia
+
+\begin{minipage}{.4\textwidth}
+\includegraphics[width=\textwidth]{thesis/obrazky-figures/var8.png}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\lstset{language=XML}
+\begin{lstlisting}
+<variation>
+    <measure>
+        <tone note="full">a1</tone>
+    </measure>
+    <measure>
+        <tone note="quarter">g1</tone>
+        <tone note="quarter">h1</tone>
+        <tone note="half">c2</tone>
+    </measure>
+    <measure>
+        <tone note="half">c2</tone>
+        <tone note="half">f1</tone>
+    </measure>
+    <measure>
+        <tone note="half">g1</tone>
+        <tone note="full">a1</tone>
+    </measure>
+</variation>
+\end{lstlisting}
+\end{minipage}
+
+osma variácia
+
+\begin{minipage}{.4\textwidth}
+\includegraphics[width=\textwidth]{thesis/obrazky-figures/var9.png}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\lstset{language=XML}
+\begin{lstlisting}
+<variation>
+    <measure>
+        <tone note="quarter">a1</tone>
+        <tone note="eighth">g1</tone>
+        <tone note="eighth">h1</tone>
+        <tone note="eighth">c2</tone>
+        <tone note="eighth">c2</tone>
+    </measure>
+    <measure>
+        <tone note="eighth">f1</tone>
+        <tone note="eighth">g1</tone>
+        <tone note="quarter">a1</tone>
+    </measure>
+</variation>
+\end{lstlisting}
+\end{minipage}
 
 \chapter{Záver}
 \label{chap:end}
