@@ -30,7 +30,7 @@ Dĺžka tónu nie je narozdiel od ostatných vlastností fyzikálnou, ale je zá
 
 Výška tónu je definovaná ako počet kmitov za jednu sekundu. Spolu s výškou tónu sa zvyšuje počet kmitov za sekundu. Počet kmitov za jednu sekundu sa udáva v Hertzoch.
 
-Tóny sú usporiadané do tónovej sústavy. Tónová sústava je množina tónov, ktoré sa v hudbe vyskytujú. Tvorí ju sedem základných tónov c, d, e, f, g, a, h. Tieto tony sú výškovo usporiadané od najnižšej po najvyššiu. Po tóne h vždy nasleduje tón c, ktorý má dvojnásobnú frekvenciu oproti tomu pôvodnému. Všetkých osem tónov tvorí oktávu. V tejto práci sú použité dve oktávy, a to sú jednočiarkovaná oktáva a dvojčiarkovaná oktáva.
+Tóny sú usporiadané do tónovej sústavy. Tónová sústava je množina tónov, ktoré sa v hudbe vyskytujú. Tvorí ju sedem základných tónov c, d, e, f, g, a, h. Tieto tóny sú výškovo usporiadané od najnižšej po najvyššiu. Po tóne h vždy nasleduje tón c, ktorý má dvojnásobnú frekvenciu oproti tomu pôvodnému. Všetkých osem tónov tvorí oktávu. V tejto práci sú použité dve oktávy, a to sú jednočiarkovaná oktáva a dvojčiarkovaná oktáva.
 
 Na obrázku \ref{fig:tonfrek} sú zobrazené tóny cez dve oktávy, ktoré sú pomenované. K príslušným tónom bola priradená ich frekvencia na základe \cite{strankaFrekvencii}. Môžeme na obrázku spozorovať, ako frekvencie tónov medzi oktávami súvisia. Jednočiarkovaná oktáva, ktorá sa začína tónom c a končí tónom c2 má polovičnú frekvenciu dvojčiarkovanej oktávy, ktorá sa začína tónom c2 a končí tónom c3. Jednotlivé tóny vieme posunúť o oktávu vyššie vďaka zdvojnásobeniu ich frekvencie.
 
@@ -75,7 +75,7 @@ Obrázok \ref{fig:trojst} už obsahuje štvorštvrťový takt, v ktorom sa už m
 \end{figure}
 
 \subsection{Notový zápis}
-Notový zápis sa skladá z piatich čiar a štyroch medzier. Začína sa klúčom, ktorý slúži pre relatívne určenie výšky skladby. Existujú rôzne kľúče. V tejto práci sa vyskytuje jeden a tým je husľový kľúč. Husľovým kľúčom sa zapisujú tony stredné a vysoké. 
+Notový zápis sa skladá z piatich čiar a štyroch medzier. Začína sa klúčom, ktorý slúži pre relatívne určenie výšky skladby. Existujú rôzne kľúče. V tejto práci sa vyskytuje jeden a tým je husľový kľúč. Husľovým kľúčom sa zapisujú tóny stredné a vysoké. 
 
 Po husľovom kľúči sa určí tónina. Tónina je množina tónov, ktorá je obsiahnutá v melódií. Každá tónina prislúcha nejakej stupnici. Stupnicu tvorí osem základných tónov, ktoré sú výškovo usporiadané. Stupnica sa začína tónom, ktorý prisluši názvu stupnici. C durová stupnica sa začína tónom c. V tejto práci sa pracuje čisto s notami z C durovej stupnice a výsledky práce sú v C durovej tónine.
 
@@ -668,7 +668,7 @@ X & 2/3   & 4\\ \hline
 
 Zostrojená tabuľka \ref{tabulLL} je ukážkou z gramatiky \ref{mainalg}. Očíslované pravidlá sú $$1: (S) \rightarrow (XX)$$$$2: (X,X) \rightarrow (c1\_cX, c1\_cX),3: (X,X) \rightarrow (c1\_cX, d1\_cX)$$$$4:(X,X) \rightarrow (|,|).$$ Vo výslednej tabuľke uvažujeme iba o netermináloch, ktoré sú na ľavej strane. Nerozhodnosť, ktorá nastala medzi pravidlami 2 a 3 je rozhodnutá užívateľom. Ak si užívateľ zvolil variáciu opakovaním, zvolí sa pravidlo 2 inak 3.
 
-Tento spôsob tvorby variácií podľa užívateľa a dodržania poradia expanzie zásobníka nám zanecháva hotové variácie. Zamerajme sa na pravú stranu pravidla 3. Tá sa skladá z dvoch tónov c1\_c a d1\_c. Ton c1\_c reprezentuje tému a d1\_c je tónom variácie. Tento princíp je aplikovaný u všetkých pravidiel. Takýmto spôsobom nahrádzame tony témy na vrchole zásobníka a nelimitovane expandujeme zásobník $M$ tónami variácie.
+Tento spôsob tvorby variácií podľa užívateľa a dodržania poradia expanzie zásobníka nám zanecháva hotové variácie. Zamerajme sa na pravú stranu pravidla 3. Tá sa skladá z dvoch tónov c1\_c a d1\_c. Tón c1\_c reprezentuje tému a d1\_c je tónom variácie. Tento princíp je aplikovaný u všetkých pravidiel. Takýmto spôsobom nahrádzame tóny témy na vrchole zásobníka a nelimitovane expandujeme zásobník $M$ tónami variácie.
 
 \section{Algoritmus}
 \label{sec:alg}
@@ -689,7 +689,7 @@ Tretia časť 23--37 nastáva vtedy, kedy sa na vrcholu zásobníka nachádza ne
 
 V prípade variácie retrogradácia, je správanie sa tohto algoritmu podobné obyčajnému zásobnikovému automatu \ref{def:zasaut}. Je to vďaka tomu, že túto variáciu vieme popísať bezkotextovou gramatikou. Počas tejto variácie sa nevykonáva expanzia vo vnútri zásobníku (Alg. \ref{algoritmus1} Riad. 36-37).
 
-Koniec algoritmu nastáva vtedy, keď sme došli na koniec pola zadaných variácií. Funkcia \textit{save\_variation} nam postupne uložila tony požadovaných variácií. Vstupný reťazec je prijatý, inak nastáva chyba. Reťazec je prijatý ako prvá čásť jazyka, pod druhými časťami tohto jazyka rozumieme nami vytvorené variácie.
+Koniec algoritmu nastáva vtedy, keď sme došli na koniec pola zadaných variácií. Funkcia \textit{save\_variation} nam postupne uložila tóny požadovaných variácií. Vstupný reťazec je prijatý, inak nastáva chyba. Reťazec je prijatý ako prvá čásť jazyka, pod druhými časťami tohto jazyka rozumieme nami vytvorené variácie.
 
 \begin{algorithm}
 \label{algoritmus1}
@@ -789,7 +789,7 @@ Vstup aj výstup programu je vo formáte XML. Tento princíp je prevzatý z \cit
 
 Vstupný súbor obsahuje koreňový element \textit{theme}. Tento element musí obsahovať atribút s predpisom dĺžky taktu \textit{time\_signature}. Aby sme predišli nezmyselným konštrukciám, tak sme tento atribút obmedzili na hodnoty 2/4, 3/4 a 4/4. Tieto predpisy taktov sú v hudbe najrozšírenejšie.
 
-Vo vnútri koreňového elementu sú elementy \textit{measure}. Ide o element pre takt. Ten obsahuje elementy pre jednotlivé tony nazývane \textit{tone}.
+Vo vnútri koreňového elementu sú elementy \textit{measure}. Ide o element pre takt. Ten obsahuje elementy pre jednotlivé tóny nazývane \textit{tone}.
 
 V notovom zápise je počet elementov \textit{tone} závislí od taktového predpisu, ktorý je v tomto súbore 3/4. Tento element má atribút \textit{note}, ktorý popisuje dĺžku tónu. Aby sme si overili dĺžku uvedeného elementu \textit{measure} potrebujeme spočítať dĺžky tónov v atribúte \textit{note}. Maximálny počet dôb v takte je podľa \textit{time\_signature} 3. Zo štvorky vyčítame trvanie štvrťovej noty, ktoré je jednu dobu. Potom výpočet je nasledovný $2 + 1/2 + 1/2 = 3.$ Textom elementov \textit{tone} je názov tónov.
 
@@ -839,7 +839,7 @@ súvisia s použitou knižnicou syntetizátora. Argument \textit{-p} prehrá vý
 \subsection{Spracovanie vstupu}
 Spracovanie vstupu zabezpečuje trieda \textit{InputExtractor}. Jej úlohou je spracovať vstup zadaný užívateľom. Formát tohto vstupu je rozoberaný v \ref{inputoutput}. 
 
-Hlavnou metódou tejto triedy je \textit{read\_input}. Pomocou nej čítame vstup, z ktorého potrebujeme predpis taktov. Ten je potrebný pre formatovanie výstupu. Ďalej z elementov vo vstupnom súbore vyberie dĺžky tónov a ich názvy. Toto uskutočňuje pomocou metody \textit{fill\_list}. Dvojice ton a dĺžka sú uložené do slovníka pre tvorbu variácií.
+Hlavnou metódou tejto triedy je \textit{read\_input}. Pomocou nej čítame vstup, z ktorého potrebujeme predpis taktov. Ten je potrebný pre formatovanie výstupu. Ďalej z elementov vo vstupnom súbore vyberie dĺžky tónov a ich názvy. Toto uskutočňuje pomocou metody \textit{fill\_list}. Dvojice tón a dĺžka sú uložené do slovníka pre tvorbu variácií.
 
 \subsection{Zásobník}
 Aby sme mohli zásobník expandovať v nejakej hĺbke, potrebujeme ho implementovať pomocou obojstranne viazaneho zoznamu. Informácie a časť metód pre obojstranne viazaný zoznam boli prevzaté z \cite{dll:site}.
@@ -1038,7 +1038,7 @@ Nasledujúci vytvorený výsledok je variácia postupným zvýšením tónu. Vý
 \end{lstlisting}
 \end{minipage}
 
-Piata variácia
+Nasleduje výsledok pre variáciu protipohybom. Aby sme ju mohli vytvoriť uvažovali sme vzdialenosti tónov z témy -1, +1, +2, +2, -2, -1 a 0. Výsledné vzdialenosti sú +1, -1, -2, -2, -2, +1 a 0. Môžeme si všimnúť piatu pozíciu, ktorá sa nezmenila. Je to tak, pretože nás systém posúva tóny dole o hodnotu, ktorú môže posunúť tóny aj hore. Keďže toto nemôžeme vykonať, tak tento tón nemeníme.
 
 \begin{minipage}{.45\textwidth}
 \includegraphics[width=\textwidth]{thesis/obrazky-figures/var5.png}
@@ -1066,7 +1066,7 @@ Piata variácia
 \end{lstlisting}
 \end{minipage}
 
-šiesta variácia
+Preklopenie témy, ktoré sme vytvorili variáciou témy je ďalším výsledkom. Ak ju porovnáme s témou vidíme, že sa začína od jej konca. Takto sme vytvorili vnorené závislosti, ktoré sú typické pre bezkontextové jazyky. Výsledok je na nasledujúcom obrázku.
 
 \begin{minipage}{.45\textwidth}
 \includegraphics[width=\textwidth]{thesis/obrazky-figures/var7.png}
@@ -1094,9 +1094,9 @@ Piata variácia
 \end{lstlisting}
 \end{minipage}
 
-siedma variácia
+Posledne dve variácie, ktoré vieme vytvoriť, manipulujú s dĺžkami nôt našej témy. Nasledujúca variácia úspešne predĺžila dĺžky nôt témy. Samotné tóny témy sa zachovali. Počet taktov sa rozšíril, keďže dĺžky tónov by sme do pôvodného počtu nezmestili.
 
-\begin{minipage}{.45\textwidth}
+\begin{minipage}{.46\textwidth}
 \includegraphics[width=\textwidth]{thesis/obrazky-figures/var8.png}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
@@ -1124,7 +1124,7 @@ siedma variácia
 \end{lstlisting}
 \end{minipage}
 
-osma variácia
+Opakom predchádzajúcej variácie je skrátenie dĺžky tónov témy. U tejto variácie sa dĺžka nôt skrátila natoľko, že sme ich mohli vložiť iba do dvoch taktov. V porovnaní s témou sme tóny zachovali, zmenili sme však dĺžky nôt. Dĺžku sme skrátili na polovicu u nôt, u ktorých to šlo.
 
 \begin{minipage}{.45\textwidth}
 \includegraphics[width=\textwidth]{thesis/obrazky-figures/var9.png}
