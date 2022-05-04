@@ -901,7 +901,7 @@ Aby si užívateľ mohol prehrať vytvorené variácie, tak sme vytvorili triedu
 O vypísanie výsledných variácii sa stará trieda \textit{Generator}. Formát tohto výstupu sme rozoberali v \ref{inputoutput}. Výstupný xml formát je ešte formatovaný tak, aby nebol vypísaný na jednom riadku. O to sa stará knižnica \textit{mini.dom}.
 
 \section{Výsledky a porovnanie}
-V tejto sekcií si predvedieme výsledky našej implementácie. Ukážeme si tému (vstup) a pre ňu vytvorené variácie (výstupy). Naša téma je jednoduchá a skladá sa z troch taktov. Zápis témy v notovom zápise s jej ekvivalentným v xml je nasledovný.
+V tejto sekcií si predvedieme výsledky našej implementácie. Ukážeme si tému (vstup) a pre ňu vytvorené variácie (výstupy). Naša téma je jednoduchá a skladá sa z troch taktov. Zápis témy v notovom zápise s jej ekvivalentným zápisom v xml je nasledovný.
 
 \begin{minipage}{0.45\textwidth}
 \includegraphics[width=\textwidth]{thesis/obrazky-figures/theme.png}
@@ -929,7 +929,7 @@ V tejto sekcií si predvedieme výsledky našej implementácie. Ukážeme si té
 \end{lstlisting}
 \end{minipage}
 
-Ako prvú variáciu vytvoríme opakovanie témy. Táto variácia vznikla prekopírovaním tónov témy. Keď ju porovnáme s našom témou, môžeme vidieť, že variácia sa vytvorila správne. Tóny variácie sú rovnako ako tóny témy. Výsledok programu vo formáte xml a v notovom zápise je:
+Ako prvú variáciu vytvoríme opakovanie témy. Táto variácia vznikla prekopírovaním tónov témy. Keď ju porovnáme s našou témou môžeme vidieť, že variácia sa vytvorila správne. Tóny variácie sú rovnaké ako tóny témy. Súčasťou tejto variácie sú krížiace sa závislosti so zadanou témou. Tie sme si znázornili na pravej strane obrázku \ref{fig:dependencies}. Spozorovať ich môžeme aj u ostatných variáciách až na retrogradáciu. Výsledok programu vo formáte xml a v notovom zápise je:
 
 \begin{minipage}{.45\textwidth}
 \includegraphics[width=\textwidth]{thesis/obrazky-figures/var1.png}
@@ -953,11 +953,11 @@ Ako prvú variáciu vytvoríme opakovanie témy. Táto variácia vznikla prekop�
         <tone note="quarter">g1</tone>
         <tone note="half">a1</tone>
     </measure>
-</variation>
+</variation>.
 \end{lstlisting}
 \end{minipage}
 
-Druhá variácia, ktorá bola vytvorená je transpozícia. Pomocou tejto variácie sme preniesli našu tému o oktávu vyššie. Ak porovnáme výsledok tejto variácie s témou, tak môžeme vidieť tóny z témy. Rozdiel je ten, že sú v dvojčarikovanej oktáve. Odčítať tento výsledok v notom zápise môžeme z obrázku \ref{fig:tonfrek}.
+Druhá variácia, ktorá bola vytvorená je transpozícia. Pomocou tejto variácie sme preniesli našu tému o oktávu vyššie. Ak porovnáme výsledok tejto variácie s témou, tak môžeme vidieť tóny z témy. Rozdiel je ten, že sú v dvojčarikovanej oktáve. Naša téma sa nachádza v jednočiarkovanej oktáve. Odčítať tento výsledok z notového zápisu môžeme z obrázku \ref{fig:tonfrek}.
 
 \begin{minipage}{.45\textwidth}
 \includegraphics[width=\textwidth]{thesis/obrazky-figures/var22.png}
@@ -984,7 +984,7 @@ Druhá variácia, ktorá bola vytvorená je transpozícia. Pomocou tejto variác
 \end{lstlisting}
 \end{minipage}
 
-Nasledujúci vytvorený výsledok je variácia postupným zvýšením tónu. Výsledné zvýšenie témy je o jeden tón. Túto variáciu sme vykonali jeden krát. Zoberme si tóny variácie a témy. Z \ref{fig:tonfrek} vieme vyčítať, že variácia prebehla úspešne. Overiť môžme výsledok aj sluchom. Vypočuť si tak môžeme stúpavú melódiu našej témy.
+Nasledujúci výsledok je variácia postupným zvýšením tónu. Výsledné zvýšenie témy je o jeden tón. Túto variáciu sme vykonali jeden krát. Zoberme si tóny variácie a témy. Z \ref{fig:tonfrek} vieme vyčítať, že variácia prebehla úspešne. Overiť môžme výsledok aj sluchom. Vypočuť si tak môžeme stúpavú melódiu našej témy.
 
 \begin{minipage}{.45\textwidth}
 \includegraphics[width=\textwidth]{thesis/obrazky-figures/var3.png}
@@ -1040,7 +1040,7 @@ Nasledujúci vytvorený výsledok je variácia postupným zvýšením tónu. Vý
 \end{lstlisting}
 \end{minipage}
 
-Nasleduje výsledok pre variáciu protipohybom. Aby sme ju mohli vytvoriť uvažovali sme vzdialenosti tónov z témy -1, +1, +2, +2, -2, -1 a 0. Výsledné vzdialenosti sú +1, -1, -2, -2, -2, +1 a 0. Môžeme si všimnúť piatu pozíciu, ktorá sa nezmenila. Je to tak, pretože nás systém posúva tóny dole o hodnotu, ktorú môže posunúť tóny aj hore. Keďže toto nemôžeme vykonať, tak tento tón nemeníme.
+Nasleduje výsledok pre variáciu protipohybom. Aby sme ju mohli vytvoriť, uvažovali sme vzdialenosti tónov z témy -1, +1, +2, +2, -2, -1 a 0. Výsledné vzdialenosti sú +1, -1, -2, -2, -2, +1 a 0. Môžeme si všimnúť piatu pozíciu, ktorá sa nezmenila. Je to tak, pretože náš systém posúva tóny dole o hodnotu, ktorú môže posunúť tóny aj hore. Keďže toto nemôžeme vykonať, tak tento tón nemeníme. Uplatnilo sa tak pravidlo opakovania.
 
 \begin{minipage}{.45\textwidth}
 \includegraphics[width=\textwidth]{thesis/obrazky-figures/var5.png}
@@ -1068,7 +1068,7 @@ Nasleduje výsledok pre variáciu protipohybom. Aby sme ju mohli vytvoriť uvaž
 \end{lstlisting}
 \end{minipage}
 
-Preklopenie témy, ktoré sme vytvorili variáciou témy je ďalším výsledkom. Ak ju porovnáme s témou vidíme, že sa začína od jej konca. Takto sme vytvorili vnorené závislosti, ktoré sú typické pre bezkontextové jazyky. Výsledok je na nasledujúcom obrázku.
+Preklopenie témy, ktoré sme vytvorili variáciou témy je ďalším výsledkom. Ak ju porovnáme s témou vidíme, že sa začína od jej konca. Takto sme vytvorili vnorené závislosti, ktoré sú typické pre bezkontextové jazyky. Ich znázornenie môžeme nájsť na ľavej strane obrázku \ref{fig:dependencies}. Výsledok je na nasledujúcom obrázku.
 
 \begin{minipage}{.45\textwidth}
 \includegraphics[width=\textwidth]{thesis/obrazky-figures/var7.png}
@@ -1096,7 +1096,7 @@ Preklopenie témy, ktoré sme vytvorili variáciou témy je ďalším výsledkom
 \end{lstlisting}
 \end{minipage}
 
-Posledne dve variácie, ktoré vieme vytvoriť, manipulujú s dĺžkami nôt našej témy. Nasledujúca variácia úspešne predĺžila dĺžky nôt témy. Samotné tóny témy sa zachovali. Počet taktov sa rozšíril, keďže dĺžky tónov by sme do pôvodného počtu nezmestili.
+Posledne dve variácie, ktoré vieme vytvoriť manipulujú s dĺžkami nôt našej témy. Nasledujúca variácia úspešne predĺžila dĺžky nôt témy. Samotné tóny témy sa zachovali. Počet taktov sa rozšíril, keďže dĺžky tónov by sme do pôvodného počtu taktov nezmestili.
 
 \begin{minipage}{.46\textwidth}
 \includegraphics[width=\textwidth]{thesis/obrazky-figures/var8.png}
@@ -1126,7 +1126,7 @@ Posledne dve variácie, ktoré vieme vytvoriť, manipulujú s dĺžkami nôt na�
 \end{lstlisting}
 \end{minipage}
 
-Opakom predchádzajúcej variácie je skrátenie dĺžky tónov témy. U tejto variácie sa dĺžka nôt skrátila natoľko, že sme ich mohli vložiť iba do dvoch taktov. V porovnaní s témou sme tóny zachovali, zmenili sme však dĺžky nôt. Dĺžku sme skrátili na polovicu u nôt, u ktorých to šlo.
+Opakom predchádzajúcej variácie je skrátenie dĺžky tónov témy. U tejto variácie sa dĺžka nôt skrátila natoľko, že sme ich mohli vložiť iba do dvoch taktov. V porovnaní s témou sme tóny zachovali, zmenili sme však dĺžky nôt. Dĺžku nôt témy sme skrátili na polovicu.
 
 \begin{minipage}{.45\textwidth}
 \includegraphics[width=\textwidth]{thesis/obrazky-figures/var9.png}
