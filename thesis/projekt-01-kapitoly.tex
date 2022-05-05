@@ -223,7 +223,7 @@ Regulárna gramatika je frázová gramatika $G = (N,T,P,S)$, ktorá sa môže sk
 
 \begin{definition}
 \label{def:pravolin}
-Rodina regulárnych jazykov môže byť popísaná pravo-lineárnimi gramatikmi, ktoré sú definované následovne. Pravo-lineárna gramatika je frázova gramatika $G = (N,T,P,S)$, ktorá má všetky pravidla v tvare $$A \rightarrow aB, alebo \, A \rightarrow a.$$ Platí, že A,B $ \in N$ a x,y $ \in T^*$. Pravo-lineárny jazyk je generovaný pravo-lineárnou gramatikou.
+Rodina regulárnych jazykov môže byť popísaná pravo-lineárnimi gramatikmi, ktoré sú definované nasledovne. Pravo-lineárna gramatika je frázova gramatika $G = (N,T,P,S)$, ktorá má všetky pravidla v tvare $$A \rightarrow aB, alebo \, A \rightarrow a.$$ Platí, že A,B $ \in N$ a x,y $ \in T^*$. Pravo-lineárny jazyk je generovaný pravo-lineárnou gramatikou.
 \end{definition}
 
 \subsection{Automaty}
@@ -255,7 +255,7 @@ Zásobnikový automat je konečný automat obohatený o zásobnik. Zásobníkov�
     \item počiatočného symbolu zásobnika $S$,
     \item množiny konečných stavov $F \subseteq Q$.
 \end{itemize}
-Pravidlá sú vo forme $\gamma pa \rightarrow wq$ na rozdiel od $(\gamma , p, a, w, q) \in R$. Konfiguráciu automatu $M$ tvorí hociktorý reťazec z $\Gamma^* Q\Sigma^*$. Značenie $\vdash_M$ značí reláciu pohybu, ktorá je definovaná ponad $\Gamma^* Q\Sigma^*$ ako $$x\gamma pay \vdash_M xwqy.$$ Definícia platí ak a jedine ak $x\gamma pay, xwqy \in \Gamma^* Q\Sigma^*$, a zároveň $\gamma pa \rightarrow wq \in R$. Existujú rôzne spôsoby ako prijať jazyk zásobníkovým automatom. Súvisiaci je ale jeden spôsob, a to s prázdnym zásobníkom. $L_e(M)$ značí jazyk automatu $M$, ktorý prijíma jazyk prázdnym zásobníkom následovne $$L_e(M) = \{w \in \Sigma^* \shortmid Ssw \vdash_M^* \,q,q \in Q\}.$$
+Pravidlá sú vo forme $\gamma pa \rightarrow wq$ na rozdiel od $(\gamma , p, a, w, q) \in R$. Konfiguráciu automatu $M$ tvorí hociktorý reťazec z $\Gamma^* Q\Sigma^*$. Značenie $\vdash_M$ značí reláciu pohybu, ktorá je definovaná ponad $\Gamma^* Q\Sigma^*$ ako $$x\gamma pay \vdash_M xwqy.$$ Definícia platí ak a jedine ak $x\gamma pay, xwqy \in \Gamma^* Q\Sigma^*$, a zároveň $\gamma pa \rightarrow wq \in R$. Existujú rôzne spôsoby ako prijať jazyk zásobníkovým automatom. Súvisiaci je ale jeden spôsob, a to s prázdnym zásobníkom. $L_e(M)$ značí jazyk automatu $M$, ktorý prijíma jazyk prázdnym zásobníkom nasledovne $$L_e(M) = \{w \in \Sigma^* \shortmid Ssw \vdash_M^* \,q,q \in Q\}.$$
 \end{definition}
 
 \subsection{Chomského hierarchia}
@@ -319,7 +319,7 @@ Gramatikou s rozptýleným kontextom rozumieme štvoricu \\ $G = (V,T,P,S),$ kto
 \begin{itemize}\itemsep0.05em
     \item úplnej abecedy V 
     \item množiny terminálov T, pre ktorú platí $T \subset V$
-    \item konečnej množiny pravidiel P v tvare $$(A_1, ..., A_n) \rightarrow (x_1, ..., x_n),$$ kde platí $n \geq 1, A_i \in V \setminus T, x_i \in V^*$ pre všetký i $1 \leq i \leq n.$
+    \item konečnej množiny pravidiel P v tvare $$(A_1, ..., A_n) \rightarrow (x_1, ..., x_n),$$ kde platí $n \geq 1, A_i \in V \setminus T, x_i \in V^*$ pre všetky i $1 \leq i \leq n.$
     \item počiatočného symbolu S pre ktorý platí $S \in V \setminus T$
 \end{itemize}
 \end{definition}
@@ -328,23 +328,23 @@ V prípade, že $$u = u_1A_1...u_nA_nu_{n+1},$$$$v = u_1x_1...u_nx_nu_{n+1},$$ a
 
 Ak platí $dl\check{z}ka(p) \geq 2$, potom hovoríme, že $p$ je kontextovým pravidlom. V prípade, že $dl\check{z}ka(p) = 1$ tak $p$ je bezkontextové pravidlo. Jazyk značený ako $L(G)$ je generovaný gramatikou $G$ a definujeme ho ako $$L(G) = \{x: x \in T^*, S \Rightarrow^*_G x\}.$$
 
-Jazyk s rozptýleným kontextom je jazyk $L$ právte vtedy, ak vieme nájsť takú gramatiku s rozptýleným kontextom $G$, kedy platí $L = L(G)$. Gramatiky s rozptýleným kontextom generujú jazyky s rozptýleným kontextom, ktoré označujeme ako $JRC$.
+Jazyk s rozptýleným kontextom je jazyk $L$ práve vtedy, ak vieme nájsť takú gramatiku s rozptýleným kontextom $G$, kedy platí $L = L(G)$. Gramatiky s rozptýleným kontextom generujú jazyky s rozptýleným kontextom, ktoré označujeme ako $JRC$.
 
 \begin{example}
-    Zoberme si jazyk typu-1, ktorý je zobrazený na obrázku \ref{fig:chomhier} \\ $L = \{a^n b^n c^n| n \geq 2\}$. Aby sme mohli tento jazyk generovať gramatikou v hudbe je potrebné ho zapísať pomocou tónov. Tento jazyk vyzerá následovne: $L = \{c^n d^n e^n| n \geq 2\}$. Aby sme vygenerovali tento jazyk pomocou gramatiky s rozptýleným kontextom definujeme ju následovne: $$ G = (\{S, X, c, d, e\}, \{c,d,e\}, P, S)$$ kde $$P = \{(S) \rightarrow (ccXddXeeX), (X,X,X) \rightarrow (cX, dX, eX), (X,X,X) \rightarrow (\epsilon, \epsilon, \epsilon)\}.$$
-    Majme užívateľa, ktorý by chcel vytvoriť hudobnú myšlienku v tvare $cccdddeee$. Myšlienka by bola vytvorená následovne: $$ S \Rightarrow_G  ccXddXeeX \Rightarrow_G cccXdddXeeeX \Rightarrow_G cccdddeee.$$
+    Zoberme si jazyk typu-1, ktorý je zobrazený na obrázku \ref{fig:chomhier} \\ $L = \{a^n b^n c^n| n \geq 2\}$. Aby sme mohli tento jazyk generovať gramatikou v hudbe je potrebné ho zapísať pomocou tónov. Tento jazyk vyzerá nasledovne: $L = \{c^n d^n e^n| n \geq 2\}$. Aby sme vygenerovali tento jazyk pomocou gramatiky s rozptýleným kontextom definujeme ju nasledovne: $$ G = (\{S, X, c, d, e\}, \{c,d,e\}, P, S)$$ kde $$P = \{(S) \rightarrow (ccXddXeeX), (X,X,X) \rightarrow (cX, dX, eX), (X,X,X) \rightarrow (\epsilon, \epsilon, \epsilon)\}.$$
+    Majme užívateľa, ktorý by chcel vytvoriť hudobnú myšlienku v tvare $cccdddeee$. Myšlienka by bola vytvorená nasledovne: $$ S \Rightarrow_G  ccXddXeeX \Rightarrow_G cccXdddXeeeX \Rightarrow_G cccdddeee.$$
 \end{example}
 
 Samotná gramatika s rozptýleným kontextom sa ukázala ako vhodná pre generovanie rôznych hudobných jazykov. Pod týmito jazykmi rozumieme $JRC$. Tento prístup je vhodný v prípade, že užívateľ vie ako by mal výstup vyzerať. No v prípade hudobníkov to vždy tak nie je. Predstavme si hudobníka, ktorý si nosí v hlave nejakú tému skladby. Dopredu nevie povedať ako bude vyzerať variácia tejto hudobnej myšlienky. Variácie existujú rôzne a vybrať si jednu, ktorá by sa mu hodila pre pokračovanie ďalej v skladbe vôbec nie je jednoduché. Zložitosť predstaviť si takú variáciu narastá s dĺžkou témy, od ktorej by sa mala rozvíjať. Princíp tohto riešenia môžeme spozorovať na pravej strane obrázku \ref{fig:dependencies}. Kedy by sa mohla v prvom takte nachádzať nejaká myšlienka skladateľa, a na druhej strane jej obmenenie, čiže variácia. Hovoríme teda o spomínanom kopírovacom jazyku, a krížiacich sa závislostiach. Krížiace sa závislosti je možné reprezentovať gramatikami s rozptýleným kontextom. Príklad gramatiky, ktorá vytvorí reťazec z obrázka je nasledovný.
 
 \begin{example}
 \label{variation}
-Reťazec tónov z obrázka \ref{fig:dependencies} sa skladá v dvoch taktoch z tónov $hgahga$. Majme gramatiku $$G = (\{S,X,h,g,a\}, \{h,g,a\}, P, S)$$ kde $$P = \{(S) \rightarrow (XX), (X,X) \rightarrow (hX,hX)$$ $$(X,X) \rightarrow (aX,aX), (X,X) \rightarrow (gX,gX), (X,X) \rightarrow (\epsilon, \epsilon)\}.$$ Postup tvorby spomínanych dvoch taktov je následovný: $$S \Rightarrow_G XX \Rightarrow_G hXhX \Rightarrow_G hgXhgX \Rightarrow_G hgaXhgaX \Rightarrow_G hgahga.$$
+Reťazec tónov z obrázka \ref{fig:dependencies} sa skladá v dvoch taktoch z tónov $hgahga$. Majme gramatiku $$G = (\{S,X,h,g,a\}, \{h,g,a\}, P, S)$$ kde $$P = \{(S) \rightarrow (XX), (X,X) \rightarrow (hX,hX)$$ $$(X,X) \rightarrow (aX,aX), (X,X) \rightarrow (gX,gX), (X,X) \rightarrow (\epsilon, \epsilon)\}.$$ Postup tvorby spomínaných dvoch taktov je nasledovný: $$S \Rightarrow_G XX \Rightarrow_G hXhX \Rightarrow_G hgXhgX \Rightarrow_G hgaXhgaX \Rightarrow_G hgahga.$$
 \end{example}
 
 Na príklade \ref{variation} môžeme spozorovať, že gramatika generuje jazyk, ktorý nie je bezkontextový. Tento jazyk je $JRC$. Vytvorený reťazec demonštruje, že týmto spôsobom vieme vytvoriť požadovanú štruktúru téma a variácie.
 
-Môžeme si všimnúť, že stále zanedbávame dlžky jednotlivých tónov. Riešenie bude prezentované v nadchádzajúcej kapitole.
+Môžeme si všimnúť, že stále zanedbávame dĺžky jednotlivých tónov. Riešenie bude prezentované v nadchádzajúcej kapitole.
 
 \section{Spracovanie nôt}
 V tejto sekcii si rozoberieme akým spôsobom sú ďalej reprezentované noty. Reprezentácia nôt v programe nie je vôbec jednoduchá. Sú to grafické značky a zapisujú sa do notového zápisu, ktorý je tiež grafický. Toto znemožňuje ich jednoduchú reprezentáciu ako v programe, ale i vo vstupnom súbore. Keď sa pozrieme do notového zápisu nejakého taktu tak vidíme samotnú značku. Ako prvé podľa jej tvaru vieme odčítať jej dĺžku či ide o celú, polovú, štvrťovú alebo osminovú notu. Ak chceme zistiť tón tak ho odčítame z pozície noty v notovej osnove. Preto boli zavedené nasledovné značenia pre jednotlivé noty.
@@ -391,11 +391,11 @@ Táto sekcia sa zaoberá a definuje gramatiku s lineárnymi pravidlami. Ide o $L
 Pred definovaním samotnej gramatiky je potrebné definovať dva pojmy.
 
 \begin{definition}
-Majme bezkontextovú gramatiku $G = (N, T, P, S)$. Potom pre každé $x \in (N \cup T)^*$ máme množinu $$prv\acute{y}(G,x) = \{a \in T \: | \: x \Rightarrow^*_G ay \: vo \: G, y \in (N \cup T)^*\}.$$ 
+Majme bezkontextovu gramatiku $G = (N, T, P, S)$. Potom pre každé $x \in (N \cup T)^*$ máme množinu $$prv\acute{y}(G,x) = \{a \in T \: | \: x \Rightarrow^*_G ay \: vo \: G, y \in (N \cup T)^*\}.$$ 
 \end{definition}
 
 \begin{definition}
-Majme gramatiku s rozptýleným kontextom $G = (N, T, P, S)$. Značenie $pjadro(G)$ značí prvý komponent jadra gramatiky $G$. Definujeme ho ako bezkontextovú gramatiku $$pjadro(G) = (N,T,P^\prime,S),$$ kde $$P^\prime = \{A_1 \rightarrow x_1 \, | \, (A_1, A_2, ..., A_m) \rightarrow (x_1, x_2, ..., x_m) \in P^\prime\}.$$
+Majme gramatiku s rozptýleným kontextom $G = (N, T, P, S)$. Značenie $pjadro(G)$ značí prvý komponent jadra gramatiky $G$. Definujeme ho ako bezkontextovu gramatiku $$pjadro(G) = (N,T,P^\prime,S),$$ kde $$P^\prime = \{A_1 \rightarrow x_1 \, | \, (A_1, A_2, ..., A_m) \rightarrow (x_1, x_2, ..., x_m) \in P^\prime\}.$$
 \end{definition}
 
 \begin{definition}
@@ -408,12 +408,12 @@ Majme gramatiku s rozptýleným kontextom $G = (N, T, P, S)$. Nech $k$ je kladn�
     
     \item Prvá LL podmienka. Majme relaciu $\Rightarrow_G$, ktorá je definovaná derivačným krokom od u po v, značená ako $u \Rightarrow_G v$. Vtedy a iba vtedy ak $$u = u_1A_1u_2A_2...u_mA_my$$ $$v = u_1x_1u_2x_2...u_mx_my,$$ a $$(A_1,A_2, ...,A_m) \rightarrow (x_1,x_2, ..., x_m) \in P.$$ kde $y \in V^*, u_i \in T^*,$ pre všetky i, ktoré sú ohraničené $1 \leq i \leq m.$ 
     
-    \item Druhá LL podmienka. Majme dve rozdielne pravidlá $$(A_1,A_2, ...,A_m) \rightarrow (x_1, x_2, ..., x_m) \in P$$ a $$(B_1, B_2, ..., B_n) \rightarrow (y_1, y_2, ..., y_n),$$ ktoré splňujú podmienku $A_1 = B_1$, platí že $$prv\acute{y}(pjadro(G),x_1) \cap prv\acute{y}(pjadro(G),y_1) = \emptyset$$
+    \item Druhá LL podmienka. Majme dve rozdielne pravidlá $$(A_1,A_2, ...,A_m) \rightarrow (x_1, x_2, ..., x_m) \in P$$ a $$(B_1, B_2, ..., B_n) \rightarrow (y_1, y_2, ..., y_n),$$ ktoré spĺňajú podmienku $A_1 = B_1$, platí že $$prv\acute{y}(pjadro(G),x_1) \cap prv\acute{y}(pjadro(G),y_1) = \emptyset$$
 \end{enumerate}
 
 \begin{example}
 Majme LL 2-lineárnu gramatiku s rozptýleným kontextom \\ $G = (\{S,X\},\{c1\_p, d1\_p, |\}, P, S)$, kde $$P = \{(S) \rightarrow (XX), (X,X) \rightarrow (c1\_pX, c1\_pX), $$
-$$ (X,X) \rightarrow (d1\_pX, d1\_pX, (X,X) \rightarrow (|, |)\}.$$ potom tvorba nasledujúcej dvojice taktov z obrázku \ref{fig:Priklad1} vyzerá následovne:
+$$ (X,X) \rightarrow (d1\_pX, d1\_pX, (X,X) \rightarrow (|, |)\}.$$ potom tvorba nasledujúcej dvojice taktov z obrázku \ref{fig:Priklad1} vyzerá nasledovne:
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{thesis/obrazky-figures/Priklad1.png}
@@ -425,7 +425,7 @@ $$S \Rightarrow_G XX \Rightarrow_G c1\_pXc1\_pX \Rightarrow_G c1\_pd1\_pXc1\_pd1
 Zjavne platí, že $|XX| = 2$, na pravej strane pravidiel na nevyskytuje S.
 \end{example}
 
-Aby bolo možné správne reprezentovať tvorbu variácií pomocou gramatiky, budeme musieť vytvoriť novú gramatiku, ktorá bude obsahovať určité úpravy. Preto gramatika pre tvorbu variácií je následovná:
+Aby bolo možné správne reprezentovať tvorbu variácií pomocou gramatiky, budeme musieť vytvoriť novú gramatiku, ktorá bude obsahovať určité úpravy. Preto gramatika pre tvorbu variácií je nasledovná:
 
 \begin{definition}
 \label{mainalg}
@@ -489,7 +489,7 @@ $$R \rightarrow |\}$$
 U výslednej gramatiky platí $|XX| = 2$. Na žiadnych z pravidiel sa na pravej strane nevyskytuje počiatočný symbol S. U tejto gramatiky si môžeme všimnúť, že je porušená druhá LL podmienka z definície \ref{def:ll}. Zoberme si pravidlá $$(X,X) \rightarrow (c1\_cX, c1\_cX), (X,X) \rightarrow (c1\_cX, d1\_cX).$$ Prvé pravidlo patrí variácií kopírovaním a druhé pravidlo patrí variácií, ktorá postupne zvyšuje tému o jeden tón. Potom $$prv\acute{y}(pjadro(G),c1\_cX) \cap prv\acute{y}(pjadro(G),c1\_cX) \neq \emptyset.$$ Porušenie tejto podmienky spôsobuje nejednoznačnosť pravidiel, z ktorých je konštruovaná výsledná LL tabuľka. Riešením tohto problému je, že jednotlivé skupiny pravidiel patria príslušným variáciám. Užívateľ, ktorý si zvolí tvorbu variácie opakovaním by zvolil prvé uvedené pravidlo. Zvolenie variácie pre postupne zvýšenie témy o jeden tón vyberie druhé pravidlo. Vďaka voľbe užívateľa nedochádza k takýmto konfliktom.
 \end{definition}
 
-Definovaná gramatika obsahuje terminály, ktoré boli uvedené v tabulkách \ref{tab:notes} a \ref{tab:notes1}. Kompletný zoznam pravidiel, ktoré boli použité v tejto práci je možné nájsť v prílohe. Vybrané pravidlá, ktoré sú uvedené vyššie boli použité na následujúce hudobné pasáže.
+Definovaná gramatika obsahuje terminály, ktoré boli uvedené v tabuľkách \ref{tab:notes} a \ref{tab:notes1}. Kompletný zoznam pravidiel, ktoré boli použité v tejto práci je možné nájsť v prílohe. Vybrané pravidlá, ktoré sú uvedené vyššie boli použité na nasledujúce hudobné pasáže.
 
 \begin{example}
 Majme variáciu opakovaním.
@@ -499,7 +499,7 @@ Majme variáciu opakovaním.
     \caption{Variácia opakovaním.}
     \label{fig:copyvar}
     \end{figure}
-    Aby sme mohli vytvoriť štvoricú taktov z obrázku \ref{fig:copyvar} musí derivácia vyzerať následovne: $$ (S) \Rightarrow_G (XX) $$ 
+    Aby sme mohli vytvoriť štvoricu taktov z obrázku \ref{fig:copyvar} musí derivácia vyzerať nasledovne: $$ (S) \Rightarrow_G (XX) $$ 
     $$\Rightarrow_G c1\_cXc1\_cX$$ 
     $$\Rightarrow_G c1\_cc1\_pXc1\_cc1\_pX$$ 
     $$\Rightarrow_G c1\_cc1\_pd1\_\check{s}Xc1\_cc1\_pd1\_\check{s}X$$ 
@@ -508,14 +508,14 @@ Majme variáciu opakovaním.
 \end{example}
 
 \begin{example}
-Majme variáciu, ktorá zvýší tému o jeden tón.
+Majme variáciu, ktorá zvýši tému o jeden tón.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{thesis/obrazky-figures/sequp.png}
     \caption{Variácia zvýšením témy o jeden tón.}
     \label{fig:zvysenievar}
     \end{figure}
-    Vytvorenie tejto variácie zo štorice taktov \ref{fig:zvysenievar} je sprevádzané nasledujúcou deriváciou:
+    Vytvorenie tejto variácie zo štvorice taktov \ref{fig:zvysenievar} je sprevádzané nasledujúcou deriváciou:
     $$ S \Rightarrow_G XX $$
     $$\Rightarrow_G  c1\_pXd1\_pX$$
     $$\Rightarrow_G  c1\_pd1\_pXd1\_pe1\_pX$$
@@ -530,7 +530,7 @@ Majme variáciu, ktorá zníži tému o jeden tón.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{thesis/obrazky-figures/seqdown.png}
-    \caption{Variácia zníženim témy o jeden tón.}
+    \caption{Variácia znížením témy o jeden tón.}
     \label{fig:znizenievar}
     \end{figure}
     Pre tvorbu variácie z obrázku \ref{fig:znizenievar} je zostavená derivácia:
@@ -550,7 +550,7 @@ Majme variáciu, ktorá predĺži tóny témy o polovicu.
     \caption{Predĺženie dĺžky tónu o polovicu.}
     \label{fig:predlzenievar}
     \end{figure}
-    Derivácia variácie z obrázku \ref{fig:predlzenievar} je následovná: 
+    Derivácia variácie z obrázku \ref{fig:predlzenievar} je nasledovná: 
     $$ S \Rightarrow_G XX $$
     $$\Rightarrow_G e1\_pXe1\_cX $$
     $$\Rightarrow_G e1\_pa1\_oXe1\_ca1\_\check{s}X $$
@@ -561,14 +561,14 @@ Majme variáciu, ktorá predĺži tóny témy o polovicu.
 \end{example}
 
 \begin{example}
-Majme variáciu, ktorá skráti dlžku tónov témy.
+Majme variáciu, ktorá skráti dĺžku tónov témy.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{thesis/obrazky-figures/dimivar.png}
-    \caption{Skrátenie dlžky tonu o polovicu.}
+    \caption{Skrátenie dĺžky tónu o polovicu.}
     \label{fig:skratenievar}
     \end{figure}
-    Derivácia pre variáciu z obrázku \ref{fig:skratenievar} vyzerá následovne:
+    Derivácia pre variáciu z obrázku \ref{fig:skratenievar} vyzerá nasledovne:
     $$ S \Rightarrow_G XX $$
     $$\Rightarrow_G e1\_cXe1\_pX $$
     $$\Rightarrow_G e1\_ca1\_\check{s}Xe1\_pa1\_oX $$
@@ -586,7 +586,7 @@ Majme variáciu, ktorá vykoná transpozíciu témy.
     \caption{Postupné zníženie témy o jeden tón.}
     \label{fig:transpovar}
     \end{figure}
-    Derivácia pre transpozíciu z obrázku \ref{fig:transpovar} je následovná:
+    Derivácia pre transpozíciu z obrázku \ref{fig:transpovar} je nasledovná:
     $$ S \Rightarrow_G XX $$
     $$ \Rightarrow_G d1\_cXd2\_cX $$
     $$ \Rightarrow_G d1\_cc1\_cXd2\_cc2\_cX $$
@@ -627,7 +627,7 @@ Majme variáciu, ktorá vykoná retrogradáciu témy.
     $$ \Rightarrow_G g1\_\check{s}a1\_\check{s}h1\_\check{s}c2\_\check{s}|c2\_\check{s}h1\_\check{s}a1\_\check{s}g1\_\check{s}$$
 \end{example}
 
-\section{Nelimitovaný hlboký zásobníkový automat.}
+\section{Nelimitovaný hlboký zásobníkový automat}
 Táto sekcia definuje nelimitovaný hlboký zásobníkový automat. Z jeho definície vychádzame pri návrhu tvorby algoritmu v nasledujúcej sekcii \ref{sec:alg}. Sekcia oboznamuje čitateľa s jeho využitím pri tvorbe variácií. Popisuje jeho novú verziu pomocou ktorej tvoríme variácie témy. Popisuje taktiež aj kľúčovú vlastnosť tohto automatu, ktorá je potrebná pre tvorbu variácií pomocou tohto automatu. Poznatky a definícia tohto automatu sú prevzaté z \cite{FITPUB10978}.
 
 \subsection{Definícia}
