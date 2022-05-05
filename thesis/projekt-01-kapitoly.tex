@@ -887,22 +887,21 @@ Pomocou tejto metódy vieme pretočiť obsah pravej strany pravidiel LL gramatik
 Obe metódy spolu úzko súvisia. Aby sme mohli uložiť jednotlivé úseky variácií, tak používame metódu \textit{save\_result}. Tá na konci zozbiera tóny vytvorenej variácie zo zásobníka a uloží ich. Aby sme mohli tvoriť ďalšie variácie, tak potrebujeme vynulovať pozície čítania vstupu od užívateľa. To robíme pomocou metódy \textit{restart}. V prípade, že bol zadaný väčší počet variácií zvyšovania a znižovania tónov témy, potom sa variácie netvoria z témy. Tieto nasledujúce variácie sa tvoria z poslednej variácie zvyšovania a znižovania tónu.
 
 \subsubsection*{def get\_distances(tokens)}
-Aby sme mohli tvoriť variácie protipohybom, je potrebné získať vzdialenosti tónov zo vstupu. Tieto vzdialenosti sa počítajú na základe prvého tónu pre celú variáciu. Vzdialenosti sa počítajú vzorcom: $$vzdialenos\check{t} = (prv\acute{y}\_t\acute{o}n\_poz - t\acute{o}n\_poz) * 2.$$ Kde $prv\acute{y}\_t\acute{o}n\_poz$ je pozícia prvého tónu témy v poli $tuple\_list$ a $t\acute{o}n\_poz$ je pozícia každého ďalšieho tónu témy.
+Aby sme mohli tvoriť variácie protipohybom, je potrebné získať vzdialenosti tónov zo vstupu. Tieto vzdialenosti sa počítajú na základe prvého tónu pre celú variáciu. Vzdialenosti sa vypočítajú vzorcom: $$vzdialenos\check{t} = (prv\acute{y}\_t\acute{o}n\_poz - t\acute{o}n\_poz) * 2.$$ Kde $prv\acute{y}\_t\acute{o}n\_poz$ je pozícia prvého tónu témy v poli $tuple\_list$ a $t\acute{o}n\_poz$ je pozícia každého ďalšieho tónu témy.
 
 \begin{example}
-Majme tému z tónov e a d. Pozícia tónu e je 2 a pozícia tónu d je 1. Potom $$(2 - 1) * 2 = 2.$$ Výsledna variácia bude musieť posunúť tón d o 2 pozície hore. Preto výsledna variácia sa skladá z tónov e a f.
+Majme tému z tónov f a e. Pozícia tónu f je 3 a pozícia tónu e je 2. Potom $$(3 - 2) * 2 = 2.$$ Výsledna variácia bude musieť posunúť tón e o 2 pozície hore. Preto výsledna variácia sa skladá z tónov f a g.
 \end{example}
 
-Návratová hodnota je zoznam týchto vzdialenosti. Tie sa použijú pri zadanej variácií protipohyb. Variácia protipohybom je tou, ktorá obsahuje najviac pravidiel gramatiky. Je to preto, že tu sa krížiace sa závislosti riadia vzdialenosťami. Tie posúvajú tón hore o rovnakú dlžku ako ho posúvajú dole.
+Návratová hodnota je zoznam týchto vzdialenosti. Tie sa použijú pri zadanej variácií protipohyb. Variácia protipohybom je tá, ktorá obsahuje najviac pravidiel gramatiky. Je to preto, že tu sa krížiace sa závislosti riadia vzdialenosťami tónov. Tie posúvajú tón hore o rovnakú dĺžku, ako ho posúvajú dole.
 
 \subsubsection*{def variator()}
-Táto metóda je implementáciou algoritmu \ref{algoritmus1}. Tvorí výsledné variácie, ktoré sa ukladajú do atribútu triedy \textit{CSGparser}. Implementácia algoritmu je rozšírená o list vzdialenosti. 
-
+Táto metóda je implementáciou algoritmu \ref{algoritmus1}. Tvorí výsledné variácie, ktoré sa ukladajú do atribútu triedy \textit{CSGparser}. Implementácia algoritmu je rozšírená o list vzdialenosti tónov pre variáciu protipohybom. 
 
 \subsection{Prehranie výstupu a jeho výpis}
 Aby si užívateľ mohol prehrať vytvorené variácie, tak sme vytvorili triedu \textit{TonesPlayer}. Cieľom tejto triedy je vytvoriť sínusové vlny podľa frekvencií, ktoré sme prevzali z \cite{strankaFrekvencii}. Trvanie týchto vĺn je určené podľa dĺžky nôt, ktoré sú vo variácií. Aby sme mohli toto všetko prehrať a vytvoriť, použili sme knižnicu, ktorú sme rozoberali v sekcii \ref{technologies}. Tieto výsledky je možné prehrať, ale i uložiť do súboru s príponou \textit{.wav}. Tento súbor sa uloží do rovnakého priečinku ako vstupný súbor.
 
-O vypísanie výsledných variácii sa stará trieda \textit{Generator}. Formát tohto výstupu sme rozoberali v \ref{inputoutput}. Výstupný xml formát je ešte formatovaný tak, aby nebol vypísaný na jednom riadku. O to sa stará knižnica \textit{mini.dom}.
+O vypísanie výsledných variácii sa stará trieda \textit{Generator}. Formát tohto výstupu sme rozoberali v sekcii \ref{inputoutput}. Výstupný xml formát je ešte formatovaný tak, aby nebol vypísaný na jednom riadku. O to sa stará knižnica \textit{mini.dom}.
 
 \section{Výsledky a porovnanie}
 V tejto sekcií si predvedieme výsledky našej implementácie. Ukážeme si tému (vstup) a pre ňu vytvorené variácie (výstupy). Naša téma je jednoduchá a skladá sa z troch taktov. Zápis témy v notovom zápise s jej ekvivalentným zápisom v xml je nasledovný.
