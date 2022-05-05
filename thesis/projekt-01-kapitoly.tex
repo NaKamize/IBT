@@ -765,19 +765,20 @@ inicializácia dočastného poľa s $pos\_S$\;
 
 \chapter{Implementácia}
 \label{chap:imp}
-Kapitola implementácia sa zaoberá nami navrhnutého modelu pre tvorbu variácií. Implementácia tohto modelu vychádza z doteraz zozbieraných poznatkoch a vlastnostiach o bezkontextových a kontextových gramatikách. Jadrom výslednej implementácie bude algoritmus \ref{algoritmus1}. Pravidla, ktoré budú aplikované vychádzajú z gramatiky \ref{mainalg}.
+Kapitola implementácia sa zaoberá nami navrhnutým modelom pre tvorbu variácií. Implementácia tohto modelu vychádza z doteraz zozbieraných poznatkoch a vlastnostiach o bezkontextových, a kontextových gramatikách. Jadrom výslednej implementácie bude algoritmus \ref{algoritmus1}. Pravidla, ktoré budú aplikované vychádzajú z gramatiky \ref{mainalg}.
 
-Najprv si rozoberieme technológie, ktoré sme si vybrali pre implementáciu. Zároveň uvedieme knižnicu, ktorá umožňuje prehrávanie výsledku. Potom zájdeme hlbšie, a to do štruktúry samotnej implementácie. Tá sa skladá z tried. Ďalej prezentujeme formát vstupu a výstupu, ktorý bol použitý pre reprezentácií taktového zápisu. Ako posledné si rozoberieme výsledky implementácie a jej porovnanie s existujúcimi skladbami.
+Najprv si rozoberieme technológie, ktoré sme si vybrali pre implementáciu. Zároveň uvedieme knižnicu, ktorá umožňuje prehrávanie výsledku. Potom zájdeme hlbšie, a to do štruktúry samotnej implementácie. Tá sa skladá z tried. Ďalej prezentujeme formát vstupu a výstupu, ktorý bol použitý pre reprezentáciu notového zápisu. Ako posledné si rozoberieme výsledky implementácie a jej porovnanie so zadanou témou.
 
 \section{Použité technologie a knižnice}
 \label{technologies}
-Keďže predmetom tejto práce nie je kladený dôraz na rýchlosť prekladu, tak bol k implementácií použitý jazyk Python. Python je interpretovaný, ojektovo orientovaný, dynamický typovaný a vysoko úrovňový programovací jazyk. Oproti jazykom akým je jazyk C alebo C++ postráda rýchlosť prekladu. Tá je kľúčová k implementácií prekladačov nových programovacích jazykov. Programovací jazyk python na oplátku ponúka jednoduchý syntax, obrovský výber a jednoduchú manipuláciu s balíčkami. Viac o tomto jazyku v \cite{python:site}.
+Keďže predmetom tejto práce nie je kladený dôraz na rýchlosť prekladu, tak bol k implementácií použitý jazyk Python. Python je interpretovaný, objektovo orientovaný, dynamický typovaný a vysoko úrovňový programovací jazyk. Oproti jazykom akým je jazyk C alebo C++ postráda rýchlosť prekladu. Tá je kľúčová k implementácií prekladačov nových programovacích jazykov. Programovací jazyk python na oplátku ponúka jednoduchý syntax, obrovský výber a jednoduchú manipuláciu s balíkmi. Viac o tomto jazyku v \cite{python:site}.
 
 Mimo štandardných balíčkov, implementovaný program používa jeden balíček, ktorý je pod všeobecnou verejnou licenciou. Ide o syntezátor, ktorého použitie si môže zvoliť užívateľ na prehrávanie výsledku tvorby variácií. Vďaka nemu si môže človek neznalý notového zápisu prehrať výsledne variácie. Ide o virtuálny analógový syntezátor. Návod na jeho manipuláciu a ukážky použitia môžeme nájsť v \cite{synt:site}.
 
 \section{Vstup a výstup}
 \label{inputoutput}
-Vstup aj výstup programu je vo formáte XML. Tento princíp je prevzatý z \cite{afrpub}. Tento formát nám umožňuje reprezentovať určitým spôsobom notový zápis. Tento formát sa skladá z elementov, ktorým vieme pripísať rôzne atribúty. To sa nám hodí pri popise notového zápisu, inakším spôsobom ako je on samotný. Notový zápis sa skladá taktiež z rôznych elementov (tónov) a atribútov (dĺžka). Príklad vstupného súboru je nasledujúci.
+Vstup aj výstup programu je vo formáte XML. Tento princíp je prevzatý z \cite{afrpub}. Tento formát nám umožňuje reprezentovať určitým spôsobom notový zápis. Tento formát sa skladá z elementov, ktorým vieme pripísať rôzne atribúty. To sa nám hodí pri popise notového zápisu, keďže jednotlivé tóny majú svoje atribúty. Notový zápis sa skladá taktiež z rôznych elementov (tónov) a atribútov (dĺžka). Príklad vstupného súboru je nasledujúci.
+\newpage
 \lstset{language=XML}
 \begin{lstlisting}
 <theme time_signature="3/4">
@@ -793,9 +794,10 @@ Vstupný súbor obsahuje koreňový element \textit{theme}. Tento element musí 
 
 Vo vnútri koreňového elementu sú elementy \textit{measure}. Ide o element pre takt. Ten obsahuje elementy pre jednotlivé tóny nazývane \textit{tone}.
 
-V notovom zápise je počet elementov \textit{tone} závislí od taktového predpisu, ktorý je v tomto súbore 3/4. Tento element má atribút \textit{note}, ktorý popisuje dĺžku tónu. Aby sme si overili dĺžku uvedeného elementu \textit{measure} potrebujeme spočítať dĺžky tónov v atribúte \textit{note}. Maximálny počet dôb v takte je podľa \textit{time\_signature} 3. Zo štvorky vyčítame trvanie štvrťovej noty, ktoré je jednu dobu. Potom výpočet je nasledovný $2 + 1/2 + 1/2 = 3.$ Textom elementov \textit{tone} je názov tónov.
+V notovom zápise je počet elementov \textit{tone} závislí od taktového predpisu, ktorý je v tomto súbore 3/4. Tento element má atribút \textit{note}, ktorý popisuje dĺžku tónu. Aby sme si overili dĺžku uvedeného elementu \textit{measure}, potrebujeme spočítať dĺžky tónov v atribúte \textit{note}. Maximálny počet dôb v takte je podľa \textit{time\_signature} 3. Zo štvorky vyčítame trvanie štvrťovej noty, ktoré je jednu dobu. Potom výpočet je nasledovný $2 + 1/2 + 1/2 = 3.$ Polovicu doby trvá osminová nota, pretože štvrťová nota trvá jednu dobu. Textom elementov \textit{tone} je názov tónu.
 
-Na podobnom princípe je založený aj formát výstupu. Ten sa skladá z koreňového elementu \textit{variations}. Vo vnútri tohto koreňového elementu sú zahrnuté všetky výsledné variácie. Tie sú zoradené podľa zoznamu argumentov uvedenom v \ref{args}.
+Na podobnom princípe je založený aj formát výstupu. Ten sa skladá z koreňového elementu \textit{variations}. Vo vnútri tohto koreňového elementu sú zahrnuté všetky výsledné variácie. Tie sú zoradené podľa zoznamu argumentov uvedenom v podsekcii \ref{args}.
+
 \lstset{language=XML}
 \begin{lstlisting}
 <?xml version="1.0" ?>
@@ -811,7 +813,7 @@ Na podobnom princípe je založený aj formát výstupu. Ten sa skladá z koreň
 \end{lstlisting}
 
 \section{Prehľad tried}
-Výsledná implementácia využíva objektovo orientované programovanie. Štrukútra programu je rozdelená do tried. Tieto triedy vykonávajú rôzne činnosti ako sú spracovanie argumentov, extrahovanie vstupu, tvorby variácií, prehrávanie variácií a vytvorenie výstupu.
+Výsledná implementácia využíva objektovo orientované programovanie. Štruktúra programu je rozdelená do tried. Tieto triedy vykonávajú rôzne činnosti, ako sú spracovanie argumentov, extrahovanie vstupu, tvorby variácií, prehrávanie variácií a vytvorenie výstupu.
 
 \subsection{Argumenty}
 \label{args}
@@ -825,10 +827,10 @@ Pomocou argumentov si užívateľ môže zvoliť variácie, ktoré sa budú vytv
     \item -c, -{}-contrary\_motion pre variáciu proti pohybom
     \item -R, -{}-retro\_gradation pre variáciu retrogradáciou
     \item -a, -{}-augmentation pre variáciu zdvojnásobenia dĺžky tónov
-    \item -d, -{}-diminution pre variáciu skrátenia dĺžky tónov
+    \item -d, -{}-diminution pre variáciu skrátenia dĺžky tónov o polovicu
 \end{itemize}
 
-Tieto argumenty patria všetkým variáciám, ktoré sme si navrhli a podarilo sa ich implementovať. Keďže sa pohybujeme na jednočiarkovanej a dvojčiarkovanej oktáve, nie všetky variácie sa môžu vykonávať viackrát pre jednu tému. Tie, ktoré vieme vykonať viackrát sú zvýšenie a zníženie o jeden tón. Patria pre ne obmedzenia, že sa môžu vykonať iba pre jednu oktávu. Takže pre tieto argumenty vieme zadať počet vykonaní od 1 po 7 vrátane. Ostatné argumenty iba povolia vykonanie príslušnej variácie. Argumenty
+Tieto argumenty patria všetkým variáciám, ktoré sme si navrhli a podarilo sa ich implementovať. Keďže sa pohybujeme na jednočiarkovanej a dvojčiarkovanej oktáve, nie všetky variácie sa môžu vykonávať viackrát pre jednu tému. Tie, ktoré vieme vykonať viackrát sú zvýšenie a zníženie témy o jeden tón. Patria pre ne obmedzenia, že sa môžu vykonať iba pre jednu oktávu. Takže pre tieto argumenty vieme zadať počet vykonaní od 1 po 7 vrátane. Ostatné argumenty iba povolia vykonanie príslušnej variácie. Argumenty
 
 \begin{itemize}\itemsep0.05em
     \item -p, -{}-play 
@@ -836,51 +838,53 @@ Tieto argumenty patria všetkým variáciám, ktoré sme si navrhli a podarilo s
     \item -v, -{}-volume
 \end{itemize}
 
-súvisia s použitou knižnicou syntetizátora. Argument \textit{-p} prehrá výsledné variácie, \textit{save} uloží výsledok variácií do súboru pre prehratie a \textit{v} nastaví hlasitosť výstupu.
+súvisia s použitou knižnicou syntetizátora. Argument \textit{-p} prehrá výsledné variácie, \textit{save} uloží výsledok variácií do súboru pre prehratie a \textit{v} nastaví hlasitosť výstupu. Argument -i a -{}-input umožňuje zadať vstupný súbor vo formáte xml.
 
 \subsection{Spracovanie vstupu}
 Spracovanie vstupu zabezpečuje trieda \textit{InputExtractor}. Jej úlohou je spracovať vstup zadaný užívateľom. Formát tohto vstupu je rozoberaný v \ref{inputoutput}. 
 
-Hlavnou metódou tejto triedy je \textit{read\_input}. Pomocou nej čítame vstup, z ktorého potrebujeme predpis taktov. Ten je potrebný pre formatovanie výstupu. Ďalej z elementov vo vstupnom súbore vyberie dĺžky tónov a ich názvy. Toto uskutočňuje pomocou metody \textit{fill\_list}. Dvojice tón a dĺžka sú uložené do slovníka pre tvorbu variácií.
+Hlavnou metódou tejto triedy je \textit{read\_input}. Pomocou nej čítame vstup, z ktorého potrebujeme predpis taktov. Ten je potrebný pre formatovanie výstupu. Ďalej z elementov vo vstupnom súbore vyberie dĺžky tónov a ich názvy. Toto uskutočňuje pomocou metódy \textit{fill\_list}. Dvojice tón a dĺžka sú uložené do slovníka pre tvorbu variácií.
 
 \subsection{Zásobník}
-Aby sme mohli zásobník expandovať v nejakej hĺbke, potrebujeme ho implementovať pomocou obojstranne viazaneho zoznamu. Informácie a časť metód pre obojstranne viazaný zoznam boli prevzaté z \cite{dll:site}.
+Aby sme mohli zásobník expandovať v nejakej hĺbke, potrebujeme ho implementovať pomocou obojstranne viazaného zoznamu. Informácie a časť metód pre obojstranne viazaný zoznam boli prevzaté z \cite{dll:site}.
 
 Implementácia zásobníka sa nachádza v súbore \textit{DLL.py}. Súbor sa skladá z dvoch tried \textit{Node} a \textit{DLL}.
 
 Trieda \textit{Node} znázorňuje symbol v zásobníku. Tým môže byť hociktorý zo zásobníkovej abecedy. Súčasťou tohto symbolu sú odkazy na nasledujúci symbol a predchádzajúci symbol. Dôležitými operáciami tohto zásobníka sú:
 
 \subsubsection*{def push(data)}
-Pomocou tejto operácie vkladáme prvé častí z pravých strán pravidiel LL gramatiky s rozptýleným kontextom. Tie sú vkladane na vrch zásobníka. Pod nimi rozumieme tóny hlavnej témy alebo skladby, ktorú chce užívateľ variovať.
+Pomocou tejto operácie vkladáme prvé častí z pravých strán pravidiel LL gramatiky s rozptýleným kontextom. Tie sú vkladané na vrch zásobníka. Pod nimi rozumieme tóny hlavnej témy alebo skladby, ktorú chce užívateľ variovať.
 
 \subsubsection*{def pop()}
-Vložené tóny na vrchu zásobníka sú rovnaké ako tie, ktoré si zadal užívateľ. Tie sú postupne z vrchu zásobníka odstraňované. Týmto spôsobom sa vyhneme tomu, že by výsledné variácie obsahovali tóny témy. Metoda nahradí na vrchu zásobníka nasledujúci symbol. Odkaz odstráneného symbolu je vráteny touto metódou.
+Vložené tóny na vrchu zásobníka sú rovnaké ako tie, ktoré si zadal užívateľ. Tie sú postupne z vrchu zásobníka odstraňované. Týmto spôsobom sa vyhneme tomu, že by výsledné variácie obsahovali tóny témy. Metóda nahradí na vrchu zásobníka nasledujúci symbol. Odkaz odstráneného symbolu je vráteny touto metódou.
 
 \subsubsection*{def insert(prev\_node, data)}
-Pomocou operácie \textit{insert} máme možnosť expandovať zásobník i v jeho hĺbke. To nám umožňuje vložiť tóny variácie do vnútra zásobníka. Vkladané sú pravidlá variácie, ktoré sú súčasťou druhej časti pravej strany pravidiel LL gramatiky s rozptýleným kontextom. Tie sú ukladané za neterminál, ktorý je hĺbke zásobníka. Odkaz za tento neterminal je v parametri tejto metódy \textit{prev\_node}. Pomocou parametru \textit{data} predávame symbol na vloženie.
+Pomocou operácie \textit{insert} máme možnosť expandovať zásobník i v jeho hĺbke. To nám umožňuje vložiť tóny variácie do vnútra zásobníka. Vkladané sú pravidlá variácie, ktoré sú súčasťou druhej časti pravej strany pravidiel LL gramatiky s rozptýleným kontextom. Tie sú ukladané za neterminál, ktorý je hĺbke zásobníka. Odkaz za tento neterminal je v parametri tejto metódy \textit{prev\_node}. Pomocou parametru \textit{data} predáme symbol na vloženie.
 
 \subsubsection*{def remove(node)}
-Aby sme mohli odstrániť neterminály v hĺbke zásobníka používame operáciu \textit{remove}. Pre nahradenie neterminálu v hĺbke zásobníka musíme odstrániť po operácií \textit{insert} neaktuálny neterminal. Adresa starého neterminálu je predávana parametrom \textit{node} z dočasného poľa.
+Aby sme mohli odstrániť neterminály v hĺbke zásobníka používame operáciu \textit{remove}. Pre nahradenie neterminálu v hĺbke zásobníka musíme odstrániť po operácií \textit{insert} neaktuálny neterminal. Adresa starého neterminálu je predaná parametrom \textit{node} z dočasného poľa.
 
 \subsubsection*{def printList(), def dll\_len()}
-Trieda \textit{DLL} obsahuje ďalšie pomocné metódy ako sú \textit{not\_empty} pre zistenie či zásobník nie je prázdny. Obsahuje vypísanie obsahu \textit{printList} a \textit{dll\_len} na získanie počtu symbolov v zásobníku.
+Trieda \textit{DLL} obsahuje ďalšie pomocné metódy, ako sú \textit{not\_empty} pre zistenie či zásobník nie je prázdny. Obsahuje vypísanie obsahu \textit{printList} a \textit{dll\_len} na získanie počtu symbolov v zásobníku.
 
 \subsection{Tvorba variácií}
 Tvorba variácií je sústredená do triedy \textit{CSGparser}. Atribútmi tejto triedy sú tokeny podľa tabuľky \ref{tab:tone}. Ďalej kompletná LL tabuľka na základe gramatiky \ref{mainalg} a kompletný zoznam pravidiel. Tento kompletný zoznam pravidiel je uložený v poli \textit{rules}.
 
 \subsubsection*{def tokenizer()}
-Úlohou tejto metódy je tvoriť tokeny, ktoré sa skladajú z názvu tonu a jeho dĺžky. Ukladajú sa postupne do poľa \textit{tokens}. Ich tvar je definovaný atribútmi triedy. Tieto tokeny sa tvoria zo slovníka, ktorý je vytvorený triedou \textit{InputExtractor}. Na konci tohto procesu sa priložia tokeny pre taktovu čiaru a symbol, ktorý značí koniec tohto reťazca tokenov. Návratová hodnota je výsledný reťazec tokenov.
+Úlohou tejto metódy je tvoriť tokeny, ktoré sa skladajú z názvu tónu a jeho dĺžky. Ukladajú sa postupne do poľa \textit{tokens}. Ich tvar je definovaný atribútmi triedy. Tieto tokeny sa tvoria zo slovníka, ktorý je vytvorený triedou \textit{InputExtractor}. Na konci tohto procesu sa priložia tokeny pre taktovú čiaru a symbol, ktorý značí koniec tohto reťazca tokenov. Návratová hodnota je výsledný reťazec tokenov.
 
 \subsubsection*{Metody pre prácu s pravidlami a tabuľkou}
 Aby sme mohli aplikovať pravidla podla algoritmu \ref{algoritmus1}, museli sme zaviesť rôzne operácie nad LL tabuľkou.
 
-Jednou z nich je \textit{get\_rule}. Táto metóda vyberie bunku z tabuľky na základe vstupného tokenu, ktorý zadal užívateľ a vrchného symbolu na zábobníku. Vo vnútri tejto bunky sú priradené pravidlá podľa variácie. Aby sme mohli vybrať správne pravidlo pre požadovanú variáciu máme metódy \textit{get\_key} a \textit{get\_rule\_number}. Tieto metódy zvolia presné pravidlo pre variáciu z bunky tabuľky. 
+Jednou z nich je \textit{get\_rule}. Táto metóda vyberie bunku z tabuľky na základe vstupného tokenu, ktorý zadal užívateľ a vrchného symbolu na zábobníku. Vo vnútri tejto bunky sú priradené pravidlá podľa variácie. Aby sme mohli vybrať správne pravidlo pre požadovanú variáciu máme metódy \textit{get\_key} a \textit{get\_rule\_number}. Tieto metódy zvolia presné pravidlo pre variáciu z bunky tabuľky.
+
+Pracujeme s obmedzenou množinou tónov, preto nemôžeme využiť plný potenciál pravidiel variácií. Ak nejaké pravidlo variácie presahuje túto množinu, tak sa zvoli pravidlo pre opakovanie tónu. Tieto vzťahy sú dopredu zavedené v LL tabuľke.
 
 \subsubsection*{def reverse\_push(items, deep, nonterminal)}
 Pomocou tejto metódy vieme pretočiť obsah pravej strany pravidiel LL gramatiky s rozptýleným kontextom. Tento otočený obsah pravidiel vkladáme do zásobníka. Vkladanie prebieha buď do hĺbky alebo na vrch zásobníka. Keďže pravidlá sa skladajú z n-tíc, ktoré sa nedajú metódami otočiť, tak sme použili radu z \cite{stack:site}. Pod parametrom \textit{items} rozumieme obsah, ktorý sa vkladá do zásobníka. Odkaz na neterminál v zásobníku z dočasného poľa je \textit{nonterminal} a \textit{deep} rozhoduje o vkladaní do hĺbky.
 
 \subsubsection*{def save\_result(), def restart()}
-Obe metódy spolu úzko súvisia. Aby sme mohli uložiť jednotlivé úseky variácií, tak používame metódu \textit{save\_result}. Tá na konci zozbiera tóny vytvorenej variácie zo zásobníka a uloží ich. Aby sme mohli tvoriť ďalšie variácie, tak potrebujeme vynulovať pozície čítania vstupu od užívateľa. To robíme pomocou metódy \textit{restart}. V prípade, že bol zadaný väčší počet variácií zvyšovania a znižovania tónov témy, potom sa variácie tvoria z témy. Tieto nasledujúce variácie sa tvoria z poslednej variácie zvyšovania a znižovania tónu.
+Obe metódy spolu úzko súvisia. Aby sme mohli uložiť jednotlivé úseky variácií, tak používame metódu \textit{save\_result}. Tá na konci zozbiera tóny vytvorenej variácie zo zásobníka a uloží ich. Aby sme mohli tvoriť ďalšie variácie, tak potrebujeme vynulovať pozície čítania vstupu od užívateľa. To robíme pomocou metódy \textit{restart}. V prípade, že bol zadaný väčší počet variácií zvyšovania a znižovania tónov témy, potom sa variácie netvoria z témy. Tieto nasledujúce variácie sa tvoria z poslednej variácie zvyšovania a znižovania tónu.
 
 \subsubsection*{def get\_distances(tokens)}
 Aby sme mohli tvoriť variácie protipohybom, je potrebné získať vzdialenosti tónov zo vstupu. Tieto vzdialenosti sa počítajú na základe prvého tónu pre celú variáciu. Vzdialenosti sa počítajú vzorcom: $$vzdialenos\check{t} = (prv\acute{y}\_t\acute{o}n\_poz - t\acute{o}n\_poz) * 2.$$ Kde $prv\acute{y}\_t\acute{o}n\_poz$ je pozícia prvého tónu témy v poli $tuple\_list$ a $t\acute{o}n\_poz$ je pozícia každého ďalšieho tónu témy.
