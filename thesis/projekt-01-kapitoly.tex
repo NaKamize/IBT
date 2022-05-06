@@ -677,32 +677,35 @@ Tento spôsob tvorby variácií podľa užívateľa a dodržania poradia expanzi
 
 \section{Algoritmus}
 \label{sec:alg}
-Táto sekcia je venovaná návrhu algoritmu, vďaka ktorému budeme môcť pravidlami tvoriť výsledné variácie. Tento algoritmus je založený na poznatkoch z prác s. 648 \cite{FITPUB10498} a \cite{tablemusic}. Obe práce spracujú s iným spôsobom prekladania gramatík s rozptýleným kontextom. Ak hovoríme o využití oneskoreného vyhodnotenia, tak hovoríme o práci \cite{tablemusic}. Ďalším spôsobom je použitie prechodného poľa a hlbokého zásobníkového automatu. Výsledný algoritmus sa zabera práve týmto spôsobom.
+Táto sekcia je venovaná návrhu algoritmu, vďaka ktorému budeme môcť pravidlami tvoriť výsledné variácie. Tento algoritmus je založený na poznatkoch z prác \cite{tablemusic, FITPUB10498}. Obe práce pracujú s iným spôsobom prekladania gramatík s rozptýleným kontextom. Ak hovoríme o využití oneskoreného vyhodnotenia, tak hovoríme o práci \cite{tablemusic}. Ďalším spôsobom je použitie dočasného poľa a hlbokého zásobníkového automatu. Výsledný algoritmus sa zabera práve týmto spôsobom.
+
 Tento spôsob nám umožňuje expanziu nie len na vrchole zásobníka, ale i hlboko v jeho vnútri. V tomto prípade je potrebné, aby zásobník bol implementovaný pomocou obojstranne viazaného zoznamu.
 
-Algoritmus, ktorý nám umožňuje tvoriť variácie je založený na preklade bezkotextových gramatik viz \cite{FITPUB10524}. Počas tohto algoritmu pracujeme so zásobnikom ako obojstranne viazaným zoznamom. Každý symbol, ktorý vkladame do zásobnika má tvar $ \langle Symbol \rangle $. Vstup pre tento algoritmus je zostrojená LL-tabuľka na základe gramatiky \ref{mainalg}. Ďalším vstupom je téma od užívateľa v podobe reťazca tokenov a požadované variácie.
+Algoritmus, ktorý nám umožňuje tvoriť variácie je založený na preklade bezkontextových gramatik pozri \cite{FITPUB10524}. Počas tohto algoritmu pracujeme so zásobníkom ako obojstranne viazaným zoznamom. Každý symbol, ktorý vkladáme do zásobníka má tvar $ \langle Symbol \rangle $. Vstup pre tento algoritmus je zostrojená LL-tabuľka na základe gramatiky \ref{mainalg}. Ďalším vstupom je téma od užívateľa v podobe reťazca tokenov a požadované variácie.
 
-Začiatok algoritmu (riadky 1--3) spočíva v inicializácií pomocných premenných. Jednou z nich je maximálny index poľa s variáciami, potom pozície pre pole variácií a vstupné tokeny. Poslednou pomocnou premennou je príznak pre expanziu vo vnútri zásobníka. Na riadku 4--5 máme inicializáciu samotného zásobnika a prechodného poľa.
+Začiatok algoritmu (riadky 1--3) spočíva v inicializácií pomocných premenných. Jednou z nich je maximálny index poľa s variáciami, potom pozície pre pole variácií a vstupné tokeny. Poslednou pomocnou premennou je príznak pre expanziu vo vnútri zásobníka. Na riadku 4--5 máme inicializáciu samotného zásobníka a dočasného poľa.
 
-Prechodné pole vieme limitovať dĺžkou 2. Je to vďaka tomu, že v jednom čase na základe našej gramatiky bude obsahovať maximálne 2 neterminály. V poli každý element $i$ ukazuje na jeden neterminál vo vnútri zásobníku. Na začiatku je pole inicializované tak, aby ukazovalo na prvý neterminál S.
+Dočasné pole vieme limitovať dĺžkou 2. Je to vďaka tomu, že v jednom čase na základe našej gramatiky bude obsahovať maximálne odkazy na 2 neterminály. V poli každý element $i$ ukazuje na jeden neterminál vo vnútri zásobníku. Na začiatku algoritmu je pole inicializovane tak, aby ukazovalo na prvý neterminál S.
 
-Ďalej sa program vo vnútri \texttt{while} slučky vetvy na tri časti. Prvá na riadkoch 8--17 zahrňuje situáciu, kedy sa na vrchole zásobníka objaví znak pre ukončenie témy. Tento stav naznačuje to, že sa buď blížime ku koncu tvorby variácií alebo prechádzame na tvorbu ďalšej. Stav prechodu na ďalšiu variáciu detekujeme tým, že sme nevyčerpali všetky variácie podľa pomocnej premennej. Výslednu variáciu uložíme a pokračujeme  v tvorbe ďalšej variácie. Ak ide o ukončenie celej tvorby posunieme pozíciu premennej, ktorá číta tokeny zo vstupného reťazca. Po tomto stave sa nachádza na vstupe koniec témy a na zásobníku koncový symbol. Nasleduje uloženie poslednej variácie a vyprázdnenie zásobníka.
+Ďalej sa program vo vnútri \texttt{while} slučky vetvy na tri časti. Prvá na riadkoch 8--17 zahrňuje situáciu, kedy sa na vrchole zásobníka objaví znak pre ukončenie témy. Tento stav naznačuje to, že sa buď blížime ku koncu tvorby variácií alebo prechádzame na tvorbu ďalšej variácie. Stav prechodu na ďalšiu variáciu detekujeme tým, že sme nevyčerpali všetky variácie podľa pomocnej premennej. Výslednu variáciu uložíme a pokračujeme v tvorbe ďalšej variácie. Ak ide o ukončenie celej tvorby posunieme pozíciu premennej, ktorá číta tokeny zo vstupného reťazca. Po tomto stave sa nachádza na vstupe koniec témy a na zásobníku koncový symbol. Nasleduje uloženie poslednej variácie a tak vyprázdnime zásobník.
 
-Druhá časť 18--20 je o čosi jednoduchšia. Tu detekujeme na vrchole zásobníka terminál, ktorý nie je koncom témy. Tento terminál odstránime z vrcholu zásobníka pomocou jeho operácie \textit{pop}. Vrchol zásobnika sa nahradí ďalším tokenom.
+Druhá časť 18--20 je o čosi jednoduchšia. Tu detekujeme na vrchole zásobníka terminál, ktorý nie je koncom témy. Tento terminál odstránime z vrcholu zásobníka pomocou jeho operácie \textit{pop}. Vrchol zásobníka sa nahradí ďalším symbolom.
 
-Tretia časť 23--37 nastáva vtedy, kedy sa na vrcholu zásobníka nachádza neterminál. Prvým krokom je získanie aktuálnej variácie. Potom sa začne s hľadaním pravidla v LL--tabuľke. Hľadanie prebieha na základe neterminálu \textit{TOP\_P} na vrchole zásobníka a terminálu \textit{t}. Po získaní tohto pravidla je potrebné vybrať to, ktoré patrí k aktuálnej variácii. Ďalej mame podmienku, ktorá rozhoduje o expanzií zásobníka. Majme príznak pre expanziu zásobníka v hĺbke je nastavený na \textit{True}. Vyberieme z dočasného poľa pozíciu neterminálu z hĺbky zásobníka. Túto pozíciu odstránime z dočasného poľa. Neterminal na získanej pozícii nahradíme tónom variácie hlboko v zásobníku. Nastavíme príznak expanzie v hĺbke na \textit{False}. Ak je tento príznam nastavený na \textit{False}. Získame pozíciu z dočasného poľa, ktorou je neterminál na vrchole zásobníka. Odstránime adresu tohto neterminálu z dočasného poľa. Zmeníme tento neterminal na vrcholu zásobníku za otočenú časť pravidla pre variáciu. V prípade, že aktuálna variácia je retrogradácia, potom neumožňujeme expanziu vo vnútri zásobníka.
+Tretia časť 23--37 nastáva vtedy, keď sa na vrchole zásobníka nachádza neterminál. Prvým krokom je získanie aktuálnej variácie. Potom sa začne s hľadaním pravidla v LL--tabuľke. Hľadanie prebieha na základe neterminálu \textit{TOP\_P} na vrchole zásobníka a terminálu \textit{t}. Po získaní tohto pravidla je potrebné vybrať to, ktoré patrí k aktuálnej variácii. Ďalej mame podmienku, ktorá rozhoduje o expanzií zásobníka. Majme príznak pre expanziu zásobníka v hĺbke je nastavený na \textit{True}. Vyberieme z dočasného poľa pozíciu neterminálu z hĺbky zásobníka. Túto pozíciu odstránime z dočasného poľa. Neterminal na získanej pozícii nahradíme tónom variácie hlboko v zásobníku. Nastavíme príznak expanzie v hĺbke na \textit{False}. 
 
-V prípade variácie retrogradácia, je správanie sa tohto algoritmu podobné obyčajnému zásobnikovému automatu \ref{def:zasaut}. Je to vďaka tomu, že túto variáciu vieme popísať bezkotextovou gramatikou. Počas tejto variácie sa nevykonáva expanzia vo vnútri zásobníku (Alg. \ref{algoritmus1} Riad. 36-37).
+Ak je príznak nastavený na \textit{False}. Získame pozíciu z dočasného poľa, ktorou je neterminál na vrchole zásobníka. Odstránime adresu tohto neterminálu z dočasného poľa. Zmeníme tento neterminal na vrcholu zásobníka za pretočenú časť pravidla pre variáciu. V prípade, že aktuálna variácia je retrogradácia, potom neumožňujeme expanziu vo vnútri zásobníka.
 
-Koniec algoritmu nastáva vtedy, keď sme došli na koniec pola zadaných variácií. Funkcia \textit{save\_variation} nam postupne uložila tóny požadovaných variácií. Vstupný reťazec je prijatý, inak nastáva chyba. Reťazec je prijatý ako prvá čásť jazyka, pod druhými časťami tohto jazyka rozumieme nami vytvorené variácie.
+V prípade variácie retrogradácia, je správanie sa tohto algoritmu podobné obyčajnému zásobníkovému automatu \ref{def:zasaut}. Je to vďaka tomu, že túto variáciu vieme popísať bezkontextovou gramatikou. Počas tejto variácie sa nevykonáva expanzia vo vnútri zásobníku (Alg. \ref{algoritmus1} Riad. 36-37).
+
+Koniec algoritmu nastáva vtedy, keď sme došli na koniec pola zadaných variácií. Funkcia \textit{save\_variation} nam postupne uložila tóny požadovaných variácií. Vstupný reťazec je prijatý, inak nastáva chyba. Reťazec je prijatý ako prvá časť jazyka, pod druhými časťami tohto jazyka rozumieme nami vytvorené variácie.
 
 \begin{algorithm}
 \label{algoritmus1}
 \SetNlSkip{-1em}
 \caption{Tabuľkou riadené spracovanie gramatiky s rozptýleným kontextom}
 \SetNlSty{}{}{:}
-\KwIn{ LL tabuľka pre $G = (N, T, P, S);x \in T^*$; variácie }
-\KwOut{ variácie pre $x$, kde $x \in L = (G)$, inak $chyba$}
+\KwIn{ LL tabuľka pre $G = (N, T, P, S);x \in T^*$; zvolené variácie }
+\KwOut{ variácie pre $x$, kde $x \in L(G)\:a \:vari\acute{a}cie \in L(G)$, inak $chyba$}
 \SetStartEndCondition{ }{}{}%
 \SetKwProg{Fn}{def}{\string:}{}
 \SetKwFunction{Range}{range}%%
