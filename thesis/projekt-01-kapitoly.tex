@@ -720,7 +720,7 @@ $var\_max\_poz := len(vari\acute{a}cie) - 1$\;
 $var\_poz,\, poz := 0$\;
 $deep\_push := False$\;
 inicializácia zásobníka s $\langle \$ \rangle, \langle S \rangle$\;
-inicializácia dočastného poľa s $poz\_S$\;
+inicializácia dočastného poľa s odkazom na $\langle S \rangle$\;
     \While{zásobník nie je prázdny} {
         nech $X$ je vrchol zásobníka, t je momentálny token\;
         \uIf{$ X = | $}{
@@ -746,17 +746,16 @@ inicializácia dočastného poľa s $poz\_S$\;
             }
         }
         \uElseIf{$ X \in N $}{
-            variácia := získaj\_variáciu(var\_poz)\;
-            $r := (X_1, X_2, \dots, X_n) \rightarrow (x_1, x_2, \dots. x_n) \in$ LL--tabuľke[X, t]\;
-            $pravidlo := r[vari\acute{a}cia]$\;
-            odkaz na symbol z dočasného poľa vo vnútri zásobníka je pos\;
+            var := získaj\_variáciu(var\_poz)\;
+            $r := \{var : (X_1, X_2) \rightarrow (x_1, x_2)\in $ LL--tabuľke[X, t]\}\;
+            odkaz na symbol z dočasného poľa vo vnútri zásobníka je P\;
             \eIf{$deep\_push$}{
-                $do\check{c}as\_pole.remove(pos)$\;
-                vymeň v zasobniku pos za $oto\check{c}(pravidlo[2][1])$\;
+                $do\check{c}as\_pole.remove(P)$\;
+                vymeň v zasobniku P za $oto\check{c}(r[x_2])$\;
                 $deep\_push = False$\;
             }{
-                $do\check{c}as\_pole.remove(pop(X))$\;
-                vymeň X za $oto\check{c}(pravidlo[2][0])$\;
+                $do\check{c}as\_pole.remove(P)$\;
+                vymeň X za $oto\check{c}(r[x_1])$\;
                 \If {$vari\acute{a}cia \neq retrograd\acute{a}cia$} {
                     $deep\_push = True$\;
                 }
