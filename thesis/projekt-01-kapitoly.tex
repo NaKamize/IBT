@@ -716,47 +716,47 @@ Koniec algoritmu nastáva vtedy, keď sme došli na koniec pola zadaných variá
 \Indp
 \Indpp
 \medskip
-$var\_count := len(vari\acute{a}cie) - 1$\;
-$var\_position,\, position := 0$\;
+$var\_max\_poz := len(vari\acute{a}cie) - 1$\;
+$var\_poz,\, poz := 0$\;
 $deep\_push := False$\;
 inicializácia zásobníka s $\langle \$ \rangle, \langle S \rangle$\;
-inicializácia dočastného poľa s $pos\_S$\;
-    \While{zasobník nie je prázdny} {
-        nech $TOP\_P$ je vrchol zásobnika, t je momentálny token\;
-        \uIf{$ TOP\_P = | $}{
-            $var\_position += 1$\;
-           \uIf{$ t = \$ $ a zároveň $var\_position > var\_count$}{
-                $save\_variation()$\;
-                $TOP\_P.pop()$
+inicializácia dočastného poľa s $poz\_S$\;
+    \While{zásobník nie je prázdny} {
+        nech $X$ je vrchol zásobníka, t je momentálny token\;
+        \uIf{$ X = | $}{
+            var\_poz += 1\;
+           \uIf{$ t = \$ $ a zároveň $var\_poz > var\_max\_poz$}{
+                ulož\_variáciu()\;
+                pop(X)\;
             }
-            \uElseIf{$ t = | $ a zároveň $var\_position > var\_count$}{
-                $position += 1$\;
+            \uElseIf{$ t = | $ a zároveň $var\_poz > var\_max\_poz$}{
+                position += 1\;
             }
             \Else{
-                $save\_variation()$\;
-                $restart()$\;
+                ulož\_variáciu()\;
+                reštart()\;
             }
         }
-        \uElseIf{$ TOP\_P \in T $}{
-            \eIf{$ t = TOP\_P $}{
-                $TOP\_P.pop()$\;
+        \uElseIf{$ X \in T $}{
+            \eIf{$ t = X $}{
+                pop(X)\;
+                poz += 1\;
             }{
-                $chyba$\;
+                chyba\;
             }
         }
-        \uElseIf{$ TOP\_P \in N $}{
-            $vari\acute{a}cia := get\_variation(var\_position)$\;
-            $r := (X\_1, X\_2, \dots, X_n) \rightarrow (x_1, x_2, \dots. x_n) \in LL-tabu\check{l}ke[TOP\_P, t]$\;
-            $pravidlo = r[vari\acute{a}cia]$\;
+        \uElseIf{$ X \in N $}{
+            variácia := získaj\_variáciu(var\_poz)\;
+            $r := (X_1, X_2, \dots, X_n) \rightarrow (x_1, x_2, \dots. x_n) \in$ LL--tabuľke[X, t]\;
+            $pravidlo := r[vari\acute{a}cia]$\;
+            odkaz na symbol z dočasného poľa vo vnútri zásobníka je pos\;
             \eIf{$deep\_push$}{
-                $pos := do\check{c}as\_pole[0]$\;
-                $do\check{c}as\_pole.remove(TOP\_P.pop())$\;
-                vymeň v zasobniku pos za $preto\check{c}(pravidlo[2][1])$\;
+                $do\check{c}as\_pole.remove(pos)$\;
+                vymeň v zasobniku pos za $oto\check{c}(pravidlo[2][1])$\;
                 $deep\_push = False$\;
             }{
-                $pos := do\check{c}as\_pole[0]$\;
-                $do\check{c}as\_pole.remove(TOP\_P.pop())$\;
-                vymeň TOP\_P za $preto\check{c}(pravidlo[2][0])$\;
+                $do\check{c}as\_pole.remove(pop(X))$\;
+                vymeň X za $oto\check{c}(pravidlo[2][0])$\;
                 \If {$vari\acute{a}cia \neq retrograd\acute{a}cia$} {
                     $deep\_push = True$\;
                 }
