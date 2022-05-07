@@ -687,7 +687,7 @@ Začiatok algoritmu (riadky 1--3) spočíva v inicializácií pomocných premenn
 
 Dočasné pole vieme limitovať dĺžkou 2. Je to vďaka tomu, že v jednom čase na základe našej gramatiky bude obsahovať maximálne odkazy na 2 neterminály. V poli každý element $i$ ukazuje na jeden neterminál vo vnútri zásobníku. Na začiatku algoritmu je pole inicializovane tak, aby ukazovalo na prvý neterminál S.
 
-Ďalej sa program vo vnútri \texttt{while} slučky vetvy na tri časti. Prvá na riadkoch 8--17 zahrňuje situáciu, kedy sa na vrchole zásobníka objaví znak pre ukončenie témy. Tento stav naznačuje to, že sa buď blížime ku koncu tvorby variácií alebo prechádzame na tvorbu ďalšej variácie. Stav prechodu na ďalšiu variáciu detekujeme tým, že sme nevyčerpali všetky variácie podľa pomocnej premennej. Výslednu variáciu uložíme a pokračujeme v tvorbe ďalšej variácie. Ak ide o ukončenie celej tvorby posunieme pozíciu premennej, ktorá číta tokeny zo vstupného reťazca. Po tomto stave sa nachádza na vstupe koniec témy a na zásobníku koncový symbol. Nasleduje uloženie poslednej variácie a tak vyprázdnime zásobník.
+Ďalej sa program vo vnútri \texttt{while} slučky vetvy na tri časti. Prvá na riadkoch 8--17 zahrňuje situáciu, kedy sa na vrchole zásobníka objaví znak pre ukončenie témy. Tento stav naznačuje to, že sa buď blížime ku koncu tvorby variácií alebo prechádzame na tvorbu ďalšej variácie. Stav prechodu na ďalšiu variáciu detekujeme tým, že sme nevyčerpali všetky variácie podľa pomocnej premennej. Výslednu variáciu uložíme a pokračujeme v tvorbe ďalšej variácie. Ak ide o ukončenie celej tvorby posunieme pozíciu premennej, ktorá číta tokeny zo vstupného reťazca. Po tomto stave sa nachádza na vstupe koniec témy a na zásobníku koncový symbol. Nasleduje tak uloženie poslednej variácie a tak vyprázdnime zásobník.
 
 Druhá časť 18--20 je o čosi jednoduchšia. Tu detekujeme na vrchole zásobníka terminál, ktorý nie je koncom témy. Tento terminál odstránime z vrcholu zásobníka pomocou jeho operácie \textit{pop}. Vrchol zásobníka sa nahradí ďalším symbolom.
 
@@ -750,12 +750,12 @@ inicializácia dočastného poľa s odkazom na $\langle S \rangle$\;
             $r := \{var : (X_1, X_2) \rightarrow (x_1, x_2)\in $ LL--tabuľke[X, t]\}\;
             odkaz na symbol z dočasného poľa vo vnútri zásobníka je P\;
             \eIf{$deep\_push$}{
-                $do\check{c}as\_pole.remove(P)$\;
                 vymeň v zasobniku P za $oto\check{c}(r[x_2])$\;
+                $do\check{c}as\_pole.remove(P)$\;
                 $deep\_push = False$\;
             }{
+                vymeň P za $oto\check{c}(r[x_1])$\;
                 $do\check{c}as\_pole.remove(P)$\;
-                vymeň X za $oto\check{c}(r[x_1])$\;
                 \If {$vari\acute{a}cia \neq retrograd\acute{a}cia$} {
                     $deep\_push = True$\;
                 }
