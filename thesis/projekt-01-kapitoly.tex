@@ -4,20 +4,20 @@
 \def\UrlBreaks{\do\/\do-}
 
 \chapter{Úvod}
-Formálne modely nám vedia sprostredkovať teoretické prostriedky pre popis rôznych praktických aplikácií. Najväčšou aplikáciou z nich sú programovacie jazyky a dizajn prekladačov týchto jazykov. Ďalšie aplikácie vieme nájsť v biológii, lingvistike alebo umení. Cieľom tejto práce je aplikácia formálnych modelov v umení, konkrétne v hudbe.
+Formálne modely nám vedia sprostredkovať teoretické prostriedky pre popis rôznych praktických aplikácií. Najrozšírenejšou aplikáciou z nich sú programovacie jazyky a dizajn prekladačov týchto jazykov. Ďalšie aplikácie vieme nájsť v biológii, lingvistike alebo umení. Cieľom tejto práce je aplikácia formálnych modelov v umení, konkrétne v hudbe.
 
-Hudobná štruktúra, na ktorú sú aplikované formálne modely v tejto práci sa nazýva téma a variácie. Väčšina moderných i klasických skladieb sa neskladá z čisto nových tónov a úsekov. Množstvo úsekov sa opakuje, ale nie vždy v ich rovnakom znení. Tieto opakovania sú obmieňané rôznymi spôsobmi. Tieto spôsoby môžu byť zmena rytmu, melódie alebo tóniny. Súčasťou tejto práce je zistiť ako môžeme popísať tieto štruktúry. Prípadne nájsť riešenie, ktoré ponúka ich tvorbu.
+Hudobná štruktúra, na ktorú sú aplikované formálne modely v tejto práci sa nazýva téma a variácie. Väčšina moderných i klasických skladieb sa neskladá z čisto nových tónov a úsekov. Množstvo úsekov sa opakuje, ale nie vždy v ich rovnakom znení. Tieto opakovania sú obmieňané rôznymi spôsobmi. Spôsoby opakovania môžu byť zmena rytmu, melódie alebo tóniny. Súčasťou tejto práce je zistiť, ako môžeme popísať tieto štruktúry. Prípadne nájsť riešenie, ktoré ponúka ich tvorbu.
 
 Za hudbu môžeme považovať štruktúru, ktorá sa riadi určitými pravidlami. Napriek tomu, že obsahuje množstvo pravidiel a predpisov, je to prostriedok pre vyjadrenie myšlienky skladateľa. Táto myšlienka odzrkadľuje nálady, prostredie alebo zážitky skladateľa. Takže sa neriadi žiadnymi deterministickými pravidlami. Hlavná myšlienka, ktorá sa nazýva téma je konečná množina tónov, ktoré sú podľa ich dĺžky začlenené do taktov. Obsahom hudby nie je čisto len téma, ale obsahuje aj jej obmieňanie rôznymi hudobnými prostriedkami. Prepojením takýchto štruktúr vzniká celá skladba, ktorá sa skladá z témy a jej variácií. Príkladom takejto skladby môže byť Dvanásť variácií na \uv{Ah vous dirai-je, Maman}. Vzniknutá skladba je štruktúra, ktorá sa skladá z témy a variácie. Cieľom tejto práce je popísanie tejto štruktúry vhodným formálnym modelom. Výsledkom tohto popisu by malo byť stvárnenie týchto štruktúr, ktoré nesmie obmedzovať tvorbu hudby.
 
-V prípade navrhnutého správneho modelu, ktorý by vedel popisovať túto hudobnú štruktúru, je súčasťou práce ho aplikovať. Ako najvhodnejšia aplikácia, ktorá sa dá v hudbe nájsť je jej tvorba. Gramatiky, ktoré sú súčasťou formálnych modelov umožňujú generovať rôzne reťazce. Preto predmetom aplikácie je vytvoriť gramatiku, ktorá tvorí hudobné reťazce, ktoré by zároveň dávali hudobný zmysel. Na vytvorenie takýchto reťazcov je potrebná gramatika, ktorá vie zvládnuť tvorbu týchto reťazcov. Preto je potrebné zaradiť hudbobný jazyk do jeho príslušnej triedy v Chomského hierarchie. Zistenie triedy takéhoto jazyka vedie k odhadu gramatiky, ktorá by mohla takýto reťazce generovať. 
+V prípade navrhnutého správneho modelu, ktorý by vedel popisovať túto hudobnú štruktúru, je súčasťou práce ho aplikovať. Ako najvhodnejšia aplikácia, ktorá sa dá v hudbe nájsť je jej tvorba. Gramatiky, ktoré sú súčasťou formálnych modelov umožňujú generovať rôzne reťazce. Preto predmetom aplikácie je vytvoriť gramatiku, ktorá tvorí hudobné reťazce, ktoré by zároveň dávali hudobný zmysel. Na vytvorenie takýchto reťazcov je potrebná gramatika, ktorá vie zvládnuť tvorbu týchto reťazcov. Preto je potrebné zaradiť hudobný jazyk do jeho príslušnej triedy v Chomského hierarchie. Zistenie triedy takéhoto jazyka vedie k odhadu gramatiky, ktorá by mohla takýto reťazce generovať. 
 
-Text tejto práce je rozdelený do viacerých sekcii. Kapitola \ref{chap:definitions} sa skladá z dvoch sekcií. Sekcia \ref{sec:music} sa zaoberá základnými pojmami v hudbe, ktorá vedie k pochopeniu použitej hudobnej terminologie. Sekcia \ref{sec:formallang} rozoberá jazyky Chomského hierarchie. Ďalej rozoberá, do ktorej kategórie je zaradený jazyk pre popis témy a variácii. V kapitole \ref{chap:app} definujeme gramatiku, ktorá bola použitá pre popis hudobnej štruktúry. Spolu s definíciou nového modelu ukazuje jeho aplikácie pre hudobnú štruktúru. Kapitola \ref{chap:imp} sa venuje samotnej implementácii novej verzie modelu, spusteniu tejto implementácii a ukážkami výsledku tejto implementácie. Posledná kapitola \ref{chap:end} vyhodnocuje výsledky práce, poukazuje na ich praktické použitie. Obsahom tejto kapitoly je aj diskusia k ďalšiemu pokračovaniu tejto práce. 
+Text tejto práce je rozdelený do viacerých sekcii. Kapitola \ref{chap:definitions} sa skladá z dvoch sekcií. Sekcia \ref{sec:music} sa zaoberá základnými pojmami v hudbe, ktorá vedie k pochopeniu použitej hudobnej terminologie. Sekcia \ref{sec:formallang} rozoberá jazyky Chomského hierarchie. Ďalej rozoberá, do ktorej kategórie je zaradený jazyk pre popis témy a variácii. V kapitole \ref{chap:app} definujeme gramatiku, ktorá bola použitá pre popis hudobnej štruktúry. Spolu s definíciou nového modelu ukazuje jeho aplikácie pre hudobnú štruktúru. Kapitola \ref{chap:imp} sa venuje samotnej implementácii novej verzie modelu, spusteniu tejto implementácie a ukážkami výsledku tejto implementácie. Posledná kapitola \ref{chap:end} vyhodnocuje výsledky práce a poukazuje na ich praktické použitie. Obsahom tejto kapitoly je aj diskusia k ďalšiemu pokračovaniu tejto práce. 
 
 
 \chapter{Základné pojmy a definície}
 \label{chap:definitions}
-Táto kapitola oboznamuje so základnými pojmami, ktoré vedú k pochopeniu obsahu tejto bakalárskej práce. Vzhľadom na to, že táto práca je úzko spätá s hudbou a hudobnou teóriou, obsahuje jej základy, ktoré sú prevzaté z \cite{MUSICTHEORY, DunnettVar}. Základy formálných jazykov a ich definície sú prevzaté z \cite{MEDUNATHEORY}.
+Táto kapitola oboznamuje so základnými pojmami, ktoré vedú k pochopeniu obsahu tejto bakalárskej práce. Vzhľadom na to, že táto práca je úzko spätá s hudbou a hudobnou teóriou, obsahuje jej základy, ktoré sú prevzaté z \cite{MUSICTHEORY, DunnettVar}. Základy formálnych modelov a ich definície sú prevzaté z \cite{MEDUNATHEORY}.
 
 \section{Hudba}
 \label{sec:music}
@@ -26,36 +26,36 @@ Hudba je súčasťou umenia. Základným stavebným materiálom hudby je tón. P
 \subsection{Tón}
 Tón je definovaný, ako zvuk s určitou výškou a vzniká pravidelným chvením nejakého zdroja zvuku. Vzniknuté chvenie sa prenáša do sluchových orgánov zmenou hustoty vzduchu. Skladá sa z rôznych vlastností, ako sú výška, sila, farba a dĺžka. Najdôležitejšie vlastnosti sú výška tónu a jeho dĺžka, ktoré sú predmetom tejto práce.
 
-Dĺžka tónu nie je narozdiel od ostatných vlastností fyzikálnou, ale je závislá od interpreta daného tónu. Čas znejúceho tonu je jeho dĺžkou. Interpret jeho zásahom pri interpretácií vie určiť dĺžku tónu. Interpretom je v našej práci program. Dĺžka tónu je vopred definovaná.
+Dĺžka tónu nie je narozdiel od ostatných vlastností fyzikálnou, ale je závislá od interpreta daného tónu. Čas znejúceho tónu je jeho dĺžkou. Interpret jeho zásahom pri interpretácií vie určiť dĺžku tónu. Interpretom je v našej práci program. Dĺžka tónu je vopred definovaná.
 
 Výška tónu je definovaná ako počet kmitov za jednu sekundu. Spolu s výškou tónu sa zvyšuje počet kmitov za sekundu. Počet kmitov za jednu sekundu sa udáva v Hertzoch.
 
-Tóny sú usporiadané do tónovej sústavy. Tónová sústava je množina tónov, ktoré sa v hudbe vyskytujú. Tvorí ju sedem základných tónov c, d, e, f, g, a, h. Tieto tóny sú výškovo usporiadané od najnižšej po najvyššiu. Po tóne h vždy nasleduje tón c, ktorý má dvojnásobnú frekvenciu oproti tomu pôvodnému. Všetkých osem tónov tvorí oktávu. V tejto práci sú použité dve oktávy, a to sú jednočiarkovaná oktáva a dvojčiarkovaná oktáva.
+Tóny sú usporiadané do tónovej sústavy. Tónová sústava je množina tónov, ktoré sa v hudbe vyskytujú. Tvorí ju sedem základných tónov c, d, e, f, g, a, h. Tieto tóny sú výškovo usporiadané od najnižšej po najvyššiu. Po tóne h vždy nasleduje tón c, ktorý má dvojnásobnú frekvenciu oproti tomu pôvodnému. Všetkých osem tónov tvorí oktávu. V tejto práci sú použité dve oktávy jednočiarkovaná oktáva a dvojčiarkovaná oktáva.
 
-Na obrázku \ref{fig:tonfrek} sú zobrazené tóny cez dve oktávy, ktoré sú pomenované. K príslušným tónom bola priradená ich frekvencia na základe \cite{strankaFrekvencii}. Na obrázku môžeme spozorovať, ako frekvencie tónov medzi oktávami súvisia. Jednočiarkovaná oktáva, ktorá sa začína tónom c a končí tónom c2 má polovičnú frekvenciu dvojčiarkovanej oktávy, ktorá sa začína tónom c2 a končí tónom c3. Jednotlivé tóny vieme posunúť o oktávu vyššie vďaka znásobeniu ich frekvencie.
+Na obrázku \ref{fig:tonfrek} sú zobrazené tóny cez dve oktávy, ktoré sú pomenované. K príslušným tónom bola priradená ich frekvencia na základe \cite{strankaFrekvencii}. Na obrázku môžeme spozorovať, ako frekvencie tónov medzi oktávami súvisia. Jednočiarkovaná oktáva, ktorá sa začína tónom c~a končí tónom c2 má polovičnú frekvenciu dvojčiarkovanej oktávy, ktorá sa začína tónom c2 a končí tónom c3. Jednotlivé tóny vieme posunúť o oktávu vyššie vďaka znásobeniu ich frekvencie.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.4]{obrazky-figures/Tonyafrekvencie.png}
-\caption{Postupnosť tónovov cez dve oktávy s príslušnými frekvenciami.}
+\caption{Postupnosť tónov cez dve oktávy s príslušnými frekvenciami.}
 \label{fig:tonfrek}
 \end{figure}
 
 \subsection{Nota}
 \label{subs:nota}
-Nota je grafická značka, ktorá sa zapisuje do notovej osnovy. Pomocou noty vieme vyjadriť dĺžku tónu a jeho výšku. Ostatné vlastnosti tónu sa zapisujú inými značkami. Zápis nôt do notovej osnovy je potrebný pre reprezentáciu hudobnej myšlienky alebo jej interpretáciu. Noty majú rôzne značenie. Notu tvorí hlavička a nožička. V tejto práci sú použité štyri základné značenia, ako sú celá nota, polová nota, štvrťová nota a osminová nota. Tieto notové značenia sú na obrázku \ref{fig:druhnot}.
+Nota je grafická značka, ktorá sa zapisuje do notovej osnovy. Pomocou noty vieme vyjadriť dĺžku tónu a jeho výšku. Ostatné vlastnosti tónu sa zapisujú inými značkami. Zápis nôt do notovej osnovy je potrebný pre reprezentáciu hudobnej myšlienky alebo jej interpretáciu. Noty majú rôzne značenie. Notu tvorí hlavička a nožička. V tejto práci sú použité štyri základné značenia, ako sú celá nota, polová nota, štvrťová nota a osminová nota. Tieto notové značenia sú na obrázku \ref{fig:druhnot}. Obrázok sme prevzali z \cite{MUSICTHEORY}.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.4]{obrazky-figures/Druhynôt.png}
+\includegraphics[scale=0.4]{thesis/obrazky-figures/notyObr.png}
 \caption{Notové značenia.}
 \label{fig:druhnot}
 \end{figure}
 
 \subsection{Takt}
-Pod taktom v hudbe rozumieme základnú jednotku pravidelného striedania prízvučných a neprízvučných dôb. Určuje sa v notovom zápise, na začiatku skladby. Značený je dvomi číslami. Vrchné číslo určuje počet dôb v jednom takte. Spodné číslo označuje notu, ktorá trvá jednu dobu.
+Pod taktom v hudbe rozumieme základnú jednotku pravidelného striedania prízvučných a~neprízvučných dôb. Určuje sa v notovom zápise a na začiatku skladby. Značený je dvomi číslami. Vrchné číslo určuje počet dôb v jednom takte. Spodné číslo označuje notu, ktorá trvá jednu dobu.
 
-Na obrázku \ref{fig:dvojst} je dvojštvrťový takt, ktorý obsahuje dve štvrťové noty c, d. Dvojka značí to, že v jednom takte sa môžu maximálne vyskytovať dve doby. Štvorka označuje trvanie štvrťovej noty, ktorá trvá jednu dobu. V tomto takte sa nemôže napríklad vyskytovať celá nota, ktorá trvá štyri doby a presahuje tak dĺžku jedného taktu.
+Na obrázku \ref{fig:dvojst} je dvojštvrťový takt, ktorý obsahuje dve štvrťové noty c, d. Dvojka značí to, že v jednom takte sa môžu maximálne vyskytovať dve doby. Štvorka označuje trvanie štvrťovej noty, ktorá trvá jednu dobu. V tomto takte sa nemôže napríklad vyskytovať celá nota, ktorá trvá štyri doby. Tá v tomto prípade presahuje dĺžku jedného taktu.
 
 \begin{figure}[H]
 \centering
@@ -63,7 +63,6 @@ Na obrázku \ref{fig:dvojst} je dvojštvrťový takt, ktorý obsahuje dve štvr�
 \caption{Dvojštvrťový takt.}
 \label{fig:dvojst}
 \end{figure}
-
 
 Obrázok \ref{fig:trojst} už obsahuje štvorštvrťový takt, v ktorom sa už môže vyskytovať celá nota, ktorá trvá štyri doby.
 
@@ -75,13 +74,13 @@ Obrázok \ref{fig:trojst} už obsahuje štvorštvrťový takt, v ktorom sa už m
 \end{figure}
 
 \subsection{Notový zápis}
-Notový zápis sa skladá z piatich čiar a štyroch medzier. Začína sa klúčom, ktorý slúži pre relatívne určenie výšky skladby. Existujú rôzne kľúče. V tejto práci sa vyskytuje jeden a tým je husľový kľúč. Husľovým kľúčom sa zapisujú tóny stredné a vysoké. 
+Notový zápis sa skladá z piatich čiar a štyroch medzier. Začína sa kľúčom, ktorý slúži pre relatívne určenie výšky skladby. Existujú rôzne kľúče. V tejto práci sa vyskytuje jeden a~tým je husľový kľúč. Husľovým kľúčom sa zapisujú tóny stredné a vysoké. 
 
-Po husľovom kľúči sa určí tónina. Tónina je množina tónov, ktorá je obsiahnutá v melódií. Každá tónina prislúcha nejakej stupnici. Stupnicu tvorí osem základných tónov, ktoré sú výškovo usporiadané. Stupnica sa začína tónom, ktorý prisluši názvu stupnici. C durová stupnica sa začína tónom c. V tejto práci sa pracuje čisto s notami z C durovej stupnice a výsledky práce sú v C durovej tónine.
+Po husľovom kľúči sa určí tónina. Tónina je množina tónov, ktorá je obsiahnutá v~melódií. Každá tónina prislúcha nejakej stupnici. Stupnicu tvorí osem základných tónov, ktoré sú výškovo usporiadané. Stupnica sa začína tónom, ktorý patrí názvu stupnici. C durová stupnica sa začína tónom c. V tejto práci sa pracuje čisto s notami z C durovej stupnice a~výsledky práce sú v C durovej tónine.
 
 Zapísaný kľúč a tóninu, v ktorej je melódia zapísaná nasleduje určenie taktového predpisu. Posledná časť notového zápisu je samotná melódia, ktorá je zapísaná notami.
 
-V prípade, že k zápisu nôt do notovej osnovy nestačí počet čiar, potom sa pridávajú pomocné čiary. Príklad pomocnej čiary je pre notu c na obrázku \ref{fig:tonfrek}.
+V prípade, že k zápisu nôt do notovej osnovy nestačí počet čiar, potom sa pridávajú pomocné čiary. Príklad pomocnej čiary je pre notu c je na obrázku \ref{fig:tonfrek}.
 
 \subsection{Téma a variacie}
 Téma a variácie sú bežné hudobné prostriedky, ktoré tvoria hudobnú štruktúru. Táto hudobná štruktúra je používaná vo veľkej miere v klasickej hudbe. Štruktúra je založená na téme, ktorá sa vyskytuje na začiatku hudobnej myšlienky. Potom, ako odznie téma prichádzajú na rad variácie. Variácia je obmena témy rôznymi spôsobmi. Tento proces je opakovaný niekoľkokrát. Ukončenie tohto procesu záleží na skladateľovi. Z vytvorenej variácie je stále možné vyzistiť originálnu tému, z ktorej bola variácia vytvorená. Proces tvorenia tejto hudobnej štruktúry je zobrazený na obrázku \ref{fig:Schemvar}.
@@ -93,13 +92,13 @@ Téma a variácie sú bežné hudobné prostriedky, ktoré tvoria hudobnú štru
 \label{fig:Schemvar}
 \end{figure}
 
-Tvorca hudobnej myšlienky môže k variovaniu témy využiť rôzne hudobné prostriedky. Medzi tieto prostriedky patrí zmena melódie. Melódia je hlavný výrazový prvok hudby, ktorý umožňuje vnímanie a pochopenie hudby. Melódia môže ovplyvniť aj náladu hudby. Variovanie melódie je možné vďaka pridávaniu tónov, odoberaním tónov alebo invertovanie melódie. Počas barokového obdobia sa stali populárne rôzne zdobenia tónov, ktoré môžu takisto variovať tému.
+Tvorca hudobnej myšlienky môže k variovaniu témy využiť rôzne hudobné prostriedky. Medzi tieto prostriedky patrí zmena melódie. Melódia je hlavný výrazový prvok hudby, ktorý umožňuje vnímanie a pochopenie hudby. Melódia môže ovplyvniť aj náladu hudby. Variovanie melódie je možné vďaka pridávaniu tónov, odoberaním tónov alebo invertovaním melódie. Počas barokového obdobia sa stali populárne rôzne zdobenia tónov, ktoré môžu takisto variovať tému.
 
-Ďalším spôsobom, ako vytvoriť variáciu témy je zmena rytmu melódie. Zmena rytmu melódie je aplikovaná na tému skladby. Vykonáva sa či už nad jednotlivými notami alebo nad celým taktom. Jednotlivým notám sa môže zvýšiť ich dĺžka alebo aj znížiť niekoľkonásobne. 
+Ďalším spôsobom, ako vytvoriť variáciu témy je zmena rytmu melódie. Zmena rytmu melódie je aplikovaná na tému skladby. Vykonáva sa či už nad jednotlivými notami alebo nad celým taktom. Jednotlivým notám sa môže predĺžiť ich dĺžka alebo aj skrátiť niekoľkonásobne. 
 
-Medzi hudobné elementy, ktoré sa dajú zmeniť patrí aj harmónia a tonalita skladby. Cieľom tejto techniky je zmeniť tóninu hudby. V prípade, že skladba je písaná v tónine, ktorá je veselá sa zmení na smutnú. Toto sa dá aplikovať aj opačne a zmeniť smutnú tóninu na veselú. Veselé tóniny sa nazývajú durové a smutné sú molové. Samozrejme, že zmena tóniny je možná v rámci durových alebo molových tónin.
+Medzi hudobné elementy, ktoré sa dajú zmeniť patrí aj harmónia a tonalita skladby. Cieľom tejto techniky je zmeniť tóninu hudby. V prípade, že skladba je písaná v tónine, ktorá je veselá, potom sa zmení na smutnú. Toto sa dá aplikovať aj opačne a zmeniť smutnú tóninu na veselú. Veselé tóniny sa nazývajú durové a smutné sú molové. Samozrejme, že zmena tóniny je možná v rámci durových alebo molových tónin.
 
-Vytvorenie ďalšej variácie je možné aj zmenou taktového predpisu. Zmenou taktového predpisu prepíšeme tému napríklad z dvoj štvrťového taktu na troj štvrťový takt. Spôsobí to zmenu usporiadania nôt v takte, vďaka tomu, že sa do jedného taktu zmestí počet nôt o jednu dobu kratší.
+Vytvorenie ďalšej variácie je možné aj zmenou taktového predpisu. Zmenou taktového predpisu prepíšeme tému napríklad z dvojštvrťového taktu na trojštvrťový takt. Spôsobí to zmenu usporiadania nôt v takte. Vďaka tomu sa do jedného taktu zmestí väčší počet nôt, ktoré sú dĺžkovo kratšie.
 
 \subsection{Bežné druhy variácií}
 Predmetom rôznych práci je práca s hudbou a analýza jej častí. Jednou z nich je práca \cite{variationRelevance}, ktorá sa zaoberá vyhľadávaním hudobnej kategórie v hudbe a relevantnosťou výsledku. Zistenie kategórie polyfónnej symbolickej hudby je založené na základe sémantického učenia konceptu hudby. Aby tento systém vzal do úvahy globálne, ale i lokálne vlastnosti hudobných objektov, prezentuje prístup k modelovaniu hudobného objektu na základe bázových segmentov. 
