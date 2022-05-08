@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<theme time_signature="3/4">
+	<measure>
+		<tone note="half">a1</tone>
+		<tone note="eight">g1</tone>
+		<tone note="eight">h1</tone>
+	</measure>
+	<measure>
+		<tone note="quarter">c2</tone>
+		<tone note="quarter">c2</tone>
+		<tone note="quarter">f1</tone>
+	</measure>
+	<measure>
+		<tone note="quarter">g1</tone>
+		<tone note="half">a1</tone>
+	</measure>
+</theme>

@@ -1,0 +1,5 @@
+textwrap3
+argparse
+numpy
+pyaudio
+synthesizer
