@@ -101,11 +101,11 @@ Medzi hudobné elementy, ktoré sa dajú zmeniť patrí aj harmónia a tonalita 
 Vytvorenie ďalšej variácie je možné aj zmenou taktového predpisu. Zmenou taktového predpisu prepíšeme tému napríklad z dvojštvrťového taktu na trojštvrťový takt. Spôsobí to zmenu usporiadania nôt v takte. Vďaka tomu sa do jedného taktu zmestí väčší počet nôt, ktoré sú dĺžkovo kratšie.
 
 \subsection{Bežné druhy variácií}
-Predmetom rôznych práci je práca s hudbou a analýza jej častí. Jednou z nich je práca \cite{variationRelevance}, ktorá sa zaoberá vyhľadávaním hudobnej kategórie v hudbe a relevantnosťou výsledku. Zistenie kategórie polyfónnej symbolickej hudby je založené na základe sémantického učenia konceptu hudby. Aby tento systém vzal do úvahy globálne, ale i lokálne vlastnosti hudobných objektov, prezentuje prístup k modelovaniu hudobného objektu na základe bázových segmentov. 
+Predmetom rôznych prác je analýza hudby jej častí. Jednou z nich je práca \cite{variationRelevance}, ktorá sa zaoberá vyhľadávaním hudobnej kategórie v hudbe a relevantnosťou výsledku. Zistenie kategórie polyfónnej symbolickej hudby je založené na základe sémantického učenia konceptu hudby. Aby tento systém vzal do úvahy globálne, ale i lokálne vlastnosti hudobných objektov, tak prezentuje prístup k modelovaniu hudobného objektu na základe bázových segmentov.
 
-Modelovanie hudobného objektu sa skladá z viacerých části, prvá z nich je získanie potenciálne významných segmentov pre každý hudobný objekt. Ďalším krokom je pre každý významný segment hudobného objektu vybrať prvky lokálnej reprezentácie. Potom sú všetky významné segmenty vyberané na základe ich dôležitosti. Na základe dôležitosti sú vyberané dôležité objekty z tých objektov, ktoré boli označené ako potenciálne dôležité. Posledným krokom je pre každý hudobný objekt získať reprezentácie globálnej vlastnosti.
+Modelovanie hudobného objektu sa skladá z viacerých častí. Prvá z nich je získanie potenciálne významných segmentov pre každý hudobný objekt. Ďalším krokom je pre každý významný segment hudobného objektu vybrať prvky lokálnej reprezentácie. Potom sú všetky významné segmenty vyberané na základe ich dôležitosti. Na základe dôležitosti sú vyberané dôležité objekty z tých objektov, ktoré boli označené ako potenciálne dôležité. Posledným krokom je pre každý hudobný objekt získať reprezentácie globálnej vlastnosti.
 
-V hudbe motív, ktorý je výrazne sa opakujúci segment nôt sa používa na zloženie časti alebo celej témy. Opakovanie tohto motívu môže mať nejaké variácie, ktoré nemusia byť vždy presnou kópiou hudobného objektu. Tieto opakujúce sa vzory vo variáciách sa nazývajú motivické opakujúce sa vzory. Tieto motivicky sa opakujúce vzory môžu byť potenciálne dôležité segmenty pre charakterizovanie melódie hudobného objektu.  
+V hudbe motív, ktorý je výrazne sa opakujúci segment nôt sa používa na zloženie časti alebo celej témy. Opakovanie tohto motívu môže mať nejaké variácie, ktoré nemusia byť vždy presnou kópiou hudobného objektu. Tieto opakujúce sa vzory vo variáciách sa nazývajú motivické opakujúce sa vzory. Tieto motivicky sa opakujúce vzory môžu byť potenciálne dôležité segmenty pre charakterizovanie melódie hudobného objektu.
 
 Preto v tejto práci bolo použitých šesť bežných druhov motívových variácií podobne ako v \cite{variationRelevance}. Tieto motívové variácie sú: 
 
@@ -124,21 +124,21 @@ Preto v tejto práci bolo použitých šesť bežných druhov motívových vari�
     \caption{Obrázok transpozície taktu.}
     \label{fig:transpozicia}
     \end{figure}
-    \item Postupnosť v tomto prípade znamená prenesenie motívu konštantne o jeden tón vyššie alebo o jeden tón nižšie. Na obrázku \ref{fig:Postupnost} je motív v druhom takte prenesený o jeden tón nižšie a v treťom takte je prenesený o jeden tón vyššie oproti prvému taktu.
+    \item Postupnosť v tomto prípade znamená prenesenie motívu konštantne o jeden tón vyššie alebo o jeden tón nižšie. Na obrázku \ref{fig:Postupnost} je motív v druhom takte prenesený o jeden tón nižšie, a v treťom takte je prenesený o jeden tón vyššie oproti prvému taktu.
     \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{obrazky-figures/Post.png}
     \caption{Obrázok postupného zvyšovania a znižovania pôvodného taktu.}
     \label{fig:Postupnost}
     \end{figure}
-    \item V protipohybe sa zoberú intervaly z prvého taktu, ktorý je v tomto prípade motív. Potom v ďalšom takte sa tieto vzdialenosti tónov invertujú. V prvom takte na obrázku \ref{fig:Protipohyb} sú vzdialenosti medzi tónmi 2, -1, -2. V druhom takte sú vzdialenosti medzi tónmi -2, 1 a 2.
+    \item V protipohybe sa zoberú intervaly z prvého taktu, ktorý je v tomto prípade motív. Tieto vzdialenosti v našom prípade zbierame na základe prvého tónu témy. Potom v~ďalšom takte sa tieto vzdialenosti tónov invertujú. V prvom takte na obrázku \ref{fig:Protipohyb} sú vzdialenosti medzi tónmi 2, 1, -1. V druhom takte sú vzdialenosti medzi tónmi -2, -1 a 1.
     \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{obrazky-figures/Proti.png}
     \caption{Obrázok protipohybu pôvodného taktu.}
     \label{fig:Protipohyb}
     \end{figure}
-    \item Retrogradácia v hudbe je zopakovanie nôt z pôvodného motívu v opačnom poradí. Napríklad, ako je motív v prvom takte na obrázku \ref{fig:Preklopenie} v poradí tónov d, g, e tak jeho variácia v druhom takte je e, g d.
+    \item Retrogradácia v hudbe je zopakovanie nôt z pôvodného motívu v opačnom poradí. Príkladom môže byť motív v prvom takte na obrázku \ref{fig:Preklopenie}. Poradie tónov je d, g, e tak jeho variácia v druhom takte je e, g d.
     \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{obrazky-figures/Prek.png}
@@ -147,9 +147,7 @@ Preto v tejto práci bolo použitých šesť bežných druhov motívových vari�
     \end{figure}
     \item V prípade variovania témy predlžovaním alebo znižovaním dĺžky nôt je motív opakovaný. Variovanie motívu prebieha na obrázku \ref{fig:augmentacia} zdvojnásobením pôvodnej dĺžky noty. Keďže je stále potrebné dodržať rytmus taktu, tak sa museli posledné dve noty presunúť do extra taktu. Z taktového predpisu jeden takt môže obsahovať 4 doby. Po zdvojnásobení tejto dĺžky je potrebné rozložiť 8 dôb do dvoch taktov.
     
-    Na obrázku \ref{fig:Diminution} je dvojnásobné zníženie dĺžky nôt. Keďže takt trvá 4 doby, potom jeho polovičné zníženie trvá 2 doby. Pre dodržanie tohto taktového predpisu je k dvom dobám pridaná pomlčka, ktorá trvá 2 doby. Pomlčky nie sú súčasťou práce, ale v tomto prípade sú použité pre korektný zápis taktu.    Na obrázku \ref{fig:Diminution} je dvojnásobné zníženie dĺžky nôt. Keďže takt trvá 4 doby, potom jeho polovičné zníženie trvá 2 doby. Pre dodržanie tohto taktového predpisu je k dvom dobám pridaná pomlčka, ktorá trvá 2 doby. Pomlčky nie sú súčasťou práce, ale v tomto prípade sú použité pre korektný zápis taktu.
-
-
+    Na obrázku \ref{fig:Diminution} je dvojnásobné zníženie dĺžky nôt. Keďže takt trvá 4 doby, potom jeho polovičné zníženie trvá 2 doby. Pre dodržanie tohto taktového predpisu je k dvom dobám pridaná pomlčka, ktorá trvá 2 doby. Pomlčky nie sú súčasťou práce, ale v tomto prípade sú použité pre korektný zápis taktu. Pomlčky sú rozšírené v hudbe. My ich nepoužívame, pretože nami použité variácie sa zaoberajú prácou s notami.
     
     \begin{figure}[H]
     \centering
