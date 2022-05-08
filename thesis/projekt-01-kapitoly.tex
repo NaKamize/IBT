@@ -142,49 +142,46 @@ Preto v tejto práci bolo použitých šesť bežných druhov motívových vari�
     \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{obrazky-figures/Prek.png}
-    \caption{Obrázok retrogradácie taktu.}
+    \caption{Obrázok retrogradácie prvého taktu.}
     \label{fig:Preklopenie}
     \end{figure}
     \item V prípade variovania témy predlžovaním alebo znižovaním dĺžky nôt je motív opakovaný. Variovanie motívu prebieha na obrázku \ref{fig:augmentacia} zdvojnásobením pôvodnej dĺžky noty. Keďže je stále potrebné dodržať rytmus taktu, tak sa museli posledné dve noty presunúť do extra taktu. Z taktového predpisu jeden takt môže obsahovať 4 doby. Po zdvojnásobení tejto dĺžky je potrebné rozložiť 8 dôb do dvoch taktov.
     
-    Na obrázku \ref{fig:Diminution} je dvojnásobné zníženie dĺžky nôt. Keďže takt trvá 4 doby, potom jeho polovičné zníženie trvá 2 doby. Pre dodržanie tohto taktového predpisu je k dvom dobám pridaná pomlčka, ktorá trvá 2 doby. Pomlčky nie sú súčasťou práce, ale v tomto prípade sú použité pre korektný zápis taktu. Pomlčky sú rozšírené v hudbe. My ich nepoužívame, pretože nami použité variácie sa zaoberajú prácou s notami.
+    Na obrázku \ref{fig:Diminution} je dvojnásobné zníženie dĺžky nôt. Keďže takt trvá 4 doby, potom jeho polovičné zníženie trvá 2 doby. Pre dodržanie tohto taktového predpisu je k~dvom dobám pridaná pomlčka, ktorá trvá 2 doby. Pomlčky nie sú súčasťou práce, ale v tomto prípade sú použité pre korektný zápis taktu. Pomlčky sú rozšírené v hudbe. My ich nepoužívame, pretože nami použité variácie sa zaoberajú prácou s notami.
     
     \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{obrazky-figures/Aug.png}
-    \caption{Predĺženie dĺžky taktu.}
+    \caption{Predĺženie dĺžky prvého taktu.}
     \label{fig:augmentacia}
     \end{figure}
     \begin{figure}[H]
     \centering
     \includegraphics[scale=0.4]{obrazky-figures/Dimi.png}
-    \caption{Skrátenie dĺžky taktu.}
+    \caption{Skrátenie dĺžky prvého taktu.}
     \label{fig:Diminution}
     \end{figure}
 \end{itemize}
 
 \section{Formálne modely}
-Zavedenie formálnych modelov bolo vyžiadané čisto matematickým prístupom k jazykom. Veľká časť týchto modelov je založená na prepisujúcich systémoch. Prepisujúce systémy sa skladajú z pravidiel, ktoré opakovane menia poradie symbolov v reťazcoch. Klasifikujeme ich do dvoch základných kategórií. Generatívne modely, ktoré nazývame gramatikami definujú reťazce svojich jazykov. Tieto reťazce sú vygenerované pravidlami prepisovacieho systému z počiatočného symbolu. Prijímajúce modely, ktoré nazývame automatmi definujú reťazce svojich jazykov pomocou prepisovacieho procesu. Tento proces začína z týchto reťazcov a končí prvkom z predom danej konečnej množiny reťazcov.
+Zavedenie formálnych modelov bolo vyžiadané čisto matematickým prístupom k jazykom. Veľká časť týchto modelov je založená na prepisujúcich systémoch. Prepisujúce systémy sa skladajú z pravidiel, ktoré opakovane menia poradie symbolov v reťazcoch. Klasifikujeme ich do dvoch základných kategórií. Generatívne modely, ktoré nazývame gramatikami definujú reťazce svojich jazykov. Tieto reťazce sú vygenerované pravidlami prepisovacieho systému z počiatočného symbolu. Prijímajúce modely, ktoré nazývame automatmi definujú reťazce svojich jazykov pomocou prepisovacieho procesu. Tento proces začína z týchto reťazcov a~končí prvkom z predom danej konečnej množiny reťazcov.
 
 \label{sec:formallang}
 \subsection{Množina}
-Skupinu elementov, ktoré sú prevzaté z nejakého dopredu dohodnutého prostredia nazývame množinou $\Sigma$. Element $a$ patrí množine $M$ vtedy, ak sa v nej nachádza. Zapisujeme to ako $a \in \Sigma$. V prípade, že sa v množine nenachádza zapíšeme to ako $a \not \in  \Sigma$. Ak počet prvkov v množine vieme spočítať, potom o množine hovoríme, že je konečná. Ak prvky nespočítame, potom je množina nekonečná. Konečná množina, ktorá neobsahuje žiadne prvky je prázdna množina. Prázdnu množinu označujeme ako $\emptyset$.
+Skupinu elementov, ktoré sú prevzaté z nejakého vopred dohodnutého prostredia nazývame množinou $\Sigma$. Element $a$ patrí množine $M$ vtedy, ak sa v nej nachádza. Zapisujeme to ako $a \in \Sigma$. V prípade, že sa v~množine nenachádza zapíšeme to ako $a \not \in  \Sigma$. Ak počet prvkov v~množine vieme spočítať, potom o množine hovoríme, že je konečná. Ak prvky nespočítame, potom je množina nekonečná. Konečná množina, ktorá neobsahuje žiadne prvky je prázdna množina. Prázdnu množinu označujeme ako $\emptyset$.
 
 Konečnú množinu $\Sigma$ môžeme špecifikovať vypísaním jej elementov. Obsah množiny zapíšeme ako $\Sigma = \{a_1, a_2, a_3, ..., a_n\}$, kde prvky $a_1, a_2, a_3, ..., a_n$ patria množine $\Sigma$.
 
 V práci s množinami využívame rôzne operácie ako sú zjednotenie, prienik a rozdiel. Zjednotenie dvoch konečných množín $\Sigma$ a $\Omega$ definujeme ako $\Sigma \cup \Omega = \{a | a \in \Sigma \: alebo  \: a \in \Omega \}$, ich prienik $\Sigma \cap \Omega = \{a | a \in \Sigma \: z\acute{a}rove\check{n}  \: a \in \Omega \}$, a rozdiel $\Sigma \setminus \Omega = \{a | a \in \Sigma \: z\acute{a}rove\check{n}  \: a \not \in \Omega \}$.
 
 \subsection{Relácia}
-Majme dva objekty $x$ a $y$. Pod označením $(x,y)$ rozumieme usporiadanú dvojicu objektov $x$,$y$ v tomto poradí. Majme dve množiny $X$ a $Y$. Kartézsky súčin $X$,$Y$ značíme ako $X \times Y$. Definujeme ho ako $X \times Y = \{(x,y) | x \in X \, a \, y \in Y\}$. Na základe týchto znalostí môžeme definovať reláciu. Reláciou $r$, ktorá je od $X$ po $Y$ rozumieme hociakú podmnožinu $X \times Y$. $r \subseteq X \times Y$ označuje nami definovanú reláciu.
-
-\subsection{Abeceda}
-Abecedou $\Sigma$ nazývame konečnú množinu, ktorá obsahuje prvky nazývané symbolmi.
+Majme dva objekty $x$ a $y$. Pod označením $(x,y)$ rozumieme usporiadanú dvojicu objektov $x$,$y$ v tomto poradí. Majme dve množiny $X$ a $Y$. Kartézsky súčin $X$,$Y$ značíme ako $X \times Y$. Definujeme ho ako $X \times Y = \{(x,y) | x \in X \, a \, y \in Y\}$. Na základe týchto znalostí môžeme definovať reláciu. Reláciou $r$, ktorá je od $X$ po $Y$ rozumieme hociakú podmnožinu $X \times Y$. Pod značením $r \subseteq X \times Y$ rozumieme nami definovanú reláciu.
 
 \subsection{Reťazec}
-Reťazcom nad abecedou $\Sigma$ nazývame konečnú postupnosť symbolov abecedy $\Sigma$. Reťazec, ktorý neobsahuje symboly sa nazýva prazdny reťazec a označujemeho ako $\varepsilon$. $\Sigma^*$ označuje množinu všetkých možných reťazcov nad abecedou $\Sigma$. $\Sigma^+$ označuje $\Sigma^* \setminus \{\varepsilon\}$. Pre $x \in \Sigma^*$ označenie $|x|$ vyjadruje počet symbolov v reťazci x. Podmnožina $L$, pre ktorú platí $L \subseteq \Sigma^*$ je formálnym jazykom nad $\Sigma$. V prípade, že $L$ je konečná množina reťazcov, potom je konečným jazykom. Naopak, ak L je nekonečná množina reťazcov, potom je nekonečným jazykom. Rodina jazykov je množina, ktorej prvky sú jazyky.
+Konečná množina, ktorej prvky sú symboly nazývame abecedou $\Sigma$. Reťazcom nad abecedou $\Sigma$ nazývame konečnú postupnosť symbolov abecedy $\Sigma$. Reťazec, ktorý neobsahuje symboly sa nazýva prazdny reťazec a označujeme ho ako $\varepsilon$. $\Sigma^*$ označuje množinu všetkých možných reťazcov nad abecedou $\Sigma$. $\Sigma^+$ označuje $\Sigma^* \setminus \{\varepsilon\}$. Pre $x \in \Sigma^*$ označenie $|x|$ vyjadruje počet symbolov v reťazci x. Podmnožina $L$, pre ktorú platí $L \subseteq \Sigma^*$ je formálnym jazykom nad $\Sigma$. V prípade, že $L$ je konečná množina reťazcov, potom je konečným jazykom. Naopak, ak L je nekonečná množina reťazcov, potom je nekonečným jazykom. Rodina jazykov je množina, ktorej prvkami sú jazyky.
 
 \subsection{Gramatiky}
-Podsekcia gramatik má za cieľ zadefinovať gramatiky, ktoré sa vyskytujú v Chomského hierarchii. Gramatiky umožňujú vytvoriť jazyky, ktoré zapadajú do rôznych časti Chomského hierarchie. Postupným zistením, do ktorej rodiny jazykov patrí hudobný jazyk sa zameriame na jednu skupinu gramatik. Tá gramatika by vo výsledku generovala hudobné jazyky.
+Podsekcia gramatik má za cieľ zadefinovať gramatiky, ktoré sa vyskytujú v Chomského hierarchii. Gramatiky umožňujú generovať jazyky, ktoré zapadajú do rôznych časti Chomského hierarchie. Postupným zistením, do ktorej rodiny jazykov patrí hudobný jazyk sa zameriame na jednu skupinu gramatik. Tá gramatika by vo výsledku generovala hudobné jazyky.
 
 \begin{definition}
 \label{def:frazgram}
@@ -196,7 +193,7 @@ Frázovú gramatiku definujeme ako štvoricu $G = (N,T,P,S)$, ktorá sa skladá 
     \item počiatočný symbol S pre ktorý platí $S \in N$
 \end{itemize}
 
-Množina V = $N \cup T$ vyjadruje kompletnú abecedu gramatiky G. Prepisujúce pravidlá sa skladajú z dvojíc $(u,v) \in P$, ktoré označujeme ako $u \rightarrow v$. Mazacie pravidlo označujeme ako $u \rightarrow v, v = \varepsilon$. Frázové gramatiky generujú rekurzívne spočítatelné jazyky. Rekurzívne spočítatelné jazyky vedia prijať Turingové stroje.
+Množina V = $N \cup T$ vyjadruje kompletnú abecedu gramatiky G. Prepisujúce pravidlá sa skladajú z dvojíc $(u,v) \in P$, ktoré označujeme ako $u \rightarrow v$. Mazacie pravidlo označujeme ako $u \rightarrow v, kde \:v = \varepsilon$. Frázové gramatiky generujú rekurzívne spočítatelné jazyky. Rekurzívne spočítatelné jazyky vedia prijať Turingové stroje.
 \end{definition}
 
 \begin{definition}
@@ -220,11 +217,11 @@ Regulárna gramatika je frázová gramatika $G = (N,T,P,S)$, ktorá sa môže sk
 
 \begin{definition}
 \label{def:pravolin}
-Rodina regulárnych jazykov môže byť popísaná pravo-lineárnimi gramatikmi, ktoré sú definované nasledovne. Pravo-lineárna gramatika je frázova gramatika $G = (N,T,P,S)$, ktorá má všetky pravidla v tvare $$A \rightarrow aB, alebo \, A \rightarrow a.$$ Platí, že A,B $ \in N$ a x,y $ \in T^*$. Pravo-lineárny jazyk je generovaný pravo-lineárnou gramatikou.
+Rodina regulárnych jazykov môže byť popísaná pravo-lineárnymi gramatikami, ktoré sú definované nasledovne. Pravo-lineárna gramatika je frázová gramatika $G = (N,T,P,S)$, ktorá má všetky pravidla v tvare $$A \rightarrow aB, alebo \, A \rightarrow a.$$ Platí, že A,B $ \in N$ a x,y $ \in T^*$. Pravo-lineárny jazyk je generovaný pravo-lineárnou gramatikou.
 \end{definition}
 
 \subsection{Automaty}
-Podsekcia automaty definuje základne prostriedky, ktoré sa používajú pre ropoznanie reťazcov. Tieto reťazce patria rôznym jazykom. V prípade, že daný reťazec nepatrí jazyku, ktoré prijma konkrétny automat, tak je tento reťazec odmietnuty. Ich využitie leží v prijatí hudobného jazyka.
+Podsekcia automaty definuje základné prostriedky, ktoré sa používajú pre rozpoznanie reťazcov. Tieto reťazce patria rôznym jazykom. V prípade, že daný reťazec nepatrí jazyku, ktoré prijíma konkrétny automat, tak je tento reťazec odmietnuty. Ich využitie leží v prijatí hudobného jazyka.
 
 \begin{definition}
 \label{def:endaut}
@@ -242,17 +239,18 @@ Pravidla sú vo forme $py \rightarrow q \in R$ na rozdiel od $(p,y,q) \in R$. Ak
 
 \begin{definition}
 \label{def:zasaut}
-Zásobnikový automat je konečný automat obohatený o zásobnik. Zásobníkový automat je teda definovaný sedmicou $M = (Q,\Sigma, \Gamma , R,s,S,F)$, ktorá sa skladá z
+Zásobníkový automat je konečný automat obohatený o zásobník. Zásobníkový automat je teda definovaný sedmicou $M = (Q,\Sigma, \Gamma , R,s,S,F)$, ktorá sa skladá z
 \begin{itemize}\itemsep0.05em
     \item konečnej množiny stavov $Q$,
     \item vstupnej abecedy $\Sigma$,
     \item zásobnikovej abecedy $\Gamma$,
     \item pravidiel alebo prechodov $R$, ktoré sú konečnou reláciou $R \subseteq \Gamma^* \times Q \times (\Sigma \cup \{\epsilon\}) \times \Gamma^* \times Q$,
     \item počiatočného stavu $s \in Q$,
-    \item počiatočného symbolu zásobnika $S$,
+    \item počiatočného symbolu zásobníka $S$,
     \item množiny konečných stavov $F \subseteq Q$.
 \end{itemize}
-Pravidlá sú vo forme $\gamma pa \rightarrow wq$ na rozdiel od $(\gamma , p, a, w, q) \in R$. Konfiguráciu automatu $M$ tvorí hociktorý reťazec z $\Gamma^* Q\Sigma^*$. Značenie $\vdash_M$ značí reláciu pohybu, ktorá je definovaná ponad $\Gamma^* Q\Sigma^*$ ako $$x\gamma pay \vdash_M xwqy.$$ Definícia platí ak a jedine ak $x\gamma pay, xwqy \in \Gamma^* Q\Sigma^*$, a zároveň $\gamma pa \rightarrow wq \in R$. Existujú rôzne spôsoby ako prijať jazyk zásobníkovým automatom. Súvisiaci je ale jeden spôsob, a to s prázdnym zásobníkom. $L_e(M)$ značí jazyk automatu $M$, ktorý prijíma jazyk prázdnym zásobníkom nasledovne $$L_e(M) = \{w \in \Sigma^* \shortmid Ssw \vdash_M^* \,q,q \in Q\}.$$
+
+Pravidlá sú vo forme $\gamma pa \rightarrow wq$ na rozdiel od $(\gamma , p, a, w, q) \in R$. Konfiguráciu automatu $M$ tvorí hociktorý reťazec z $\Gamma^* Q\Sigma^*$. Značenie $\vdash_M$ značí reláciu pohybu, ktorá je definovaná ponad $\Gamma^* Q\Sigma^*$ ako $$x\gamma pay \vdash_M xwqy.$$ Definícia platí ak a jedine ak $x\gamma pay, xwqy \in \Gamma^* Q\Sigma^*$, a zároveň $\gamma pa \rightarrow wq \in R$. Existujú rôzne spôsoby ako prijať jazyk zásobníkovým automatom. Súvisiaci je ale jeden spôsob a~to s prázdnym zásobníkom. $L_e(M)$ značí jazyk automatu $M$, ktorý prijíma jazyk prázdnym zásobníkom nasledovne $$L_e(M) = \{w \in \Sigma^* \shortmid Ssw \vdash_M^* \,q,q \in Q\}.$$
 \end{definition}
 
 \subsection{Chomského hierarchia}
