@@ -4,9 +4,11 @@ Aby sme mohli výsledný program spustiť je potrebné si nainštalovať potrebn
 
 Zoznam potrebných balíčkov je v súbore requirements.txt a nainštalujeme ich nasledovne:
 Príkazy spustíme v koreňovom súbore následovne:
-
-- apt install portaudio19-dev
-- python3.8 -m pip install -r requirements.txt
+- sudo apt update
+- sudo apt install python3.8
+- sudo apt install python3-pip
+- apt install portaudio19-dev                     - potrebný pre knižnicu synthesizer
+- python3.8 -m pip install -r requirements.txt    - inštalácia balíčkov
 ## Spustenie
 V zložke rsc/ sa nachádza ukážkový vstupný súbor example.xml.
 V zložke src/ sa nachádzajú zdrojové súbory programu.
