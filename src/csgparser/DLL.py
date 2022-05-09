@@ -1,3 +1,7 @@
+# Author: Jozef Makiš
+# License: GPLv3
+# File: DLL.py
+
 class Node:
     """ Node class with his pointers to next and previous node. Node saves data, that are tokens."""
     def __init__(self, data):

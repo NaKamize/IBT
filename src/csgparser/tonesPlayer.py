@@ -1,3 +1,7 @@
+# Author: Jozef Makiš
+# License: GPLv3
+# File: tonesPlayer.py
+
 import numpy as np
 from synthesizer import Player, Writer, Synthesizer, Waveform
 

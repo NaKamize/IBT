@@ -1,3 +1,7 @@
+# Author: Jozef Makiš
+# License: GPLv3
+# File: argParser.py
+
 import argparse as ap
 import textwrap
 from os import path

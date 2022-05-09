@@ -1,3 +1,7 @@
+# Author: Jozef Makiš
+# License: GPLv3
+# File: variator.py
+
 from csgparser.tonesPlayer import TonesPlayer
 from csgparser.argParser import ArgParser
 from csgparser.csgParser import SCGparser

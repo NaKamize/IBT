@@ -1,3 +1,7 @@
+# Author: Jozef Makiš
+# License: GPLv3
+# File: inputExtractor.py
+
 import xml.etree.ElementTree as ET
 
 

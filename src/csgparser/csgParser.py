@@ -1,3 +1,7 @@
+# Author: Jozef Makiš
+# License: GPLv3
+# File: csgParser.py
+
 from csgparser.DLL import *
 
 

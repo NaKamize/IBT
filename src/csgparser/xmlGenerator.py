@@ -1,3 +1,7 @@
+# Author: Jozef Makiš
+# License: GPLv3
+# File: xmlGenerator.py
+
 from xml.dom import minidom
 
 
